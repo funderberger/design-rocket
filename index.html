@@ -25,8 +25,27 @@
         --green-dark: #0e5d3b;
         /* акцент один на весь сайт — тот же зелёный, что у кнопок */
         --lime: #42e383;
+        --mint: #7de8c4;
         --line: rgba(255, 255, 255, 0.16);
         --muted: rgba(255, 255, 255, 0.62);
+
+        /* холст и меш — только зелёное семейство, hue 95°…195° */
+        --canvas: #071210;
+        --abyss: #091215;
+        --pine: #133932;
+        --petrol: #14414d;
+        --teal: #1f7a77;
+        --bottle: #1e6748;
+        --emerald: #27824e;
+        --olive: #486d26;
+        --spot: #238b45;
+
+        /* текст на меше: не чистый белый, с зелёным подтоном */
+        --tx: #eaf4ee;
+        --tx-2: rgba(234, 244, 238, 0.62);
+        --tx-3: rgba(234, 244, 238, 0.38);
+        --hair: rgba(234, 244, 238, 0.1);
+        --glass: rgba(234, 244, 238, 0.045);
         --scene-progress: 0;
         --hero-progress: 0;
         --hq-sans: "Inter", "Helvetica Neue", Arial, sans-serif;
@@ -58,12 +77,248 @@
         color: inherit;
         text-decoration: none;
       }
+      /* ================= Градиентный меш: бесшовный фон главной =================
+         Блюр висит на каждом пятне, а не на родителе: так текстура считается
+         один раз, а анимация двигает готовый композитный слой на GPU.
+         Анимируется только transform — ни opacity, ни размеров. */
+      .mesh {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        overflow: hidden;
+        background: var(--canvas);
+        contain: strict;
+        display: none;
+      }
+      body[data-route="home"] .mesh {
+        display: block;
+      }
+      .mesh i {
+        position: absolute;
+        display: block;
+        border-radius: 50%;
+        will-change: transform;
+        transform: translate3d(0, 0, 0);
+      }
+      .m1 {
+        width: 80vmax;
+        height: 80vmax;
+        left: -26vmax;
+        top: -24vmax;
+        background: radial-gradient(circle, var(--pine) 0%, transparent 62%);
+        filter: blur(20px);
+        animation: d1 44s infinite alternate;
+      }
+      .m2 {
+        width: 62vmax;
+        height: 62vmax;
+        right: -18vmax;
+        top: -16vmax;
+        background: radial-gradient(circle, var(--petrol) 0%, transparent 60%);
+        filter: blur(24px);
+        animation: d2 52s infinite alternate;
+      }
+      .m3 {
+        width: 54vmax;
+        height: 54vmax;
+        left: 2vmax;
+        top: 30vmax;
+        background: radial-gradient(circle, var(--bottle) 0%, transparent 58%);
+        filter: blur(24px);
+        opacity: 0.95;
+        animation: d3 38s infinite alternate;
+      }
+      .m4 {
+        width: 44vmax;
+        height: 44vmax;
+        right: -4vmax;
+        top: 40vmax;
+        background: radial-gradient(circle, var(--emerald) 0%, transparent 58%);
+        filter: blur(26px);
+        opacity: 0.9;
+        animation: d4 60s infinite alternate;
+      }
+      .m5 {
+        width: 42vmax;
+        height: 42vmax;
+        left: 40vmax;
+        top: -6vmax;
+        background: radial-gradient(circle, var(--olive) 0%, transparent 56%);
+        filter: blur(28px);
+        opacity: 0.75;
+        animation: d5 47s infinite alternate;
+      }
+      .m6 {
+        width: 34vmax;
+        height: 34vmax;
+        left: 24vmax;
+        top: 54vmax;
+        background: radial-gradient(circle, var(--teal) 0%, transparent 56%);
+        filter: blur(26px);
+        opacity: 0.7;
+        animation: d6 34s infinite alternate;
+      }
+      .m7 {
+        width: 22vmax;
+        height: 22vmax;
+        left: 56vmax;
+        top: 34vmax;
+        background: radial-gradient(circle, var(--spot) 0%, transparent 54%);
+        filter: blur(26px);
+        opacity: 0.6;
+        animation: d3 41s infinite alternate;
+      }
+      @keyframes d1 {
+        to {
+          transform: translate3d(14vmax, 10vmax, 0);
+        }
+      }
+      @keyframes d2 {
+        to {
+          transform: translate3d(-16vmax, 14vmax, 0);
+        }
+      }
+      @keyframes d3 {
+        to {
+          transform: translate3d(18vmax, -12vmax, 0);
+        }
+      }
+      @keyframes d4 {
+        to {
+          transform: translate3d(-14vmax, -16vmax, 0);
+        }
+      }
+      @keyframes d5 {
+        to {
+          transform: translate3d(-20vmax, 16vmax, 0);
+        }
+      }
+      @keyframes d6 {
+        to {
+          transform: translate3d(16vmax, -18vmax, 0);
+        }
+      }
+      /* слабая виньетка: держит края тёмными. Больше 0.34 — меш не читается */
+      .mesh::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: radial-gradient(
+          125% 85% at 50% 42%,
+          transparent 42%,
+          rgba(9, 18, 21, 0.34) 100%
+        );
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .mesh i {
+          animation: none;
+        }
+      }
+      /* мобильные: 7 блюрных текстур дорого — оставляем 3 и режем радиус */
+      @media (max-width: 900px) {
+        .m4,
+        .m5,
+        .m6,
+        .m7 {
+          display: none;
+        }
+        .mesh i {
+          filter: blur(18px);
+        }
+      }
+
+      /* ================= Зонирование главной =================
+         Меш fixed и одинаков по всей странице, поэтому цвет при прокрутке
+         меняют статичные тинты секций — без блюра и без анимации.
+         isolation даёт каждой секции свой контекст наложения: тинт с
+         z-index:-1 остаётся под её содержимым, но выше .mesh. */
+      main[data-route="home"] section {
+        --tint: transparent;
+        --tint-x: 78%;
+        position: relative;
+        isolation: isolate;
+      }
+      main[data-route="home"] section::before {
+        content: "";
+        position: absolute;
+        /* вертикальный вылет нужен для перекрытия соседних секций;
+           горизонтальный убран — он давал 144px лишней ширины документа */
+        inset: -14% 0;
+        z-index: -1;
+        pointer-events: none;
+        background: radial-gradient(
+          58% 62% at var(--tint-x) 50%,
+          var(--tint),
+          transparent 72%
+        );
+      }
+      main[data-route="home"] .hero-emerald {
+        --tint: rgba(20, 65, 77, 0.55);
+        --tint-x: 72%;
+      }
+      main[data-route="home"] .catalog {
+        --tint: rgba(72, 109, 38, 0.42);
+        --tint-x: 24%;
+      }
+      main[data-route="home"] .seq-hero {
+        --tint: rgba(31, 122, 119, 0.5);
+        --tint-x: 80%;
+      }
+      main[data-route="home"] .warp {
+        --tint: rgba(39, 130, 78, 0.44);
+        --tint-x: 40%;
+      }
+
+      /* --- снятие собственных фонов: меш должен просвечивать насквозь --- */
+      main[data-route="home"] section.hero-emerald,
+      main[data-route="home"] section.seq-hero,
+      main[data-route="home"] .catalog-rows,
+      main[data-route="home"] .warp {
+        background: transparent;
+      }
+      main[data-route="home"] .catalog-rows {
+        color: var(--tx);
+      }
+      main[data-route="home"] .catalog-rows h2 {
+        color: var(--tx);
+      }
+      main[data-route="home"] .catalog .eyebrow {
+        color: var(--green);
+      }
+      /* нижняя кромка hero растворяется в холсте, иначе кадр видео
+         обрывается по границе секции */
+      main[data-route="home"] .hero-emerald::after {
+        content: "";
+        position: absolute;
+        inset: auto 0 0 0;
+        height: 38vh;
+        z-index: 2;
+        pointer-events: none;
+        background: linear-gradient(to bottom, transparent, var(--canvas) 88%);
+      }
+      /* Контейнеру видео нужна подложка, но полупрозрачная.
+         backdrop-filter здесь не ставим: контейнер целиком закрыт
+         непрозрачным видео, размывать нечего, а блюр области 92vw×86vh
+         пересчитывался каждый кадр и стоил больше самого меша. */
+      main[data-route="home"] .seq-media {
+        background: rgba(7, 18, 16, 0.55);
+        border: 1px solid var(--hair);
+      }
+      /* шапка без подложки пропадает, когда под неё проедет светлое пятно */
+      body[data-route="home"] .topbar {
+        background: rgba(7, 18, 16, 0.55);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border-bottom: 1px solid var(--hair);
+      }
+
       .grain {
         position: fixed;
         inset: 0;
         z-index: 50;
         pointer-events: none;
-        opacity: 0.12;
+        opacity: 0.14;
         background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
         mix-blend-mode: soft-light;
       }
@@ -1146,17 +1401,16 @@
         cursor: pointer;
       }
 
-      /* ====== Режим разворота: видео по центру → на весь экран ======
-         --z (0..1) выставляет скрипт по прогрессу прокрутки. */
+      /* ====== Развёрнутое видео ======
+         Разворот и обратное сжатие по прокрутке отключены: карточка сразу
+         стоит в конечном размере. Скрипт по-прежнему пишет --z, но CSS его
+         больше не читает — переключение шагов и перемотка не затронуты. */
       .seq-zoom .seq-sticky {
         display: block;
         padding: 0;
       }
       .seq-zoom .seq-media {
-        /* стартовый размер (он же конечный, после всех шагов) */
-        --w0: 55vw;
-        --h0: calc(var(--w0) * 496 / 864);
-        /* конечный: крупно, но с полями — фон блока остаётся виден */
+        /* крупно, но с полями — фон блока остаётся виден */
         --w1: 92vw;
         --h1: 86vh;
         position: absolute;
@@ -1164,14 +1418,12 @@
         top: 50%;
         transform: translate(-50%, -50%);
         aspect-ratio: auto;
-        width: calc(var(--w0) + (var(--w1) - var(--w0)) * var(--z, 0));
-        height: calc(var(--h0) + (var(--h1) - var(--h0)) * var(--z, 0));
-        /* скругление, обводка и тень сохраняются на всём развороте */
+        width: var(--w1);
+        height: var(--h1);
         border-radius: 28px;
       }
       @media (max-width: 900px) {
         .seq-zoom .seq-media {
-          --w0: 86vw;
           --w1: 92vw;
           --h1: 62vh;
         }
@@ -2751,163 +3003,113 @@
         border-color: var(--green);
       }
 
-      /* ============ Warp: три стадии + посадка в финальный блок ============
-         Ни один родитель .warp не должен получить overflow:hidden или
-         transform — sticky отвалится молча, как это уже было у seq-hero. */
+      /* ============ Контактный баннер: текст + форма ============
+         Световые пятна больше не рисуются здесь: их даёт общий .mesh,
+         а локальный оттенок — тинт секции. overflow снят, иначе тинт
+         обрезается по границе секции и на стыке появляется шов. */
       .warp {
         position: relative;
-        /* 3 стадии × ~160vh + ~80vh на посадку */
-        height: 560vh;
         background: #07120f;
+        padding: clamp(80px, 9vw, 140px) var(--hq-gutter);
       }
-      .warp-sticky {
-        position: sticky;
-        top: 0;
-        height: 100vh;
-        overflow: hidden;
-      }
-      .warp-canvas {
-        position: absolute;
-        inset: 0;
-        display: block;
-        width: 100%;
-        height: 100%;
-      }
-      .warp-grid {
-        position: absolute;
-        inset: 0;
-        z-index: 2;
-        pointer-events: none;
-        opacity: 0.5;
-        background-image:
-          linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-        background-size: 80px 80px;
-        mask-image: radial-gradient(circle at 50% 50%, black 10%, transparent 72%);
-        -webkit-mask-image: radial-gradient(
-          circle at 50% 50%,
-          black 10%,
-          transparent 72%
-        );
-      }
-      .warp-vignette {
-        position: absolute;
-        inset: 0;
-        z-index: 3;
-        pointer-events: none;
-        background: radial-gradient(
-          ellipse 78% 72% at 50% 50%,
-          transparent 42%,
-          rgba(4, 12, 9, 0.72) 100%
-        );
-      }
-      .warp-meta {
-        position: absolute;
-        z-index: 5;
-        left: var(--hq-gutter);
-        bottom: 4vh;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        font-family: var(--hq-mono);
-        font-size: 11px;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.5);
-        pointer-events: none;
-      }
-      .warp-meta i {
-        width: 26px;
-        height: 2px;
-        border-radius: 2px;
-        background: rgba(255, 255, 255, 0.22);
-      }
-      .warp-meta i.on {
-        background: var(--green);
-      }
-      .warp-words {
-        position: absolute;
-        inset: 0;
-        z-index: 4;
-        margin: 0;
+      .warp-inner {
+        position: relative;
+        z-index: 1;
         display: grid;
-        place-items: center;
-        /* запас под бревис Й на пике разлёта, компенсирован margin */
-        padding: 10vh 3vw;
-        margin: -10vh -3vw;
-        pointer-events: none;
-      }
-      .warp-word {
-        grid-area: 1 / 1;
-        margin: 0;
-        color: #fff;
-        font-family: var(--hq-sans);
-        font-weight: 800;
-        /* кегль по самому длинному слову: «Испытывайте.» в 62–68vw */
-        font-size: clamp(34px, 7.68vw, 190px);
-        line-height: 1;
-        letter-spacing: -0.015em;
-        text-transform: uppercase;
-        white-space: nowrap;
-        text-align: center;
-        will-change: opacity, transform;
-        text-shadow:
-          0 0 46px rgba(0, 0, 0, 0.72),
-          0 0 90px rgba(0, 0, 0, 0.5);
-        opacity: 0;
-        transform: scale(0.9);
-      }
-
-      /* --- финальный блок, в который садится секция --- */
-      .warp-outro {
-        position: absolute;
-        z-index: 6;
-        left: var(--hq-gutter);
-        right: var(--hq-gutter);
-        top: 50%;
-        transform: translateY(-50%);
-        /* блок стоит ровно по центру экрана */
-        max-width: 980px;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: clamp(40px, 6vw, 92px);
+        align-items: center;
+        max-width: 1240px;
         margin: 0 auto;
-        text-align: center;
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
       }
-      .warp-outro h2 {
-        margin: 0 0 26px;
-        font-size: clamp(38px, 6.4vw, 104px);
+      .warp-copy h2 {
+        margin: 0 0 30px;
+        font-size: clamp(38px, 4.6vw, 76px);
         line-height: 0.98;
-        letter-spacing: -0.03em;
-        /* тот же градиент, что на заголовке hero — на одном акцентном зелёном */
+        letter-spacing: -0.035em;
         background: linear-gradient(90deg, var(--green), #ffffff 75%);
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
       }
-      .warp-outro p {
-        margin: 0 auto 34px;
-        max-width: 560px;
+      .warp-copy p {
+        margin: 0;
+        max-width: 460px;
         color: var(--muted);
-        font-size: clamp(16px, 1.4vw, 19px);
-        line-height: 1.5;
+        font-size: clamp(16px, 1.3vw, 18px);
+        line-height: 1.55;
       }
-      .warp-outro .actions {
-        display: flex;
-        gap: 12px;
-        flex-wrap: wrap;
+      .warp-form {
+        display: grid;
+        gap: 14px;
+        padding: clamp(24px, 2.6vw, 36px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.045);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+      }
+      .warp-form input,
+      .warp-form textarea {
+        width: 100%;
+        padding: 15px 18px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.05);
+        color: white;
+        font: inherit;
+        font-size: 15px;
+        transition:
+          border-color 0.2s ease,
+          background 0.2s ease;
+      }
+      .warp-form textarea {
+        min-height: 128px;
+        resize: vertical;
+      }
+      .warp-form input::placeholder,
+      .warp-form textarea::placeholder {
+        color: rgba(255, 255, 255, 0.4);
+      }
+      .warp-form input:hover,
+      .warp-form textarea:hover {
+        border-color: rgba(255, 255, 255, 0.26);
+      }
+      .warp-form input:focus,
+      .warp-form textarea:focus {
+        outline: none;
+        border-color: var(--green);
+        background: rgba(255, 255, 255, 0.08);
+      }
+      .warp-submit {
+        display: inline-flex;
+        align-items: center;
         justify-content: center;
+        gap: 10px;
+        margin-top: 4px;
+        padding: 16px 28px;
+        border: none;
+        border-radius: 99px;
+        background: #ffffff;
+        color: #07120f;
+        font: inherit;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+        transition:
+          transform 0.2s ease,
+          background 0.2s ease;
       }
-      @media (max-width: 900px) {
-        .warp-word {
-          font-size: clamp(26px, 7.6vw, 64px);
+      .warp-submit:hover {
+        background: var(--green);
+        transform: translateY(-2px);
+      }
+      @media (max-width: 768px) {
+        .warp-inner {
+          grid-template-columns: 1fr;
         }
-        .warp-outro .actions {
-          flex-direction: column;
-          align-items: stretch;
-        }
-        .warp-outro .btn {
-          justify-content: center;
+        .warp-copy p {
+          max-width: none;
         }
       }
 
@@ -4557,9 +4759,174 @@
           animation-iteration-count: 1 !important;
         }
       }
+
+      /* ================= Подвал ================= */
+      .site-footer {
+        position: relative;
+        overflow: hidden;
+        background: #07120f;
+        padding: 64px 5vw 28px;
+      }
+      /* подвал вне <main>, поэтому тинт до него не достаёт: на главной
+         снимаем фон, иначе под .warp появляется шов */
+      body[data-route="home"] .site-footer {
+        background: transparent;
+      }
+      .footer-top {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: 1.3fr repeat(4, 1fr);
+        gap: 32px;
+        padding-bottom: 40px;
+      }
+      .footer-brand-name {
+        margin: 0 0 14px;
+        font-size: 20px;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+      }
+      .footer-lead {
+        margin: 0 0 22px;
+        color: var(--muted);
+        font-size: 14.5px;
+        line-height: 1.5;
+        max-width: 320px;
+      }
+      .footer-subscribe {
+        display: flex;
+        gap: 10px;
+      }
+      .footer-subscribe input {
+        flex: 1;
+        min-width: 0;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 13px 16px;
+        color: white;
+        font: inherit;
+        font-size: 14px;
+      }
+      .footer-subscribe input::placeholder {
+        color: rgba(255, 255, 255, 0.4);
+      }
+      .footer-subscribe button {
+        border: none;
+        border-radius: 10px;
+        padding: 13px 22px;
+        background: var(--green);
+        color: #06170f;
+        font-weight: 700;
+        font-size: 14px;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      .footer-col-title {
+        margin: 0 0 16px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        color: rgba(255, 255, 255, 0.4);
+        text-transform: uppercase;
+      }
+      .footer-col ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        gap: 12px;
+      }
+      .footer-col li {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        font-size: 14.5px;
+        color: rgba(255, 255, 255, 0.82);
+      }
+      .footer-col li::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 1px;
+        background: var(--green);
+        flex: none;
+      }
+      .footer-col a {
+        color: inherit;
+      }
+      .footer-col a:hover {
+        color: var(--green);
+      }
+      /* --- ряд логотипов ведомств --- */
+      .footer-partners {
+        position: relative;
+        z-index: 1;
+        padding: 34px 0 40px;
+        border-top: 1px solid var(--hair);
+      }
+      .partner-row {
+        list-style: none;
+        margin: 24px 0 0;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: clamp(30px, 5.2vw, 86px);
+      }
+      .partner-row li {
+        display: flex;
+        align-items: center;
+        min-width: 0;
+      }
+      /* знаки нарезаны из одной исходной полосы и уже согласованы по
+         оптическому кеглю — достаточно единой высоты */
+      .partner-row img {
+        display: block;
+        width: auto;
+        height: clamp(46px, 4.3vw, 64px);
+        max-width: 100%;
+        object-fit: contain;
+        opacity: 0.85;
+        transition: opacity 0.2s ease;
+      }
+      .partner-row li:hover img {
+        opacity: 1;
+      }
+      .footer-bottom {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        padding-top: 22px;
+        border-top: 1px solid var(--line);
+        color: rgba(255, 255, 255, 0.45);
+        font-size: 13.5px;
+      }
+      @media (max-width: 860px) {
+        .footer-top {
+          grid-template-columns: 1fr 1fr;
+        }
+        .footer-lead {
+          max-width: none;
+        }
+      }
+      @media (max-width: 560px) {
+        .footer-top {
+          grid-template-columns: 1fr;
+        }
+        .footer-bottom {
+          flex-direction: column;
+        }
+      }
     </style>
   </head>
   <body>
+    <div class="mesh" aria-hidden="true">
+      <i class="m1"></i><i class="m2"></i><i class="m3"></i>
+      <i class="m4"></i><i class="m5"></i><i class="m6"></i><i class="m7"></i>
+    </div>
     <div class="grain"></div>
     <header class="topbar">
       <a class="brand" href="#home" data-route-link="home"
@@ -4674,18 +5041,18 @@
                 Промышленность
                 <img
                   class="row-thumb"
-                  src="images/a12-1450.png"
-                  alt="A12-1450"
+                  src="images/ronavi-cbd16.png"
+                  alt="Ronavi × Seer CBD16"
                 />
               </span>
               <span class="row-main">
-                <span class="robot-name">A12-1450</span>
+                <span class="robot-name">Ronavi × Seer CBD16</span>
                 <span class="row-desc"
-                  >Коллаборативный робот-манипулятор</span
+                  >Вилочный робот-погрузчик до&nbsp;1600 кг</span
                 >
               </span>
-              <span class="row-specs" data-specs="1450 мм;12 кг;±0,03 мм"
-                ><span>1450 мм · 12 кг</span><span>±0,03 мм</span></span
+              <span class="row-specs" data-specs="1600 кг;1,8 м/с;10 ч"
+                ><span>1600 кг · 1,8 м/с</span><span>10 ч</span></span
               >
             </a>
           </li>
@@ -4851,36 +5218,32 @@
 
 
       <section class="warp" id="steps">
-        <div class="warp-sticky">
-          <canvas class="warp-canvas" aria-hidden="true"></canvas>
-          <div class="warp-grid" aria-hidden="true"></div>
-          <div class="warp-vignette" aria-hidden="true"></div>
-
-          <h2 class="warp-words">
-            <span class="warp-word">Создавайте</span>
-            <span class="warp-word">Испытывайте</span>
-            <span class="warp-word">Внедряйте</span>
-          </h2>
-
-          <div class="warp-meta" aria-hidden="true">
-            <i class="on"></i><i></i><i></i>
-            <span data-warp-stage>Стадия 01</span>
-          </div>
-
-          <div class="warp-outro" data-warp-outro>
-            <h2>Создавайте<br />Испытывайте<br />Внедряйте</h2>
+        <div class="warp-inner" id="contact">
+          <div class="warp-copy">
+            <h2>Создавайте.<br />Испытывайте.<br />Внедряйте.</h2>
             <p>
               Все возможности для развития робототехнических решений и подбора
               готовых технологий собраны в одной экосистеме
             </p>
-            <div class="actions" id="contact">
-              <a class="btn primary" href="#producer" data-route-link="producer"
-                >Развивать свой проект <span class="arr">↗</span></a
-              ><a class="btn" href="#catalog" data-route-link="catalog"
-                >Найти готового робота</a
-              >
-            </div>
           </div>
+
+          <form class="warp-form" onsubmit="return false">
+            <input type="text" name="name" placeholder="Ваше имя" required />
+            <input
+              type="email"
+              name="email"
+              placeholder="you@example.com"
+              required
+            />
+            <textarea
+              name="message"
+              placeholder="Опишите ваш проект"
+              required
+            ></textarea>
+            <button class="warp-submit" type="submit">
+              Отправить запрос <span class="arr">→</span>
+            </button>
+          </form>
         </div>
       </section>
 
@@ -5318,6 +5681,92 @@
       </section>
     </main>
 
+    <footer class="site-footer">
+      <div class="footer-top">
+        <div>
+          <p class="footer-brand-name">Роботы Москвы</p>
+          <p class="footer-lead">
+            Городская экосистема развития робототехники: разработка,
+            испытания, пилоты и внедрение
+          </p>
+          <form class="footer-subscribe" onsubmit="return false">
+            <input type="email" placeholder="Электронная почта" />
+            <button type="submit">Подписаться</button>
+          </form>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col-title">Разделы</p>
+          <ul>
+            <li><a href="#catalog">Каталог</a></li>
+            <li><a href="#newsGrid">Новости</a></li>
+            <li><a href="#steps">Путь робота</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col-title">Производителям</p>
+          <ul>
+            <li><a href="#">Испытать</a></li>
+            <li><a href="#">Пилотировать</a></li>
+            <li><a href="#customer-support">Поддержка</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col-title">Заказчикам</p>
+          <ul>
+            <li><a href="#">Внедрить</a></li>
+            <li><a href="#scenarios">Сценарии</a></li>
+            <li><a href="#">Сопровождение</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col-title">Контакты</p>
+          <ul>
+            <li><a href="#contact">Связаться</a></li>
+            <li><a href="#">Личный кабинет</a></li>
+            <li><a href="#customer-support">Поддержка</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-partners">
+        <p class="footer-col-title">При поддержке</p>
+        <ul class="partner-row">
+          <li>
+            <img
+              src="images/partners/deptrans.png"
+              alt="Департамент транспорта и развития дорожно-транспортной инфраструктуры города Москвы"
+              loading="lazy"
+            />
+          </li>
+          <li>
+            <img
+              src="images/partners/glavkontrol.png"
+              alt="Главное контрольное управление города Москвы"
+              loading="lazy"
+            />
+          </li>
+          <li>
+            <img
+              src="images/partners/mosprom.png"
+              alt="Департамент инвестиционной и промышленной политики города Москвы"
+              loading="lazy"
+            />
+          </li>
+          <li>
+            <img
+              src="images/partners/robotymos.png"
+              alt="Роботы Москвы"
+              loading="lazy"
+            />
+          </li>
+        </ul>
+      </div>
+      <div class="footer-bottom">
+        <span>Концептуальный прототип</span>
+        <span>Роботы Москвы · 2026</span>
+      </div>
+    </footer>
+
     <div class="rm-overlay" id="robotModal" hidden>
       <div
         class="rm-dialog"
@@ -5375,6 +5824,7 @@
         )
           ? requested
           : "home";
+        document.body.dataset.route = route;
         routeViews.forEach(
           (view) => (view.hidden = view.dataset.route !== route),
         );
@@ -6093,307 +6543,6 @@
     io.observe(ig);
   })();
 
-  /* ==================== Warp: три стадии + посадка ====================
-     Времени в формулах нет. Положение каждой звезды — чистая функция от
-     позиции прокрутки, поэтому один и тот же скролл даёт побайтово один
-     кадр. Остановился скролл — кадр замер, rAF даже не запрашивается.   */
-  (function(){
-    var section = document.getElementById('steps');
-    if(!section) return;
-    var sticky  = section.querySelector('.warp-sticky');
-    var canvas  = section.querySelector('.warp-canvas');
-    var grid    = section.querySelector('.warp-grid');
-    var vign    = section.querySelector('.warp-vignette');
-    var meta    = section.querySelector('.warp-meta');
-    var stageEl = section.querySelector('[data-warp-stage]');
-    var dots    = Array.prototype.slice.call(section.querySelectorAll('.warp-meta i'));
-    var outro   = section.querySelector('[data-warp-outro]');
-    var words   = Array.prototype.slice.call(section.querySelectorAll('.warp-word'));
-    if(!canvas || !words.length || !outro) return;
-
-    var ctx = canvas.getContext('2d', { alpha: false });
-    if(!ctx) return;
-
-    var N = words.length;
-    var FLOOR = [0.30, 1.60, 3.20];
-    var PEAK  = [2.90, 5.00, 7.40];
-    var MAXW  = 7.4;
-    var GAIN  = 17;
-    var R0    = 6;
-    var SMOOTH = 1;
-
-    /* секция начинается с чёрного листа: звёзды проявляются на входе */
-    var IN_STARS  = [0.00, 0.06];
-    var OUT_WORD  = [0.74, 0.84];
-    var OUT_STARS = [0.80, 0.90];
-    var OUT_BLOCK = [0.91, 1.00];
-    var INK = [7, 18, 15];
-
-    /* доминанта — зелёный проекта; холодный сине-зелёный и белый дают
-       дальний и ближний план, на чистой зелени картинка плоская */
-    var PALETTE = [
-      ['#42E383', 0.24], ['#B9FF66', 0.17], ['#7CFFB0', 0.14],
-      ['#2FBF7A', 0.12], ['#1E9C62', 0.09], ['#5AF0D0', 0.08],
-      ['#D8FF8A', 0.07], ['#9DFFC7', 0.05], ['#FFFFFF', 0.04]
-    ];
-
-    var reduceQuery = matchMedia('(prefers-reduced-motion: reduce)');
-    var reduce = reduceQuery.matches;
-
-    function ss(a, b, t){
-      var x = (t - a) / (b - a);
-      x = x < 0 ? 0 : x > 1 ? 1 : x;
-      return x * x * (3 - 2 * x);
-    }
-
-    /* --- ход по прогрессу --- */
-    function speedAt(p){
-      if(reduce) return FLOOR[0];
-      var sp = Math.min(N - 1e-6, p * N);
-      var idx = Math.floor(sp), local = sp - idx;
-      var last = idx === N - 1;
-      var next = last ? PEAK[idx] * 0.78 : FLOOR[idx + 1];
-      var v = FLOOR[idx]
-            + (PEAK[idx] - FLOOR[idx]) * ss(0.30, 0.72, local)
-            - (PEAK[idx] - next)       * ss(0.80, 0.99, local);
-      return v * (1 - 0.85 * ss(0.78, 0.93, p));
-    }
-
-    /* интеграл хода считается один раз в таблицу, дальше линейная интерполяция */
-    var TAB_N = 720, TAB = new Float64Array(TAB_N + 1);
-    (function buildTable(){
-      var acc = 0, step = 1 / TAB_N;
-      TAB[0] = 0;
-      for(var i = 1; i <= TAB_N; i++){
-        var a = (i - 1) * step, b = i * step;
-        acc += (speedAt(a) + 4 * speedAt((a + b) / 2) + speedAt(b)) / 6 * step;
-        TAB[i] = acc;
-      }
-    })();
-    function travelAt(p){
-      var x = p * TAB_N;
-      if(x <= 0) return 0;
-      if(x >= TAB_N) return TAB[TAB_N] * GAIN;
-      var i = Math.floor(x), f = x - i;
-      return (TAB[i] + (TAB[i + 1] - TAB[i]) * f) * GAIN;
-    }
-
-    /* --- детерминированный пул --- */
-    function lcg(seed){
-      return function(){
-        seed = (seed * 1664525 + 1013904223) >>> 0;
-        return seed / 4294967296;
-      };
-    }
-    var W = 0, H = 0, cx = 0, cy = 0, dpr = 1, CYC = 1, maxR = 100;
-    var stars = [];
-
-    function buildPool(){
-      var rnd = lcg(20260814);
-      var count = Math.round(Math.min(900, Math.max(240, (W * H) / 1900)));
-      stars = new Array(count);
-      for(var i = 0; i < count; i++){
-        var th = rnd() * Math.PI * 2;
-        var c = rnd(), acc = 0, col = PALETTE[0][0];
-        for(var j = 0; j < PALETTE.length; j++){
-          acc += PALETTE[j][1];
-          if(c <= acc){ col = PALETTE[j][0]; break; }
-        }
-        stars[i] = {
-          ph: rnd(),                    /* фиксированная фаза по глубине */
-          z: 0.55 + rnd() * 0.75,       /* глубина = множитель хода */
-          th: th,
-          ct: Math.cos(th),
-          st: Math.sin(th),
-          w: 0.6 + rnd() * 1.5,
-          c: col
-        };
-      }
-    }
-
-    function resize(){
-      var rect = sticky.getBoundingClientRect();
-      W = Math.max(1, Math.round(rect.width));
-      H = Math.max(1, Math.round(rect.height));
-      cx = W / 2; cy = H / 2;
-      maxR = Math.hypot(W, H) * 0.62;
-      CYC = Math.log(maxR / R0);
-      dpr = Math.min(2, window.devicePixelRatio || 1);
-      canvas.width  = Math.round(W * dpr);
-      canvas.height = Math.round(H * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      buildPool();
-      measure();
-    }
-
-    /* --- прогресс --- */
-    var secTop = 0, span = 1;
-    var progress = 0, shown = 0, travel = 0, speed = 0;
-    function measure(){
-      var r = section.getBoundingClientRect();
-      secTop = r.top + window.pageYOffset;
-      span = Math.max(1, section.offsetHeight - window.innerHeight);
-    }
-
-    /* --- состояние слов и блока (без канваса) --- */
-    function applyState(p){
-      var sp = Math.min(N - 1e-6, p * N);
-      var idx = Math.floor(sp), local = sp - idx;
-      var isLast = idx === N - 1;
-      var inA = ss(0.00, 0.18, local);
-      var outA = isLast ? ss(OUT_WORD[0], OUT_WORD[1], p) : ss(0.50, 0.78, local);
-      var pre = ss(0.78, 0.99, local);
-
-      for(var i = 0; i < N; i++){
-        var a = 0, sc = 0.9;
-        if(i === idx){
-          /* слово входит в стадию с того уровня, на котором его оставил
-             предпросмотр предыдущей: подъём монотонный, без провала.
-             max(inA, carry) здесь давал бы 0.55 → 0.355 → 1 — мигание. */
-          var base = idx > 0 ? 0.55 : 0;
-          a = (base + (1 - base) * inA) * (1 - outA);
-          sc = reduce ? 1 : 0.9 + 0.1 * inA + (isLast ? 0.12 : 0.55) * outA;
-        } else if(i === idx + 1){
-          a = 0.55 * pre;
-          sc = reduce ? 1 : 0.78 + 0.12 * pre;
-        }
-        var w = words[i];
-        w.style.setProperty('opacity', a.toFixed(3));
-        w.style.setProperty('transform', 'scale(' + sc.toFixed(4) + ')');
-      }
-
-      var starsA = ss(IN_STARS[0], IN_STARS[1], p) *
-                   (1 - ss(OUT_STARS[0], OUT_STARS[1], p));
-      if(grid) grid.style.setProperty('opacity', (0.5 * starsA).toFixed(3));
-      if(vign) vign.style.setProperty('opacity', starsA.toFixed(3));
-      if(meta) meta.style.setProperty('opacity', starsA.toFixed(3));
-      for(var d = 0; d < dots.length; d++) dots[d].classList.toggle('on', d <= idx);
-      if(stageEl) stageEl.textContent = 'Стадия 0' + (idx + 1);
-
-      var bIn = ss(OUT_BLOCK[0], OUT_BLOCK[1], p);
-      outro.style.opacity = bIn.toFixed(3);
-      outro.style.transform = 'translateY(-50%) translateY(' + (26 * (1 - bIn)).toFixed(1) + 'px)';
-      outro.style.visibility = bIn > 0.02 ? 'visible' : 'hidden';
-      outro.style.pointerEvents = bIn > 0.6 ? 'auto' : 'none';
-
-      return starsA;
-    }
-
-    /* --- отрисовка по требованию --- */
-    var queued = false, visible = false, enabled = true;
-    function schedule(){
-      if(queued || !visible || !enabled) return;
-      queued = true;
-      requestAnimationFrame(render);
-    }
-    function readScroll(){
-      var p = (window.pageYOffset - secTop) / span;
-      progress = p < 0 ? 0 : p > 1 ? 1 : p;
-      schedule();
-    }
-
-    function render(){
-      queued = false;
-      var d = progress - shown;
-      if(SMOOTH >= 1 || Math.abs(d) <= 0.002){
-        shown = progress;
-      } else {
-        shown += d * SMOOTH;
-      }
-      travel = travelAt(shown);
-      speed = speedAt(shown);
-      var starsA = applyState(shown);
-      draw(starsA);
-      if(SMOOTH < 1 && Math.abs(progress - shown) > 0.002) schedule();
-    }
-
-    function draw(starsA){
-      var k = ss(OUT_STARS[0], OUT_STARS[1], shown);
-      ctx.fillStyle = 'rgb(' + Math.round(INK[0] * k) + ',' +
-                              Math.round(INK[1] * k) + ',' +
-                              Math.round(INK[2] * k) + ')';
-      ctx.fillRect(0, 0, W, H);
-      if(starsA <= 0.005) return;
-
-      var tl = 0.06 + (speed / MAXW) * 0.85;
-      ctx.lineCap = 'round';
-
-      for(var i = 0; i < stars.length; i++){
-        var s = stars[i];
-        var m = (travel * s.z + s.ph * CYC) % CYC;
-        if(m < 0) m += CYC;
-        var r = R0 * Math.exp(m);
-        var m0 = m - tl;
-        var r0 = R0 * Math.exp(m0 < 0 ? 0 : m0);
-
-        var x1 = cx + s.ct * r,  y1 = cy + s.st * r;
-        var x0 = cx + s.ct * r0, y0 = cy + s.st * r0;
-        if((x1 < -80 && x0 < -80) || (x1 > W + 80 && x0 > W + 80)) continue;
-        if((y1 < -80 && y0 < -80) || (y1 > H + 80 && y0 > H + 80)) continue;
-
-        var dep = m / CYC;
-        ctx.strokeStyle = s.c;
-        ctx.globalAlpha = Math.min(1, (0.10 + dep * 0.95)) * starsA;
-        ctx.lineWidth = s.w * (0.3 + dep * 2.1);
-        ctx.beginPath();
-        ctx.moveTo(x0, y0);
-        ctx.lineTo(x1, y1);
-        ctx.stroke();
-      }
-
-      /* ядро свечения */
-      ctx.globalAlpha = 1;
-      var core = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.max(60, maxR * 0.16));
-      core.addColorStop(0, 'rgba(180,255,214,' + (0.16 * starsA).toFixed(3) + ')');
-      core.addColorStop(1, 'rgba(180,255,214,0)');
-      ctx.fillStyle = core;
-      ctx.fillRect(0, 0, W, H);
-    }
-
-    /* --- слушатели --- */
-    addEventListener('scroll', readScroll, { passive: true });
-
-    var resizeTimer = 0;
-    addEventListener('resize', function(){
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(function(){
-        resize();
-        shown = -1;
-        readScroll();
-      }, 140);
-    });
-
-    addEventListener('visibilitychange', function(){
-      enabled = !document.hidden;
-      if(enabled) schedule();
-    });
-
-    if(reduceQuery.addEventListener){
-      reduceQuery.addEventListener('change', function(e){
-        reduce = e.matches;
-        shown = -1;
-        schedule();
-      });
-    }
-
-    /* в скрытом через [hidden] маршруте секция не интерсектится — кадры не планируются */
-    if('IntersectionObserver' in window){
-      new IntersectionObserver(function(entries){
-        entries.forEach(function(e){
-          visible = e.isIntersecting;
-          if(visible){ measure(); readScroll(); }
-        });
-      }, { rootMargin: '120px' }).observe(section);
-    } else {
-      visible = true;
-    }
-
-    resize();
-    enabled = !document.hidden;
-    visible = true;
-    readScroll();
-    render();
-  })();
 
   /* Часы статус-бара hq-hero: московское время, тик раз в секунду */
   (function(){

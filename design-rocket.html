@@ -1,0 +1,844 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>робопортал москвы — в чём прикол</title>
+<meta name="description" content="городская экосистема робототехники: разработка, испытания, пилоты и внедрение" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+/* =========================================================
+   робопортал москвы — редизайн в пластике rocketbank
+   палитра: чёрный холст + кислотный зелёный + пастельные блоки
+   типографика: строчные, крупно, плотный трекинг
+   геометрия: скругление 40px, «острова», бегущие строки
+   ========================================================= */
+:root{
+  --black:#0B0D0C;
+  --ink:#101010;
+  --coal:#151917;
+  --green:#42E383;
+  --green-deep:#0E5D3B;
+  --mint:#C8F5DE;
+  --sky:#DEF1FF;
+  --pink:#FFC5EE;
+  --sand:#F3F5EF;
+  --white:#fff;
+  --w-70:rgba(255,255,255,.70);
+  --w-45:rgba(255,255,255,.45);
+  --w-16:rgba(255,255,255,.16);
+  --w-08:rgba(255,255,255,.08);
+  --r:40px;
+  --r-s:24px;
+  --gut:clamp(16px,2.6vw,40px);
+  --font:"Onest","Inter","Helvetica Neue",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--black);color:var(--white);
+  font-family:var(--font);font-weight:400;
+  text-transform:lowercase;overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+img{display:block;max-width:100%}
+.up{text-transform:uppercase}
+.nolow{text-transform:none}
+
+/* ---------- типографическая шкала ---------- */
+.h-display{font-size:clamp(40px,8.4vw,150px);line-height:.88;letter-spacing:-.045em;font-weight:500;margin:0}
+.h1{font-size:clamp(34px,5.6vw,92px);line-height:.94;letter-spacing:-.04em;font-weight:500;margin:0}
+.h2{font-size:clamp(26px,3.4vw,56px);line-height:1;letter-spacing:-.035em;font-weight:500;margin:0}
+.h3{font-size:clamp(20px,1.9vw,30px);line-height:1.08;letter-spacing:-.025em;font-weight:500;margin:0}
+.lead{font-size:clamp(16px,1.35vw,22px);line-height:1.35;color:var(--w-70);margin:0;letter-spacing:-.01em}
+.small{font-size:13px;line-height:1.3;letter-spacing:.02em}
+.tag{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--w-45)}
+
+.wrap{padding:0 var(--gut)}
+section{position:relative}
+
+/* ---------- бегущая строка ---------- */
+.marquee{background:var(--green);color:#06110B;overflow:hidden;padding:9px 0;position:relative;z-index:60}
+.marquee-track{display:flex;width:max-content;animation:run 26s linear infinite}
+.marquee span{display:inline-flex;align-items:center;gap:10px;font-size:14px;letter-spacing:-.01em;
+  padding:0 22px;white-space:nowrap;font-weight:500}
+/* логотипы ведомств белые, лента светло-зелёная — гасим их в чёрный,
+   чтобы читались так же, как текст рядом */
+.marquee img{height:24px;width:auto;flex:none;filter:brightness(0);opacity:.85}
+@keyframes run{to{transform:translateX(-50%)}}
+.marquee:hover .marquee-track{animation-play-state:paused}
+
+/* ---------- шапка ---------- */
+.header{position:sticky;top:0;z-index:50;padding:14px var(--gut);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  background:linear-gradient(180deg,rgba(11,13,12,.92),rgba(11,13,12,.55) 70%,transparent);}
+.header-in{display:flex;align-items:center;gap:18px}
+.logo{display:flex;align-items:center;gap:11px;font-weight:600;letter-spacing:-.03em;font-size:17px;white-space:nowrap}
+.logo-mark{width:34px;height:34px;border-radius:11px;background:var(--green);color:#06110B;
+  display:grid;place-items:center;font-weight:800;font-size:15px;letter-spacing:-.05em;flex:none}
+/* знак робопортала — картинкой, надписи остаются текстом в шрифте страницы */
+.logo-img{width:36px;height:36px;flex:none}
+/* герб и подпись правительства рядом с логотипом */
+.logo-div{width:1px;height:32px;background:var(--w-16);flex:none}
+.gov{display:flex;align-items:center;gap:11px;color:var(--w-70);
+  font-size:13px;line-height:1.15;letter-spacing:-.01em;white-space:nowrap}
+.gov img{height:36px;width:auto;flex:none}
+.nav{display:flex;gap:4px;margin-left:auto;align-items:center}
+.nav a{padding:9px 15px;border-radius:999px;font-size:15px;letter-spacing:-.015em;color:var(--w-70);transition:.22s}
+.nav a:hover{color:#06110B;background:var(--green)}
+.btn{display:inline-flex;align-items:center;gap:9px;border-radius:999px;padding:13px 24px;
+  font-size:15px;font-weight:500;letter-spacing:-.015em;transition:.24s cubic-bezier(.2,.7,.3,1);white-space:nowrap}
+.btn-green{background:var(--green);color:#06110B}
+.btn-green:hover{background:var(--mint);transform:translateY(-2px)}
+.btn-ghost{border:1px solid var(--w-16);color:var(--white)}
+.btn-ghost:hover{border-color:var(--green);color:var(--green)}
+.btn-dark{background:var(--ink);color:var(--white)}
+.btn-dark:hover{transform:translateY(-2px)}
+.btn-lg{padding:18px 34px;font-size:17px}
+.burger{display:none;margin-left:auto;width:44px;height:44px;border-radius:999px;border:1px solid var(--w-16);
+  align-items:center;justify-content:center}
+
+/* ---------- герой ---------- */
+.hero{padding:8px var(--gut) 0}
+/* поверх видео ничего не лежит: цветные подсветки и сетка убраны,
+   осталась тёмная подложка (видна, пока видео не загрузилось) */
+.hero-box{position:relative;border-radius:var(--r);overflow:hidden;min-height:min(82vh,760px);
+  display:flex;align-items:flex-end;
+  background:linear-gradient(180deg,#12251C,#0B0D0C 72%)}
+.hero-media{position:absolute;inset:0}
+.hero-media img,.hero-media video{width:100%;height:100%;object-fit:cover}
+/* затемнение под текстом: верх кадра остаётся светлым, низ уводим в тень,
+   иначе заголовок и подпись теряются на ярких планах видео */
+.hero-box::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(11,13,12,.10) 0%,rgba(11,13,12,.38) 42%,
+    rgba(11,13,12,.72) 72%,rgba(11,13,12,.92) 100%)}
+/* слаг растянут на всю ширину блока: тогда кнопка в потоке прижимается
+   ровно к его правому краю, как в index.html. Переносы у h1 и лида заданы
+   тегами <br>, поэтому снятие лимита ширины на них не влияет */
+.hero-slug{position:relative;z-index:2;padding:clamp(24px,4vw,64px);width:100%}
+.hero-slug .h-display{margin-bottom:22px}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
+/* низ героя: подпись слева, кнопка справа на одной линии — так блок текста
+   опускается к нижнему краю, а не висит по центру кадра */
+.hero-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:20px 32px;flex-wrap:wrap}
+.hero-bottom .lead{margin:0}
+.hero-cta.is-corner{margin:0;justify-content:flex-end;flex:none}
+@media(max-width:640px){
+  .hero-bottom{flex-direction:column;align-items:stretch}
+  .hero-cta.is-corner{margin-top:22px}
+}
+.hero-badge{position:absolute;top:clamp(20px,3vw,40px);right:clamp(20px,3vw,40px);z-index:3;
+  border:1px solid var(--w-16);border-radius:999px;padding:9px 17px;font-size:13px;color:var(--w-70);
+  backdrop-filter:blur(10px);background:rgba(0,0,0,.25)}
+.hero-badge b{color:var(--green);font-weight:500}
+
+/* ---------- секция «путь»: стопка карточек ---------- */
+.about{padding:clamp(80px,11vw,170px) var(--gut) clamp(40px,6vw,90px);
+  display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(30px,5vw,90px);align-items:start}
+/* дорожка прокрутки: пока она идёт мимо, стопка приколота, а карточки
+   сменяют друг друга — верхняя уходит вверх и убирается назад в колоду */
+.stack-runway{height:240vh}
+.stack{position:sticky;top:24vh;height:330px;cursor:pointer;perspective:1200px}
+.stack-card{position:absolute;left:0;right:0;top:0;border-radius:var(--r-s);padding:26px 28px;
+  transition:.5s cubic-bezier(.2,.7,.3,1);will-change:transform}
+.stack-card{height:186px;display:flex;flex-direction:column;justify-content:space-between;color:#06110B;
+  transition:transform .6s cubic-bezier(.2,.7,.2,1),opacity .45s ease;will-change:transform}
+.sc-0{background:var(--green)}
+.sc-1{background:var(--mint)}
+.sc-2{background:var(--sky)}
+.sc-3{background:var(--pink)}
+/* место карточки в колоде проставляет скрипт: 0 — впереди, 3 — в глубине,
+   -1 — уже пройдена */
+.stack-card[data-pos="0"]{transform:none;opacity:1;z-index:5}
+.stack-card[data-pos="1"]{transform:translateY(34px) scale(.96);opacity:1;z-index:4}
+.stack-card[data-pos="2"]{transform:translateY(68px) scale(.92);opacity:1;z-index:3}
+.stack-card[data-pos="3"]{transform:translateY(102px) scale(.88);opacity:1;z-index:2}
+.stack-card[data-pos="-1"]{transform:translateY(-72px) scale(.9);opacity:0;z-index:6}
+/* у карточек в глубине текст гасим — иначе он выглядывает из-под передней */
+.stack-card > *{transition:opacity .35s ease}
+.stack-card:not([data-pos="0"]) > *{opacity:0}
+/* карточка с кадром: текст слева, картинка справа, обрезается по месту */
+.stack-card.has-photo{flex-direction:row;gap:22px;align-items:stretch}
+.stack-card.has-photo .sc-copy{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:space-between}
+.sc-photo{flex:none;width:clamp(150px,17vw,240px);height:100%;object-fit:cover;border-radius:14px}
+.sc-num{font-size:13px;letter-spacing:.1em;opacity:.55;text-transform:uppercase}
+.sc-t{font-size:clamp(22px,2.1vw,30px);letter-spacing:-.03em;font-weight:500;line-height:1.02}
+.sc-d{margin:0;font-size:15px;line-height:1.35;opacity:.72;max-width:40ch}
+@media(min-width:1025px){.about-text{position:sticky;top:24vh}}
+@media(max-width:1024px){.stack-runway{height:200vh}}
+.about-text .lead{margin-top:20px;max-width:520px}
+.rate{margin-top:34px;font-size:clamp(18px,1.7vw,26px);letter-spacing:-.03em;color:var(--green)}
+
+/* диалог «путь робота» */
+dialog#pathDlg{border:0;padding:0;background:transparent;max-width:none;width:100%;height:100%;max-height:none;color:var(--white)}
+dialog#pathDlg::backdrop{background:rgba(6,10,8,.72);backdrop-filter:blur(10px)}
+.dlg{min-height:100%;display:flex;flex-direction:column;justify-content:flex-end;gap:10px;padding:var(--gut);padding-bottom:96px}
+.dlg-row{border-radius:var(--r-s);padding:24px 28px;color:#06110B;display:flex;gap:20px;align-items:flex-start;
+  animation:rise .5s cubic-bezier(.2,.7,.3,1) backwards}
+.dlg-row:nth-child(1){background:var(--green);animation-delay:.02s}
+.dlg-row:nth-child(2){background:#79E9AE;animation-delay:.06s}
+.dlg-row:nth-child(3){background:var(--mint);animation-delay:.1s}
+.dlg-row:nth-child(4){background:var(--sky);animation-delay:.14s}
+@keyframes rise{from{opacity:0;transform:translateY(26px)}}
+/* фотографии шагов — с robot-mos.ru, раздел «четыре шага до внедрения» */
+.dlg-row img{width:clamp(130px,15vw,210px);aspect-ratio:3/2;object-fit:cover;border-radius:14px;flex:none}
+.dlg-row b{font-weight:600;font-size:clamp(20px,2vw,28px);letter-spacing:-.03em;flex:none;width:clamp(150px,20vw,300px)}
+.dlg-row p{margin:0;font-size:16px;line-height:1.35;opacity:.75}
+.dlg-close{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);
+  background:var(--ink);color:#fff;border-radius:999px;padding:15px 30px;font-size:15px}
+
+/* ---------- две роли: пастельные «карманы» ---------- */
+.roles{padding:clamp(40px,6vw,80px) var(--gut) clamp(60px,8vw,120px)}
+.roles-slug{max-width:760px;margin-bottom:clamp(26px,3.5vw,50px)}
+.pockets{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.pocket{border-radius:var(--r);padding:clamp(26px,3vw,44px);min-height:clamp(300px,34vw,440px);
+  display:flex;flex-direction:column;justify-content:space-between;color:#06110B;position:relative;overflow:hidden;
+  transition:.4s cubic-bezier(.2,.7,.3,1)}
+.pocket:hover{transform:translateY(-6px)}
+.pocket-1{background:var(--green)}
+.pocket-2{background:var(--sky)}
+.pocket .h2{max-width:12ch}
+.pocket p{margin:14px 0 0;font-size:clamp(15px,1.2vw,19px);line-height:1.35;opacity:.7;max-width:34ch}
+.pocket .btn{background:#06110B;color:#fff;align-self:flex-start;margin-top:28px}
+.pocket-glyph{position:absolute;right:-30px;bottom:-46px;font-size:clamp(120px,18vw,260px);line-height:1;
+  opacity:.13;letter-spacing:-.06em;font-weight:700;pointer-events:none}
+
+/* ---------- каталог: горизонтальная лента ---------- */
+.catalog{padding:clamp(50px,7vw,110px) 0}
+.cat-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding:0 var(--gut);margin-bottom:30px;flex-wrap:wrap}
+.rail{display:flex;gap:14px;overflow-x:auto;padding:4px var(--gut) 22px;scroll-snap-type:x mandatory;
+  scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+.robot{flex:none;width:min(360px,78vw);scroll-snap-align:start;background:var(--coal);border-radius:var(--r-s);
+  overflow:hidden;transition:.35s cubic-bezier(.2,.7,.3,1);border:1px solid var(--w-08)}
+.robot:hover{transform:translateY(-8px);border-color:var(--green)}
+.robot-pic{aspect-ratio:4/3;background:radial-gradient(90% 90% at 50% 20%,#1F2A25,#0E1211);display:grid;place-items:center;position:relative}
+.robot-pic img{width:100%;height:100%;object-fit:cover}
+.robot-cat{position:absolute;left:14px;top:14px;background:rgba(6,17,11,.7);border:1px solid var(--w-16);
+  border-radius:999px;padding:6px 13px;font-size:12px;letter-spacing:.04em;backdrop-filter:blur(8px)}
+.robot-b{padding:20px 22px 24px}
+.robot-b h4{margin:0;font-size:21px;letter-spacing:-.03em;font-weight:500}
+.robot-b .d{margin:8px 0 16px;color:var(--w-45);font-size:15px;line-height:1.3;min-height:40px}
+.specs{display:flex;gap:8px;flex-wrap:wrap}
+.spec{border:1px solid var(--w-16);border-radius:999px;padding:6px 12px;font-size:12.5px;color:var(--w-70)}
+.rail-more{flex:none;width:min(300px,72vw);border-radius:var(--r-s);background:var(--green);color:#06110B;
+  display:flex;flex-direction:column;justify-content:space-between;padding:26px;scroll-snap-align:start;transition:.35s}
+.rail-more:hover{transform:translateY(-8px);background:var(--mint)}
+.rail-more .h3{max-width:9ch}
+.arrow-c{width:52px;height:52px;border-radius:999px;background:#06110B;color:#fff;display:grid;place-items:center;font-size:20px}
+
+/* ---------- каталог: строки с превью за курсором (формат index.html) ---------- */
+.robot-list{margin:34px 0 0;padding:0 var(--gut);list-style:none}
+.robot-row{display:grid;grid-template-columns:clamp(90px,9vw,140px) 1fr;align-items:center;gap:24px;
+  min-height:clamp(110px,15vw,190px);padding:18px 0;border-top:1px solid var(--w-16);
+  transition:opacity .35s,color .35s}
+.robot-list li:last-child .robot-row{border-bottom:1px solid var(--w-16)}
+.robot-list:hover .robot-row:not(:hover){opacity:.42}
+.row-cat{color:var(--w-45);font-size:12px;line-height:1.3;letter-spacing:.14em;text-transform:uppercase}
+.row-main{min-width:0;transition:transform .35s}
+.robot-name{display:block;font-size:clamp(28px,5vw,84px);font-weight:500;line-height:1;
+  letter-spacing:-.035em;color:var(--white);transition:color .35s}
+.row-desc{display:block;margin-top:10px;color:var(--w-45);font-size:clamp(13px,1.1vw,16px);letter-spacing:-.02em}
+.row-specs{display:grid;gap:4px;justify-items:end;text-align:right;color:var(--w-45);
+  font-size:13px;letter-spacing:-.02em}
+.robot-row:hover .robot-name,.robot-row:focus-visible .robot-name{color:var(--green)}
+.robot-row:hover .row-main,.robot-row:focus-visible .row-main{transform:translateX(clamp(10px,1.2vw,26px))}
+.robot-row:focus-visible{outline:2px solid var(--green);outline-offset:4px}
+.row-thumb{display:block;width:64px;height:48px;margin-top:12px;border-radius:8px;object-fit:cover}
+.robot-list.has-preview .row-thumb{display:none}
+.robot-preview{position:fixed;z-index:45;left:0;top:0;width:clamp(240px,24vw,380px);
+  padding:14px;border:1px solid var(--w-16);border-radius:20px;background:rgba(14,18,16,.88);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 30px 70px rgba(0,0,0,.55);
+  pointer-events:none;opacity:0;transition:opacity .4s ease}
+.rp-shots{position:relative;aspect-ratio:4/3;border-radius:12px;overflow:hidden;background:var(--w-08)}
+.robot-preview img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;
+  transition:opacity .4s ease}
+.robot-preview img.is-on{opacity:1}
+.rp-name{margin-top:12px;font-size:15px;letter-spacing:-.02em;color:var(--white);text-transform:none}
+.cat-actions{padding:36px var(--gut) 0}
+@media (max-width:900px){
+  .robot-row{gap:16px;grid-template-columns:clamp(80px,12vw,120px) 1fr}
+  .row-specs{grid-column:2;justify-items:start;text-align:left}
+}
+@media (max-width:560px){
+  .robot-list{margin-top:22px}
+  .robot-row{grid-template-columns:84px 1fr;gap:14px;min-height:0}
+}
+@media (prefers-reduced-motion:reduce){
+  .robot-row:hover .row-main,.robot-row:focus-visible .row-main{transform:none}
+}
+
+/* ---------- испытания: тёмный «остров» с медиа ---------- */
+.testing{padding:0 var(--gut) clamp(50px,7vw,110px)}
+.test-box{border-radius:var(--r);background:var(--coal);overflow:hidden;
+  display:grid;grid-template-columns:1fr 1fr;min-height:520px;border:1px solid var(--w-08)}
+.test-l{padding:clamp(28px,3.6vw,60px);display:flex;flex-direction:column;justify-content:space-between;gap:30px}
+.env{display:grid;gap:1px;background:var(--w-08);border-radius:var(--r-s);overflow:hidden}
+.env-i{background:var(--coal);padding:17px 20px;display:flex;gap:16px;align-items:baseline;transition:.28s}
+.env-i:hover{background:var(--green);color:#06110B}
+.env-i .n{font-size:12px;letter-spacing:.1em;opacity:.5;flex:none;width:34px}
+.env-i .t{font-size:17px;letter-spacing:-.02em}
+.env-i .s{margin-left:auto;font-size:13.5px;opacity:.5;text-align:right}
+.test-r{position:relative;background:radial-gradient(100% 100% at 70% 20%,#1B3F2E,#0C100E)}
+.test-r img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.75}
+
+/* ---------- задачи предприятия: бегущая лента карточек ---------- */
+.tasks{position:relative;padding:clamp(50px,7vw,110px) 0;overflow:hidden}
+/* текст уходит вправо, слева стоит робот — видна только его передняя половина,
+   вторая уезжает за край секции (её обрезает overflow) */
+.tasks-head{padding:0 var(--gut) 0 0;margin-bottom:34px;margin-left:auto;max-width:min(760px,60vw)}
+.tasks-robot{position:absolute;left:0;top:clamp(-70px,-4vw,-20px);z-index:3;
+  width:clamp(340px,44vw,700px);transform:translateX(-26%) rotate(10deg);transform-origin:50% 55%;
+  pointer-events:none;user-select:none}
+.tape{position:relative;z-index:1;display:flex;gap:12px;width:max-content;animation:run 44s linear infinite}
+.tasks:hover .tape{animation-play-state:paused}
+.task{flex:none;width:300px;border-radius:var(--r-s);padding:24px;min-height:230px;
+  display:flex;flex-direction:column;justify-content:space-between;color:#06110B}
+.task:nth-child(4n+1){background:var(--green)}
+.task:nth-child(4n+2){background:var(--mint)}
+.task:nth-child(4n+3){background:var(--sky)}
+.task:nth-child(4n+4){background:var(--pink)}
+.task .k{font-size:12px;letter-spacing:.12em;text-transform:uppercase;opacity:.5}
+.task h4{margin:0;font-size:26px;letter-spacing:-.035em;font-weight:500;line-height:1}
+.task p{margin:10px 0 0;font-size:14.5px;line-height:1.32;opacity:.68}
+
+/* ---------- поддержка города: аккордеон-плитки ---------- */
+.support{padding:0 var(--gut) clamp(50px,7vw,110px)}
+.sup-head{max-width:820px;margin-bottom:34px}
+.sup-list{border-top:1px solid var(--w-16)}
+.sup-item{border-bottom:1px solid var(--w-16)}
+.sup-item summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:20px;
+  padding:26px 4px;font-size:clamp(20px,2.4vw,36px);letter-spacing:-.03em;font-weight:500;transition:.25s}
+.sup-item summary::-webkit-details-marker{display:none}
+.sup-item summary:hover{color:var(--green);padding-left:14px}
+.sup-item .plus{margin-left:auto;width:40px;height:40px;border-radius:999px;border:1px solid var(--w-16);
+  display:grid;place-items:center;font-size:20px;flex:none;transition:.25s}
+.sup-item[open] .plus{background:var(--green);color:#06110B;border-color:var(--green);transform:rotate(45deg)}
+.sup-item p{margin:0 0 26px;max-width:62ch;color:var(--w-70);font-size:17px;line-height:1.4}
+
+/* ---------- «рокет-пасс» → полоса контакта ---------- */
+.band{padding:0 var(--gut) clamp(50px,7vw,110px)}
+.band-box{border-radius:var(--r);background:var(--green);color:#06110B;padding:clamp(30px,4.4vw,72px);
+  display:grid;grid-template-columns:1.2fr .8fr;gap:34px;align-items:end;position:relative;overflow:hidden}
+.band-box .h1{max-width:14ch}
+.band-list{display:flex;flex-direction:column;gap:12px}
+.band-list a{display:flex;align-items:center;justify-content:space-between;gap:16px;
+  background:#06110B;color:#fff;border-radius:999px;padding:15px 24px;font-size:16px;transition:.28s}
+.band-list a:hover{transform:translateX(6px)}
+.wave{display:flex;gap:5px;align-items:flex-end;height:34px;margin-bottom:16px}
+.wave i{width:5px;background:#06110B;border-radius:3px;animation:w 1.1s ease-in-out infinite;opacity:.8}
+@keyframes w{0%,100%{height:8px}50%{height:32px}}
+
+/* ---------- FAQ ---------- */
+.faq{padding:0 var(--gut) clamp(60px,8vw,120px)}
+.faq h2{margin-bottom:34px}
+
+/* ---------- футер ---------- */
+.footer{background:var(--ink);border-radius:var(--r) var(--r) 0 0;padding:clamp(40px,5vw,80px) var(--gut) 130px;margin-top:20px}
+.f-grid{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:34px;padding-bottom:56px;border-bottom:1px solid var(--w-16)}
+.f-col h5{margin:0 0 16px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--w-45);font-weight:400}
+.f-col a{display:block;padding:5px 0;color:var(--w-70);font-size:16px;transition:.2s}
+.f-col a:hover{color:var(--green)}
+.f-col a.f-mail{font-size:clamp(22px,3.4vw,52px);letter-spacing:-.04em;display:inline-block;margin-top:8px;transition:.25s}
+.f-mail:hover{color:var(--green)}
+.f-bottom{display:flex;gap:24px;justify-content:space-between;align-items:flex-end;padding-top:34px;flex-wrap:wrap}
+.f-slogan{font-size:clamp(26px,4.6vw,74px);letter-spacing:-.045em;line-height:.92;max-width:16ch}
+.oiv{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.oiv img{height:46px;width:auto;opacity:.8;filter:grayscale(1) brightness(2)}
+.f-legal{color:var(--w-45);font-size:13px;max-width:52ch;line-height:1.45}
+
+/* ---------- нижний «остров» ---------- */
+.island{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:55;
+  display:flex;gap:4px;align-items:center;background:rgba(16,16,16,.82);border:1px solid var(--w-16);
+  border-radius:999px;padding:6px;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  transition:.4s cubic-bezier(.2,.7,.3,1);max-width:calc(100% - 24px)}
+.island a{padding:11px 18px;border-radius:999px;font-size:14.5px;color:var(--w-70);white-space:nowrap;transition:.22s}
+.island a:hover{color:#06110B;background:var(--green)}
+.island .btn-green{padding:11px 20px;font-size:14.5px}
+.island.hide{transform:translateX(-50%) translateY(140%)}
+
+/* ---------- куки ---------- */
+.cookies{position:fixed;left:var(--gut);bottom:18px;z-index:56;background:var(--ink);border:1px solid var(--w-16);
+  border-radius:999px;height:66px;display:flex;align-items:center;gap:16px;padding:0 12px 0 24px;font-size:14px;
+  max-width:340px;transition:.4s}
+.cookies.gone{opacity:0;pointer-events:none;transform:translateY(140%)}
+.cookies button{width:42px;height:42px;border-radius:999px;background:var(--green);color:#06110B;flex:none;font-size:18px}
+
+/* ---------- появление при скролле ---------- */
+.rev{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .7s cubic-bezier(.2,.7,.3,1)}
+.rev.in{opacity:1;transform:none}
+
+/* ---------- адаптив ---------- */
+@media(max-width:1024px){
+  .about{grid-template-columns:1fr;gap:44px}
+  .pockets{grid-template-columns:1fr}
+  .test-box{grid-template-columns:1fr}
+  .test-r{min-height:300px}
+  .band-box{grid-template-columns:1fr}
+  .f-grid{grid-template-columns:1fr 1fr}
+  .nav{display:none}
+  .burger{display:flex}
+  .header .btn-green{display:none}
+}
+@media(max-width:640px){
+  :root{--r:26px;--r-s:20px}
+  .cookies{bottom:86px;height:58px;font-size:13px}
+  .f-grid{grid-template-columns:1fr}
+  .logo-div,.gov{display:none}
+  /* на узкой карточке кадр съедает место у текста — прячем */
+  .sc-photo{display:none}
+  .tasks-head{margin-left:0;max-width:none;padding:0 var(--gut)}
+  .tasks-robot{display:none}
+  .dlg-row{flex-direction:column;gap:8px}
+  .dlg-row img{width:100%;aspect-ratio:16/9}
+  .dlg-row b{width:auto}
+  .island a{display:none}
+  .island a.keep{display:block}
+  .cookies{max-width:calc(100% - 2*var(--gut))}
+  .hero-box{min-height:74vh}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ бегущая строка ============ -->
+<div class="marquee">
+  <div class="marquee-track" id="mq"></div>
+</div>
+
+<!-- ============ шапка ============ -->
+<header class="header">
+  <div class="header-in">
+    <a href="#top" class="logo"><img class="logo-img" src="images/roboportal-mark.png" alt="" width="36" height="36">робопортал москвы</a>
+    <span class="logo-div" aria-hidden="true"></span>
+    <span class="gov">
+      <img src="images/gerb-moskvy.png" alt="Герб Москвы" loading="lazy">
+      <span>правительство<br>москвы</span>
+    </span>
+    <nav class="nav">
+      <a href="#top">главная</a>
+      <a href="#catalog">роботы</a>
+      <a href="#support">финансирование</a>
+      <a href="#testing">испытания</a>
+      <a href="#tasks">аналитика</a>
+    </nav>
+    <button class="burger" aria-label="меню">☰</button>
+  </div>
+</header>
+
+<!-- ============ герой ============ -->
+<section class="hero" id="top">
+  <div class="hero-box">
+    <div class="hero-media">
+      <video src="hf_20260818_194413_95e32f8a-3319-4738-a7d3-7f0406999b07.mp4" autoplay muted loop playsinline preload="auto"></video>
+    </div>
+    <div class="hero-slug">
+      <h1 class="h-display">будущее<br>роботов<br>начинается здесь</h1>
+      <div class="hero-bottom">
+        <p class="lead">объединяем разработку, испытания и внедрение<br>робототехнических решений в одной экосистеме</p>
+        <div class="hero-cta is-corner">
+          <a href="#catalog" class="btn btn-green btn-lg">смотреть каталог</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ путь робота: стопка ============ -->
+<section class="about rev" id="path">
+  <div class="about-text">
+    <h2 class="h1">один маршрут<br>для всей отрасли</h2>
+    <p class="lead">все возможности для развития робототехнических решений и подбора готовых технологий собраны в одной экосистеме</p>
+    <a class="rate" href="#" id="rateLink">все четыре шага →</a>
+  </div>
+  <div class="stack-runway">
+    <div class="stack" id="stackBtn" role="button" tabindex="0" aria-label="открыть путь робота">
+      <article class="stack-card sc-0 has-photo" data-pos="0">
+        <div class="sc-copy">
+          <div class="sc-num">шаг 01</div>
+          <div class="sc-t">создавайте</div>
+          <p class="sc-d">инженерная поддержка, площадки и оборудование для прототипов и мелких серий</p>
+        </div>
+        <img class="sc-photo" src="images/step-create.jpg" alt="" loading="lazy">
+      </article>
+      <article class="stack-card sc-1" data-pos="1">
+        <div class="sc-num">шаг 02</div>
+        <div class="sc-t">проверяйте</div>
+        <p class="sc-d">лаборатория и стенды, где решение проходит проверку в условиях реальной эксплуатации</p>
+      </article>
+      <article class="stack-card sc-2" data-pos="2">
+        <div class="sc-num">шаг 03</div>
+        <div class="sc-t">пилотируйте</div>
+        <p class="sc-d">запуск на настоящей задаче заказчика с оценкой эффекта и потенциала внедрения</p>
+      </article>
+      <article class="stack-card sc-3" data-pos="3">
+        <div class="sc-num">шаг 04</div>
+        <div class="sc-t">внедряйте</div>
+        <p class="sc-d">сопровождение поставки и вывод решения в постоянную работу бизнеса и города</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<dialog id="pathDlg">
+  <div class="dlg">
+    <div class="dlg-row"><img src="images/path-01.jpg" alt="" loading="lazy"><b>01 создавайте</b><p>инженерная поддержка, площадки и оборудование для прототипов и мелких серий</p></div>
+    <div class="dlg-row"><img src="images/path-02.jpg" alt="" loading="lazy"><b>02 проверяйте</b><p>лаборатория и стенды, где решение проходит проверку в условиях реальной эксплуатации</p></div>
+    <div class="dlg-row"><img src="images/path-03.jpg" alt="" loading="lazy"><b>03 пилотируйте</b><p>запуск на настоящей задаче заказчика с оценкой эффекта и потенциала внедрения</p></div>
+    <div class="dlg-row"><img src="images/path-04.jpg" alt="" loading="lazy"><b>04 внедряйте</b><p>сопровождение поставки и вывод решения в постоянную работу бизнеса и города</p></div>
+    <button class="dlg-close" id="dlgClose">закрыть ✕</button>
+  </div>
+</dialog>
+
+<!-- ============ две роли ============ -->
+<section class="roles rev">
+  <div class="roles-slug">
+    <h2 class="h1">город соединяет производителей роботов с реальными задачами</h2>
+  </div>
+  <div class="pockets">
+    <div class="pocket pocket-1">
+      <div>
+        <h3 class="h2">развивайте, испытывайте и выводите решения к заказчикам</h3>
+        <p>получите ресурсы для разработки робота, развития производства и подготовки первой поставки — от прототипа до реального применения</p>
+      </div>
+      <a href="#band" class="btn">предложить своего робота →</a>
+      <div class="pocket-glyph">01</div>
+    </div>
+    <div class="pocket pocket-2">
+      <div>
+        <h3 class="h2">выбирайте лучших роботов для своих задач</h3>
+        <p>начните с задачи предприятия, найдите подходящее решение и используйте поддержку города для покупки, интеграции и обслуживания</p>
+      </div>
+      <a href="#catalog" class="btn">подобрать робота →</a>
+      <div class="pocket-glyph">02</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ каталог ============ -->
+<section class="catalog rev" id="catalog">
+  <div class="cat-head">
+    <h2 class="h1">найдите робота<br>для своей задачи</h2>
+    <p class="lead" style="max-width:34ch">17 решений в каталоге — промышленные, сервисные и транспортные</p>
+  </div>
+  <ul class="robot-list" id="robotList"></ul>
+  <div class="cat-actions"><a href="#band" class="btn btn-green btn-lg">перейти в каталог →</a></div>
+</section>
+
+<!-- ============ испытания ============ -->
+<section class="testing rev" id="testing">
+  <div class="test-box">
+    <div class="test-l">
+      <div>
+        <h2 class="h2" style="margin:0 0 16px">для любых сценариев</h2>
+        <p class="lead">площадки в иц «сколково» и индустриальном парке «руднево»: от городской среды до испытаний в воздухе и на воде</p>
+      </div>
+      <div class="env">
+        <div class="env-i"><span class="n">01</span><span class="t">городская инфраструктура</span><span class="s">дороги, тротуары и сложный рельеф</span></div>
+        <div class="env-i"><span class="n">02</span><span class="t">вода</span><span class="s">надводные и подводные системы</span></div>
+        <div class="env-i"><span class="n">03</span><span class="t">воздух</span><span class="s">беспилотные аппараты и навигация</span></div>
+        <div class="env-i"><span class="n">04</span><span class="t">в помещениях</span><span class="s">склады, офисы и торговые объекты</span></div>
+      </div>
+      <a href="#band" class="btn btn-green" style="align-self:flex-start">подать заявку на испытания ↗</a>
+    </div>
+    <div class="test-r">
+      <img src="https://robot-mos.ru/media/hm-testlab.jpg" alt="" loading="lazy" onerror="this.remove()">
+    </div>
+  </div>
+</section>
+
+<!-- ============ задачи предприятия ============ -->
+<section class="tasks rev" id="tasks">
+  <img class="tasks-robot" src="images/robot-courier.png" alt="" loading="lazy">
+  <div class="tasks-head">
+    <h2 class="h1">начните с задачи предприятия,<br>а не с каталога</h2>
+    <p class="lead" style="margin-top:18px">выберите участок — покажем, как задача решается сейчас и что даёт робот</p>
+  </div>
+  <div class="tape" id="tape"></div>
+</section>
+
+<!-- ============ поддержка города ============ -->
+<section class="support rev" id="support">
+  <div class="sup-head">
+    <h2 class="h1">город помогает деньгами и временем</h2>
+    <p class="lead" style="margin-top:18px">можно начать с одного инструмента и подключать остальные по мере развития проекта</p>
+  </div>
+  <div class="sup-list">
+    <details class="sup-item"><summary>приобрести решение<span class="plus">+</span></summary>
+      <p>поддержка покупки робототехнического решения для предприятия.</p></details>
+    <details class="sup-item"><summary>провести интеграцию<span class="plus">+</span></summary>
+      <p>поддержка адаптации робота к действующим процессам предприятия.</p></details>
+    <details class="sup-item"><summary>компенсировать затраты<span class="plus">+</span></summary>
+      <p>возмещение части расходов на внедрение и запуск решения.</p></details>
+    <details class="sup-item"><summary>использовать робота как услугу<span class="plus">+</span></summary>
+      <p>сервисная модель без единовременной покупки оборудования.</p></details>
+  </div>
+</section>
+
+<!-- ============ полоса контакта ============ -->
+<section class="band rev" id="band">
+  <div class="band-box">
+    <div>
+      <div class="wave"><i></i><i style="animation-delay:.1s"></i><i style="animation-delay:.2s"></i><i style="animation-delay:.3s"></i><i style="animation-delay:.15s"></i><i style="animation-delay:.25s"></i></div>
+      <h2 class="h1">не знаете, какой робот нужен?</h2>
+      <p style="margin-top:16px;font-size:clamp(16px,1.3vw,20px);opacity:.7;max-width:38ch">опишите задачу — поможем подобрать решение и формат пилота.</p>
+    </div>
+    <div class="band-list">
+      <a href="mailto:roboty@cluster.mos.ru" class="nolow">roboty@cluster.mos.ru <span>→</span></a>
+      <a href="tel:+74958704555" class="nolow">+7 (495) 870-45-55 <span>→</span></a>
+      <a href="#catalog">перейти в каталог <span>→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="faq rev" id="faq">
+  <h2 class="h1">остались вопросы?</h2>
+  <div class="sup-list">
+    <details class="sup-item"><summary>что такое робопортал москвы?<span class="plus">+</span></summary>
+      <p>это городская экосистема робототехники: одна точка входа, где производители развивают и испытывают решения, а предприятия находят готовые технологии и получают поддержку на внедрение. сейчас портал работает как концептуальный прототип с демонстрационными данными.</p></details>
+    <details class="sup-item"><summary>кто может подать заявку на испытания?<span class="plus">+</span></summary>
+      <p>разработчики и производители робототехники, у которых есть работающий прототип или серийное решение. подберём площадку, оборудование и формат испытаний — от стендов до реальной городской среды.</p></details>
+    <details class="sup-item"><summary>как проходит пилот на объекте?<span class="plus">+</span></summary>
+      <p>четыре шага: подбор задачи и площадки с метриками, запуск робота на объекте, сбор результатов по эффективности и нагрузке, решение о полноценном внедрении или доработке.</p></details>
+    <details class="sup-item"><summary>что даёт реестр и зачем в него входить?<span class="plus">+</span></summary>
+      <p>реестр — это подтверждение того, что решение проверено и готово к внедрению. заказчики фильтруют каталог по нему, а меры поддержки города доступны в первую очередь решениям из реестра.</p></details>
+    <details class="sup-item"><summary>сколько стоит участие?<span class="plus">+</span></summary>
+      <p>размещение в каталоге, подбор площадки и сопровождение заявки — бесплатны. платными могут быть отдельные испытания и услуги партнёров: стоимость всегда согласуется заранее.</p></details>
+    <details class="sup-item"><summary>как связаться?<span class="plus">+</span></summary>
+      <p>напишите на <a href="mailto:roboty@cluster.mos.ru" style="color:var(--green)" class="nolow">roboty@cluster.mos.ru</a> или позвоните <span class="nolow">+7 (495) 870-45-55</span>. расскажите про задачу или решение — ответим и предложим следующий шаг.</p></details>
+  </div>
+</section>
+
+<!-- ============ футер ============ -->
+<footer class="footer">
+  <div class="f-grid">
+    <div class="f-col">
+      <h5>написать</h5>
+      <a href="mailto:roboty@cluster.mos.ru" class="f-mail nolow">roboty@cluster.mos.ru</a>
+    </div>
+    <div class="f-col"><h5>разделы</h5>
+      <a href="#catalog">каталог</a><a href="#path">путь робота</a><a href="#tasks">сценарии</a><a href="#faq">вопросы</a></div>
+    <div class="f-col"><h5>производителям</h5>
+      <a href="#testing">испытать</a><a href="#path">пилотировать</a><a href="#support">поддержка</a></div>
+    <div class="f-col"><h5>заказчикам</h5>
+      <a href="#catalog">внедрить</a><a href="#tasks">сценарии</a><a href="#band">сопровождение</a></div>
+  </div>
+  <div class="f-bottom">
+    <div class="f-slogan">городская экосистема развития робототехники</div>
+    <div class="f-legal">робопортал москвы · разработка, испытания, пилоты и внедрение · концептуальный прототип, данные демонстрационные · © 2026</div>
+  </div>
+</footer>
+
+
+
+<script>
+/* ---- бегущая строка: дублируем контент для бесшовности ---- */
+(function(){
+  /* короткие имена ведомств — по названиям файлов логотипов;
+     полные («департамент транспорта и развития дорожно-транспортной
+     инфраструктуры города москвы») в бегущую строку не влезают */
+  var items=[
+    {img:'images/partners/deptrans-mark.png',    t:'дептранс'},
+    {img:'images/partners/mosprom-mark.png',     t:'моспром'},
+    {img:'images/partners/glavkontrol-mark.png', t:'главконтроль'}
+  ];
+  /* дорожка едет на -50%, поэтому содержимое дублируем ровно вдвое.
+     Ведомств осталось три, и половина дорожки должна быть шире экрана,
+     иначе в цикле проступит пустота — берём шесть повторов (~2600px) */
+  var half=items.concat(items,items,items,items,items).map(function(x){
+    return '<span><img src="'+x.img+'" alt="">'+x.t+'</span>';
+  }).join('');
+  document.getElementById('mq').innerHTML=half+half;
+})();
+
+/* ---- каталог ---- */
+var ROBOTS=[
+ {cat:'логистика',name:'Ronavi H1500',d:'складской робот',s:['1500 кг','1,5 м/с','12 ч'],img:'images/ronavi-h1500.png'},
+ {cat:'промышленность',name:'Ronavi × Seer CBD16',d:'вилочный робот-погрузчик',s:['1600 кг','1,8 м/с','10 ч'],img:'images/ronavi-cbd16.png'},
+ {cat:'логистика',name:'AMR1500',d:'транспортировка грузов на складах и в цехах',s:['до 1500 кг','до 1,5 м/с','до 22 ч'],img:'images/amr1500.png'},
+ {cat:'обслуживающие',name:'Пиксель',d:'уборка парков и тротуаров круглый год, без водителя',s:['270 кг','10 км/ч','16 ч в сутки'],img:'images/pixel.png'},
+ {cat:'обслуживающие',name:'MARK 2 SE',d:'робот-уборщик',s:['2000 м²/ч','60 л','6 ч'],img:'images/mark2se.png'},
+ {cat:'биоморфные',name:'Inchbot L1/L1 Edu',d:'робот-собака',s:['15 кг','1,6 м/с','2,5 ч'],img:'images/inchbot-l1.png'},
+ {cat:'биоморфные',name:'Unitree H2',d:'полноразмерный гуманоидный робот высотой 180 см',s:['31 степень свободы','нагрузка 15 кг','3 часа'],img:'images/unitree-h2.png'},
+ {cat:'промышленность',name:'Birbi S-1 PRO',d:'scara-робот для быстрых и точных операций с небольшими деталями',s:['4–5 осей','до 10 кг','вылет 700 мм'],img:'images/birbi-s1pro.png'},
+ {cat:'промышленность',name:'Birbi D-1',d:'высокоскоростной дельта-робот для работы с лёгкими изделиями',s:['3 оси','до 0,5 кг','радиус 260 мм'],img:'images/birbi-d1.png'},
+ {cat:'промышленность',name:'DOKA RC30',d:'коллаборативный робот для операций, где обычным коботам не хватает грузоподъёмности',s:['6 осей','до 30 кг','радиус 1300 мм'],img:'images/doka-rc30.png'},
+ {cat:'промышленность',name:'Promobot M13',d:'коллаборативный робот для автоматизации ручных производственных операций',s:['6 осей','до 13 кг','повторяемость 0,05 мм'],img:'images/promobot-m13.png'},
+ {cat:'промышленность',name:'A12-1450',d:'коллаборативный робот для сварки, сборки и перемещения изделий',s:['6 осей','до 12 кг','повторяемость 0,05 мм'],img:'images/a12-1450.png'},
+ {cat:'промышленность',name:'ARM-IMR-95',d:'коллаборативный робот для сборки, лабораторных и исследовательских задач',s:['6 осей','5 кг','радиус 950 мм'],img:'images/arm-imr-95.png'},
+ {cat:'промышленность',name:'«Берилл» РП25.22ШС',d:'коллаборативный робот для сварки и перемещения деталей',s:['6 осей','до 25 кг','радиус 2200 мм'],img:'images/berill-rp25.png'},
+ {cat:'транспортные',name:'Navio L5',d:'тягач для беспилотной магистральной перевозки грузов',s:['83 км/ч','до 23 часов','лидары, камеры, радары'],img:'images/navio-l5.png'},
+ {cat:'транспортные',name:'Evocargo N1',d:'беспилотный грузовик для закрытых территорий — заводов и складов',s:['запас хода 200 км','до 25 км/ч','лидары, камеры, радары'],img:'images/evocargo-n1.png'},
+ {cat:'транспортные',name:'Роботакси',d:'легковой автомобиль',s:['11 лидаров','18 камер','до 3 пассажиров'],img:'images/robotaxi.png'}
+];
+/* на главной — пять моделей из разных категорий: логистика, промышленность,
+   обслуживающие, биоморфные и транспорт. Все семнадцать — в каталоге */
+var HOME=['Ronavi H1500','Ronavi × Seer CBD16','MARK 2 SE','Inchbot L1/L1 Edu','Роботакси'];
+var SHOWN=HOME.map(function(n){
+  return ROBOTS.filter(function(r){return r.name===n})[0];
+}).filter(Boolean);
+document.getElementById('robotList').innerHTML=SHOWN.map(function(r){
+ /* в строке только категория и описание; имя модели остаётся в alt
+    миниатюры — её читает скринридер и показывает превью за курсором */
+ return '<li><a class="robot-row" href="#band">'+
+ '<span class="row-cat">'+r.cat+
+ '<img class="row-thumb" src="'+r.img+'" alt="'+r.name+'" loading="lazy"></span>'+
+ '<span class="row-main"><span class="robot-name">'+r.d+'</span></span>'+
+ '</a></li>';
+}).join('');
+
+
+/* ---- каталог: превью модели следует за курсором ----
+   Портировано из index.html. Без скрипта в строках остаются миниатюры,
+   класс .has-preview прячет их только после удачной сборки. */
+(function(){
+ var list=document.querySelector('.robot-list');
+ if(!list) return;
+ if(window.matchMedia && matchMedia('(hover: none), (pointer: coarse)').matches) return;
+ var rows=Array.prototype.slice.call(list.querySelectorAll('.robot-row'));
+ if(!rows.length) return;
+ var calm=window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+ var preview=document.createElement('div');
+ preview.className='robot-preview'; preview.setAttribute('aria-hidden','true');
+ var shotsBox=document.createElement('div'); shotsBox.className='rp-shots';
+ var caption=document.createElement('div'); caption.className='rp-name';
+ var names=[];
+ var shots=rows.map(function(row){
+  var src=row.querySelector('.row-thumb');
+  var img=document.createElement('img');
+  img.src=src?src.getAttribute('src'):''; img.alt='';
+  names.push(src?src.getAttribute('alt'):'');
+  shotsBox.appendChild(img); return img;
+ });
+ preview.appendChild(shotsBox); preview.appendChild(caption);
+ document.body.appendChild(preview);
+ list.classList.add('has-preview');
+ var W=0,H=0,tx=0,ty=0,px=0,py=0,raf=0,stopId=0,shown=false;
+ function paint(){
+  preview.style.transform='translate3d('+Math.round(px)+'px,'+Math.round(py)+'px,0)'+
+   (calm?'':' rotate(-4deg)')+' scale('+(shown?1:0.86)+')';
+ }
+ function tick(){ raf=requestAnimationFrame(tick); px+=(tx-px)*0.14; py+=(ty-py)*0.14; paint(); }
+ function start(){ if(!raf) raf=requestAnimationFrame(tick); }
+ function stop(){ if(raf){ cancelAnimationFrame(raf); raf=0; } }
+ function measure(){ var r=preview.getBoundingClientRect(); W=r.width; H=r.height; }
+ function show(i,anchorRow){
+  clearTimeout(stopId);
+  shots.forEach(function(img,n){ img.classList.toggle('is-on', n===i); });
+  caption.textContent=names[i]||'';
+  if(!shown){ shown=true; measure(); preview.style.willChange='transform'; preview.style.opacity='1'; }
+  if(anchorRow){
+   var rr=anchorRow.getBoundingClientRect();
+   tx=rr.right-W-24; ty=rr.top+rr.height/2-H/2; px=tx; py=ty; paint();
+  }
+  if(!calm||anchorRow) start();
+ }
+ function hide(){
+  shown=false; preview.style.opacity='0';
+  shots.forEach(function(img){ img.classList.remove('is-on'); });
+  clearTimeout(stopId);
+  stopId=setTimeout(function(){ stop(); preview.style.willChange=''; },300);
+ }
+ window.addEventListener('mousemove',function(e){
+  if(calm) return; tx=e.clientX+26; ty=e.clientY-H/2;
+ },{passive:true});
+ list.addEventListener('mouseover',function(e){
+  var row=e.target.closest?e.target.closest('.robot-row'):null;
+  if(!row||!list.contains(row)) return;
+  var i=rows.indexOf(row); if(i<0) return;
+  if(calm){ show(i,row); } else { if(!shown){ measure(); px=tx; py=ty; } show(i); }
+ });
+ list.addEventListener('mouseout',function(e){
+  var to=e.relatedTarget; if(to&&list.contains(to)) return; hide();
+ });
+ list.addEventListener('focusin',function(e){
+  var row=e.target.closest?e.target.closest('.robot-row'):null;
+  if(!row) return; var i=rows.indexOf(row); if(i>=0) show(i,row);
+ });
+ list.addEventListener('focusout',function(e){
+  var to=e.relatedTarget; if(to&&list.contains(to)) return; hide();
+ });
+ if('IntersectionObserver' in window){
+  new IntersectionObserver(function(en){
+   en.forEach(function(e){ if(!e.isIntersecting){ hide(); stop(); } });
+  },{rootMargin:'80px'}).observe(list);
+ }
+})();
+
+/* ---- задачи: лента ---- */
+var TASKS=[
+ {t:'перемещать грузы',d:'транспортировка материалов и готовой продукции внутри предприятия'},
+ {t:'автоматизировать операцию',d:'точность и стабильность операций на линии'},
+ {t:'обслуживать помещения',d:'уборка и сервисные задачи для комфортной среды'},
+ {t:'контролировать объект',d:'обходы, сбор данных и выявление отклонений'}
+];
+var cards=TASKS.concat(TASKS,TASKS).map(function(x){
+ return '<article class="task"><div><h4>'+x.t+'</h4><p>'+x.d+'</p></div></article>';
+}).join('');
+document.getElementById('tape').innerHTML=cards+cards;
+
+/* ---- колода шагов: карточки сменяются по мере прокрутки ----
+   Пока дорожка .stack-runway идёт мимо экрана, стопка приколота, а верхняя
+   карточка уходит вверх и убирается назад. Позицию каждой пишем в data-pos,
+   всё движение — css-переходы, без анимации из скрипта. */
+(function(){
+  var runway=document.querySelector('.stack-runway');
+  var stack=document.getElementById('stackBtn');
+  if(!runway||!stack) return;
+  var cards=Array.prototype.slice.call(stack.querySelectorAll('.stack-card'));
+  if(!cards.length) return;
+  var n=cards.length, active=0, ticking=false;
+
+  function apply(k){
+    if(k===active) return;
+    active=k;
+    cards.forEach(function(c,i){
+      var pos=Math.max(-1, Math.min(3, i-k));
+      c.setAttribute('data-pos', String(pos));
+    });
+  }
+  function measure(){
+    var r=runway.getBoundingClientRect();
+    var total=r.height-window.innerHeight;
+    var p=total>0 ? (-r.top)/total : 0;
+    if(p<0) p=0; if(p>1) p=1;
+    apply(Math.min(n-1, Math.floor(p*n)));
+    ticking=false;
+  }
+  function onScroll(){
+    if(ticking) return;
+    ticking=true;
+    requestAnimationFrame(measure);
+  }
+  addEventListener('scroll', onScroll, {passive:true});
+  addEventListener('resize', onScroll);
+  measure();
+})();
+
+/* ---- диалог «путь робота» ---- */
+var dlg=document.getElementById('pathDlg'),sb=document.getElementById('stackBtn');
+function openDlg(){ if(dlg.showModal) dlg.showModal(); }
+sb.addEventListener('click',openDlg);
+document.getElementById('rateLink').addEventListener('click',function(e){e.preventDefault();openDlg();});
+sb.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){e.preventDefault();openDlg();} });
+document.getElementById('dlgClose').addEventListener('click',function(){dlg.close()});
+dlg.addEventListener('click',function(e){ if(e.target===dlg) dlg.close(); });
+
+/* ---- появление при скролле ---- */
+var io=new IntersectionObserver(function(en){
+ en.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+},{threshold:.12});
+document.querySelectorAll('.rev').forEach(function(el){io.observe(el)});
+
+
+</script>
+</body>
+</html>

@@ -26,6 +26,14 @@
         /* акцент один на весь сайт — тот же зелёный, что у кнопок */
         --lime: #42e383;
         --mint: #7de8c4;
+        /* одна зелёная гамма с разбросом светлоты: колонки #route читаются
+           как последовательность, а не как четыре разных акцента */
+        --route-1: #42e383;
+        --route-2: #6fe9a2;
+        --route-3: #9cefc0;
+        --route-4: #c8f5de;
+        /* глубина среза правого верхнего угла у кнопок */
+        --btn-cut: 14px;
         --line: rgba(255, 255, 255, 0.16);
         --muted: rgba(255, 255, 255, 0.62);
 
@@ -88,9 +96,7 @@
         overflow: hidden;
         background: var(--canvas);
         contain: strict;
-        display: none;
-      }
-      body[data-route="home"] .mesh {
+        /* общий фон для всех роутов */
         display: block;
       }
       .mesh i {
@@ -305,14 +311,6 @@
         background: rgba(7, 18, 16, 0.55);
         border: 1px solid var(--hair);
       }
-      /* шапка без подложки пропадает, когда под неё проедет светлое пятно */
-      body[data-route="home"] .topbar {
-        background: rgba(7, 18, 16, 0.55);
-        backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
-        border-bottom: 1px solid var(--hair);
-      }
-
       .grain {
         position: fixed;
         inset: 0;
@@ -332,10 +330,22 @@
         justify-content: space-between;
         /* тот же гаттер, что у hero: левый край лого = левый край H1 */
         padding: 0 var(--hq-gutter);
-        /* шапка прозрачная на всей странице */
-        border-bottom: 0;
-        background: transparent;
+        /* Тёмная стеклянная подложка на всех роутах. Без неё шапка
+           пропадает и на главной (под ней проезжают светлые пятна меша),
+           и на внутренних страницах, где фон светлый --paper,
+           а текст шапки белый. */
+        border-bottom: 1px solid var(--hair);
+        background: rgba(7, 18, 16, 0.55);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+      }
+      /* На внутренних роутах фон страницы светлый (--paper), и та же
+         полупрозрачная подложка даёт серый. Делаем её непрозрачной —
+         шапка выглядит так же, как на главной. */
+      body[data-route]:not([data-route="home"]) .topbar {
+        background: #07120f;
         backdrop-filter: none;
+        -webkit-backdrop-filter: none;
       }
       .brand {
         display: flex;
@@ -2908,9 +2918,9 @@
         top: 0;
         width: clamp(220px, 26vw, 420px);
         aspect-ratio: 4 / 3;
-        border-radius: 20px;
-        overflow: hidden;
-        box-shadow: 0 30px 70px rgba(0, 0, 0, 0.45);
+        /* ни тени, ни скругления, ни обрезки: в превью виден только робот.
+           box-shadow рисуется по прямоугольнику блока, а не по силуэту,
+           и на прозрачном PNG читался как карточка вокруг картинки. */
         pointer-events: none;
         opacity: 0;
         /* ТОЛЬКО opacity: позицию пишет rAF каждый кадр, и переход на
@@ -2922,7 +2932,8 @@
         inset: 0;
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        /* contain вместо cover: робот виден целиком и не обрезается рамкой */
+        object-fit: contain;
         opacity: 0;
         transition: opacity 0.4s ease;
       }
@@ -4772,6 +4783,1173 @@
       body[data-route="home"] .site-footer {
         background: transparent;
       }
+
+      /* ================= Внутренние роуты на общем фоне =================
+         Подстраницы были светлыми (--paper) и с тёмным текстом. Меш теперь
+         общий для всего сайта, поэтому секции становятся прозрачными,
+         карточки — тёмным стеклом, текст — светлым. Разметку не трогаем. */
+      /* .mesh — fixed с z-index:0, а позиционированные элементы рисуются
+         поверх непозиционированных. Без своего слоя контент подстраниц
+         уходил ПОД меш: у карточек пропадали фон, рамка и текст, и они
+         проявлялись только на hover, где transform поднимал их наверх. */
+      .subpage {
+        position: relative;
+        z-index: 1;
+        background: transparent;
+        color: var(--tx);
+      }
+      .sub-hero,
+      .content-section.soft,
+      .contact-band,
+      .catalog {
+        background: transparent;
+      }
+      /* панели и карточки: единое тёмное стекло вместо белых плашек */
+      .value-card,
+      .step,
+      .task-tile,
+      .task-card,
+      .support-item,
+      .market-card,
+      .report-item,
+      .news-card,
+      .rm-spec,
+      .rm-dialog {
+        background: rgba(7, 18, 16, 0.42);
+        border: 1px solid var(--hair);
+        color: var(--tx);
+      }
+      .market-card:hover,
+      .report-item:hover {
+        background: rgba(7, 18, 16, 0.6);
+        border-color: rgba(234, 244, 238, 0.2);
+        color: var(--tx);
+      }
+      /* второстепенный текст: был тёмный по светлому */
+      .catalog-head p,
+      .section-top p,
+      .step p,
+      .step span,
+      .task-tile span,
+      .task-card p,
+      .support-body,
+      .rm-desc,
+      .rm-sub,
+      .rm-spec span:first-child,
+      .rm-spec.plain span,
+      .market-card p,
+      .report-desc,
+      .report-date,
+      .news-date,
+      .news-card p,
+      .news-credit {
+        color: var(--tx-2);
+      }
+      /* у .value-card были цветные пастельные варианты по nth-child —
+         на тёмном фоне они выбиваются, приводим к общему стеклу */
+      .value-card:nth-child(2),
+      .value-card:nth-child(3),
+      .value-card:nth-child(4) {
+        background: rgba(7, 18, 16, 0.42);
+      }
+      /* --green-dark (#0e5d3b) рассчитан на светлый фон: на тёмном он
+         почти не читается. Акцентный текст переводим на основной --green. */
+      .value-no,
+      .step strong,
+      .task-card small,
+      .plus,
+      .market-card .more,
+      .rm-vendor,
+      .vendor,
+      .report-icon,
+      .report-source,
+      .news-link,
+      .catalog .eyebrow {
+        color: var(--green);
+      }
+      /* .market-card — flex-колонка, а .market-visual внутри задан через
+         aspect-ratio без явной высоты. В таком сочетании Safari растягивает
+         картинку на всю карточку, и заголовок с описанием уезжают за её
+         пределы. Фиксируем: блок с фото не тянется и не сжимается. */
+      .market-visual {
+        flex: 0 0 auto;
+        width: 100%;
+      }
+      .market-card > h3,
+      .market-card > .vendor,
+      .market-card > p,
+      .market-card > .market-meta {
+        flex: none;
+      }
+
+      /* ================= Раздел «Разработка» =================
+         Компоновка по образцу: панель первого экрана с заголовком слева
+         и карточкой справа, ниже — ряды плиток. Текст не менялся. */
+      main[data-route="producer"] .prod-hero {
+        display: block;
+        padding: 96px 5vw 0;
+        background: none;
+        overflow: visible;
+      }
+      main[data-route="producer"] .prod-hero::after {
+        display: none;
+      }
+      .prod-hero-inner {
+        display: grid;
+        grid-template-columns: minmax(0, 1.25fr) minmax(300px, 0.75fr);
+        gap: clamp(24px, 3vw, 48px);
+        align-items: stretch;
+        padding: clamp(28px, 3.4vw, 52px);
+        border: 1px solid var(--hair);
+        border-radius: 26px;
+        background: rgba(7, 18, 16, 0.42);
+      }
+      .prod-hero-main {
+        display: flex;
+        align-items: center;
+      }
+      .prod-hero-main h1 {
+        margin: 0;
+        font-size: clamp(38px, 5vw, 76px);
+        line-height: 1.02;
+        letter-spacing: -0.045em;
+      }
+      .prod-hero-card {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        padding: clamp(20px, 1.8vw, 28px);
+        border: 1px solid var(--hair);
+        border-radius: 22px;
+        background: rgba(7, 18, 16, 0.55);
+      }
+      .prod-hero-media {
+        display: grid;
+        place-items: center;
+        aspect-ratio: 16 / 10;
+        border-radius: 16px;
+        background: linear-gradient(
+          145deg,
+          rgba(234, 244, 238, 0.09),
+          rgba(7, 18, 16, 0.5)
+        );
+        overflow: hidden;
+      }
+      .prod-hero-media img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        padding: 12px;
+      }
+      .prod-hero-card p {
+        margin: 0;
+        color: var(--tx-2);
+        font-size: 16px;
+        line-height: 1.5;
+      }
+      /* подписи кнопок длиннее, чем в образце, и в строку не помещаются —
+         раскладываем колонкой во всю ширину карточки */
+      .prod-hero-card .actions {
+        margin-top: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+      }
+      .prod-hero-card .btn {
+        justify-content: center;
+        padding: 14px 18px;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+      /* ряды плиток под панелью */
+      main[data-route="producer"] .value-grid,
+      main[data-route="producer"] .env-grid {
+        gap: 12px;
+      }
+      main[data-route="producer"] .value-card,
+      main[data-route="producer"] .env-card {
+        border-radius: 20px;
+        padding: 24px;
+      }
+      main[data-route="producer"] .value-card h3,
+      main[data-route="producer"] .env-card h3 {
+        font-size: 19px;
+        letter-spacing: -0.02em;
+      }
+      main[data-route="producer"] .value-card p,
+      main[data-route="producer"] .env-card p {
+        font-size: 14px;
+        line-height: 1.45;
+      }
+      @media (max-width: 1100px) {
+        .prod-hero-inner {
+          grid-template-columns: 1fr;
+        }
+        main[data-route="producer"] .prod-hero {
+          padding-top: 88px;
+        }
+      }
+      @media (max-width: 720px) {
+        .prod-hero-inner {
+          padding: 22px;
+          border-radius: 20px;
+        }
+        .prod-hero-card .actions {
+          flex-direction: column;
+          align-items: stretch;
+        }
+      }
+
+      /* ================= Страница каталога ================= */
+      .catalog-page {
+        /* .subpage уже даёт отступ 76px под фиксированную шапку —
+           здесь добавляем минимум, чтобы карточки шли выше */
+        padding-top: 42px;
+      }
+      .catalog-title {
+        margin: 0 0 26px;
+        font-size: clamp(38px, 5vw, 68px);
+        line-height: 1;
+        letter-spacing: -0.05em;
+      }
+      .filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+      .filter-btn {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 8px;
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .filter-count {
+        font-size: 12px;
+        font-weight: 700;
+        opacity: 0.5;
+      }
+      .filter-btn.active .filter-count {
+        opacity: 0.65;
+      }
+      .cat-tools {
+        display: grid;
+        /* поиск заметно шире селектов, селекты не растягиваются текстом */
+        grid-template-columns: minmax(280px, 1.7fr) auto minmax(0, 1fr) minmax(
+            0,
+            1fr
+          );
+        gap: 10px;
+        align-items: stretch;
+        margin-bottom: 18px;
+      }
+      .cat-search,
+      .cat-toggle,
+      .cat-select {
+        border: 1px solid var(--hair);
+        border-radius: 14px;
+        background: rgba(7, 18, 16, 0.42);
+        color: var(--tx);
+        font: inherit;
+        font-size: 14px;
+      }
+      .cat-search {
+        padding: 14px 18px;
+        min-width: 0;
+      }
+      .cat-search::placeholder {
+        color: var(--tx-3);
+      }
+      .cat-search:focus-visible,
+      .cat-toggle:focus-visible,
+      .cat-select:focus-within {
+        outline: 2px solid var(--green);
+        outline-offset: -2px;
+      }
+      .cat-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 14px 18px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        transition:
+          border-color 0.25s ease,
+          background-color 0.25s ease;
+      }
+      .cat-toggle.active {
+        color: #07120f;
+        background: var(--green);
+        border-color: var(--green);
+      }
+      .cat-toggle.active .filter-count {
+        opacity: 0.7;
+      }
+      .cat-select {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0 14px 0 18px;
+      }
+      .cat-select > span {
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--tx-2);
+        white-space: nowrap;
+      }
+      .cat-select select {
+        flex: 1;
+        min-width: 0;
+        border: 0;
+        background: transparent;
+        color: var(--tx);
+        font: inherit;
+        font-size: 14px;
+        padding: 14px 4px 14px 0;
+        cursor: pointer;
+        text-overflow: ellipsis;
+      }
+      .cat-select select option {
+        color: var(--ink);
+      }
+      .cat-shown {
+        margin: 0 0 18px;
+        color: var(--tx-2);
+        font-size: 14px;
+      }
+      .cat-shown b {
+        color: var(--tx);
+      }
+      /* бейдж реестра поверх фото, в правом верхнем углу */
+      .registry-badge {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        z-index: 2;
+        padding: 7px 12px;
+        border-radius: 99px;
+        background: var(--green);
+        color: #07120f;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+      @media (max-width: 1100px) {
+        .cat-tools {
+          grid-template-columns: 1fr 1fr;
+        }
+        .cat-search {
+          grid-column: 1 / -1;
+        }
+      }
+      @media (max-width: 720px) {
+        .cat-tools {
+          grid-template-columns: 1fr;
+        }
+        .cat-select {
+          justify-content: space-between;
+        }
+      }
+
+      /* модалке нужна плотная подложка, а не стекло: под ней прокручивается
+         каталог, и полупрозрачная панель мешала бы читать характеристики */
+      .rm-dialog {
+        background: rgba(7, 18, 16, 0.94);
+      }
+      /* плашки под фото роботов были светлыми: PNG прозрачные, поэтому
+         на тёмной подложке они читаются не хуже, а фон остаётся общим */
+      .market-visual,
+      .rm-media {
+        background: linear-gradient(145deg, rgba(234, 244, 238, 0.09), rgba(7, 18, 16, 0.5));
+      }
+      .market-card:hover {
+        border-color: rgba(234, 244, 238, 0.24);
+        box-shadow: 0 22px 44px rgba(0, 0, 0, 0.4);
+      }
+      /* фильтры-таблетки: рамка и текст под тёмный фон, активный без правок */
+      .filter-btn,
+      .news-filter-btn {
+        border-color: var(--hair);
+        color: var(--tx);
+      }
+      .catalog .btn,
+      .support-item button {
+        border-color: var(--hair);
+        color: var(--tx);
+      }
+      .catalog .btn.primary {
+        color: #07120f;
+      }
+
+      /* ================= Форма кнопок: срез правого верхнего угла =========
+         Цвета и заливки не меняются — только геометрия. Радиус снимается,
+         угол режется clip-path. У .btn без заливки диагональ дополнительно
+         прорисовывается линией ::before: clip-path обрезает и рамку тоже,
+         поэтому на срезе бордера бы не осталось. */
+      .btn,
+      .he-btn,
+      .hq-hero .he-btn,
+      .warp-submit,
+      .site-footer .footer-subscribe button {
+        border-radius: 0;
+        clip-path: polygon(
+          0 0,
+          calc(100% - var(--btn-cut)) 0,
+          100% var(--btn-cut),
+          100% 100%,
+          0 100%
+        );
+      }
+      .btn {
+        position: relative;
+      }
+      .btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: calc(100% - var(--btn-cut));
+        width: calc(var(--btn-cut) * 1.4143);
+        height: 1px;
+        background: currentColor;
+        opacity: 0.28;
+        transform-origin: 0 0;
+        transform: rotate(45deg);
+        pointer-events: none;
+      }
+      /* у залитой кнопки диагональ не нужна: срез читается силуэтом */
+      .btn.primary::before {
+        display: none;
+      }
+      /* концентрические кольца hero-кнопки были скруглёнными и всё равно
+         обрезаются clip-path родителя — снимаем их */
+      .he-btn::before,
+      .he-btn::after,
+      .hq-hero .he-btn::before,
+      .hq-hero .he-btn::after {
+        display: none;
+      }
+
+      /* ================= Секция «Один маршрут» (#route) =================
+         Фон снят: на главной секции прозрачные, фон рисует общий слой .mesh.
+         Непрозрачная заливка .content-section.dark давала плашку со швами
+         сверху и снизу. Белый текст от .dark сохраняется. */
+      #route {
+        background: transparent;
+      }
+      /* слэши — оформление, а не текст: в разметке их нет */
+      .slash::before {
+        content: "/";
+        margin-right: 0.06em;
+        opacity: 0.85;
+      }
+      .slash::after {
+        content: "/";
+        margin-left: 0.06em;
+        opacity: 0.85;
+      }
+      .route-title {
+        margin: 0;
+        color: #fff;
+        font-weight: 800;
+        font-size: clamp(38px, 5.2vw, 76px);
+        line-height: 1.02;
+        letter-spacing: -0.02em;
+      }
+      .route-title .slash {
+        color: var(--green);
+      }
+      /* ===== Реестр: карточки роботов колодой =====
+         Карточки лежат внахлёст и развёрнуты веером. Разворот и подъём
+         анимируются через rotate/translate, а не transform — чтобы hover,
+         который карточку выпрямляет, не конфликтовал с раскладкой веера. */
+      .reg-head {
+        text-align: center;
+      }
+      .reg-title {
+        margin: 0 auto;
+        color: #fff;
+        font-weight: 800;
+        font-size: clamp(34px, 4.6vw, 66px);
+        line-height: 1.03;
+        letter-spacing: -0.025em;
+      }
+      .reg-foot {
+        display: flex;
+        justify-content: center;
+        margin-top: 14px;
+      }
+      .reg-cta {
+        flex: none;
+        padding: 19px 34px;
+        border-radius: 999px;
+        background: #f2f7f4;
+        color: var(--ink);
+        font-weight: 600;
+        font-size: 16px;
+        white-space: nowrap;
+        transition:
+          background-color 0.25s ease,
+          translate 0.25s ease;
+      }
+      .reg-cta:hover {
+        background: #fff;
+        translate: 0 -2px;
+      }
+      .reg-cta:focus-visible {
+        outline: 2px solid var(--green);
+        outline-offset: 4px;
+      }
+      .reg-deck {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        margin-top: 78px;
+        padding-bottom: 40px;
+      }
+      .reg-card {
+        position: relative;
+        z-index: 1;
+        flex: none;
+        width: 228px;
+        margin: 0 -10px;
+        padding: 16px 16px 24px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 30px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.075),
+          rgba(255, 255, 255, 0.028)
+        );
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45);
+        cursor: pointer;
+      }
+      /* центральная карточка — крупнее остальных и вынесена вперёд */
+      .reg-card:nth-child(3) {
+        width: 272px;
+        margin: 0 -6px;
+        padding: 18px 18px 26px;
+        border-radius: 34px;
+      }
+      .reg-card:nth-child(3) .reg-shot {
+        height: 196px;
+      }
+      .reg-card:nth-child(3) .reg-name {
+        font-size: 21px;
+      }
+      .reg-card:nth-child(3) .reg-desc {
+        font-size: 15px;
+      }
+      .reg-shot {
+        position: relative;
+        display: grid;
+        place-items: center;
+        height: 158px;
+        border-radius: 20px;
+        background:
+          radial-gradient(
+            70% 70% at 50% 55%,
+            rgba(66, 227, 131, 0.16),
+            rgba(66, 227, 131, 0) 70%
+          ),
+          rgba(0, 0, 0, 0.22);
+        overflow: hidden;
+      }
+      .reg-shot img {
+        max-width: 88%;
+        max-height: 88%;
+        object-fit: contain;
+      }
+      .reg-badge {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        z-index: 2;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 15px;
+        border-radius: 999px;
+        font-weight: 600;
+        font-size: 13px;
+        line-height: 1;
+        white-space: nowrap;
+      }
+      .reg-badge::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: currentColor;
+      }
+      .reg-badge.is-listed {
+        background: var(--green);
+        color: #06110d;
+      }
+      .reg-badge.is-tested {
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: rgba(12, 24, 20, 0.72);
+        color: #fff;
+        backdrop-filter: blur(6px);
+      }
+      .reg-name {
+        margin: 20px 0 0;
+        padding: 0 6px;
+        color: #fff;
+        font-weight: 700;
+        font-size: 19px;
+        line-height: 1.2;
+      }
+      .reg-desc {
+        margin: 10px 0 0;
+        padding: 0 6px;
+        color: rgba(255, 255, 255, 0.58);
+        font-size: 14px;
+        line-height: 1.45;
+      }
+      /* веер: карточки разъезжаются, когда секция появляется в кадре */
+      .reg-card {
+        opacity: 0;
+        rotate: 0deg;
+        translate: 0 26px;
+        transition:
+          opacity 0.6s ease-out,
+          rotate 0.75s cubic-bezier(0.2, 0.7, 0.2, 1),
+          translate 0.75s cubic-bezier(0.2, 0.7, 0.2, 1),
+          border-color 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+      #registry.is-visible .reg-card {
+        opacity: 1;
+      }
+      #registry.is-visible .reg-card:nth-child(1) {
+        z-index: 1;
+        rotate: -9deg;
+        translate: 0 30px;
+        transition-delay: 0.28s;
+      }
+      #registry.is-visible .reg-card:nth-child(2) {
+        z-index: 2;
+        rotate: -4.5deg;
+        translate: 0 9px;
+        transition-delay: 0.14s;
+      }
+      #registry.is-visible .reg-card:nth-child(3) {
+        z-index: 4;
+        rotate: 0deg;
+        translate: 0 -20px;
+        border-color: rgba(255, 255, 255, 0.18);
+        box-shadow: 0 46px 92px rgba(0, 0, 0, 0.6);
+      }
+      #registry.is-visible .reg-card:nth-child(4) {
+        z-index: 2;
+        rotate: 4.5deg;
+        translate: 0 9px;
+        transition-delay: 0.14s;
+      }
+      #registry.is-visible .reg-card:nth-child(5) {
+        z-index: 1;
+        rotate: 9deg;
+        translate: 0 30px;
+        transition-delay: 0.28s;
+      }
+      /* правило идёт после раскладки веера — при равной специфичности
+         побеждает последнее, и карточка выпрямляется под курсором */
+      #registry.is-visible .reg-card:hover,
+      #registry.is-visible .reg-card:focus-within {
+        z-index: 6;
+        rotate: 0deg;
+        translate: 0 -16px;
+        border-color: rgba(255, 255, 255, 0.22);
+        box-shadow: 0 42px 80px rgba(0, 0, 0, 0.6);
+        transition-delay: 0s;
+      }
+      @media (max-width: 1200px) {
+        .reg-card {
+          width: 196px;
+          margin: 0 -6px;
+        }
+        .reg-shot {
+          height: 136px;
+        }
+        .reg-card:nth-child(3) {
+          width: 236px;
+          margin: 0 -2px;
+        }
+        .reg-card:nth-child(3) .reg-shot {
+          height: 168px;
+        }
+      }
+      @media (max-width: 900px) {
+        /* на узких экранах веер не читается — обычная лента со скроллом */
+        .reg-deck {
+          margin: 46px -5vw 0;
+          padding: 0 5vw 20px;
+          justify-content: flex-start;
+          overflow-x: auto;
+          scroll-snap-type: x mandatory;
+          -webkit-overflow-scrolling: touch;
+        }
+        .reg-card,
+        .reg-card:nth-child(3) {
+          width: 232px;
+          margin: 0 14px 0 0;
+          padding: 16px 16px 24px;
+          border-radius: 30px;
+          scroll-snap-align: start;
+        }
+        .reg-card:nth-child(3) .reg-shot {
+          height: 158px;
+        }
+        #registry.is-visible .reg-card:nth-child(1),
+        #registry.is-visible .reg-card:nth-child(2),
+        #registry.is-visible .reg-card:nth-child(3),
+        #registry.is-visible .reg-card:nth-child(4),
+        #registry.is-visible .reg-card:nth-child(5) {
+          z-index: 1;
+          rotate: 0deg;
+          translate: none;
+          box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .reg-card {
+          opacity: 1;
+          transition: none;
+        }
+      }
+      /* ===== Развилка сразу после hero =====
+         Верх — просто текст, без карточки. Ниже два «окна» со светящейся
+         заливкой: свечение — это размытая копия самой карточки в ::before,
+         поэтому ореол в точности повторяет её форму и скругления.
+         Перекрасить всё семейство можно двумя переменными ниже. */
+      .fork {
+        --fork-face: linear-gradient(
+          180deg,
+          #f7fbf8 0%,
+          #eaf8f0 32%,
+          #a8eec8 70%,
+          #6fe3a4 100%
+        );
+        --fork-glow: 0.75;
+        text-align: center;
+      }
+      .fork-intro {
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+      .fork-title {
+        margin: 0;
+        color: #fff;
+        font-weight: 800;
+        font-size: clamp(32px, 4.4vw, 62px);
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+      }
+      .fork-lead {
+        margin: 22px auto 0;
+        max-width: 620px;
+        color: rgba(255, 255, 255, 0.62);
+        font-size: clamp(15px, 1.3vw, 18px);
+        line-height: 1.55;
+      }
+      .fork-grid {
+        margin-top: 64px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 28px;
+      }
+      .fork-card {
+        position: relative;
+        z-index: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        min-height: 320px;
+        padding: 46px 44px;
+        border-radius: 54px;
+        background-image: var(--fork-face);
+        color: var(--ink);
+        text-align: left;
+      }
+      .fork-card::before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        inset: 12px;
+        border-radius: inherit;
+        background-image: var(--fork-face);
+        filter: blur(44px);
+        opacity: var(--fork-glow);
+        transition: opacity 0.35s ease;
+      }
+      .fork-card:hover {
+        transform: translateY(-4px);
+      }
+      .fork-card:hover::before {
+        opacity: 1;
+      }
+      .fork-card:focus-visible {
+        outline: 2px solid var(--green);
+        outline-offset: 8px;
+      }
+      .fork-card-title {
+        margin: 0;
+        font-weight: 800;
+        font-size: clamp(28px, 3vw, 44px);
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+      }
+      .fork-card-desc {
+        margin: 18px 0 0;
+        max-width: 32ch;
+        color: rgba(10, 23, 19, 0.66);
+        font-size: 17px;
+        line-height: 1.5;
+      }
+      .fork-card-cta {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-top: auto;
+        padding-top: 34px;
+        font-weight: 700;
+        font-size: 13px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+      .fork-card-arrow {
+        flex: none;
+        display: grid;
+        place-items: center;
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        background: var(--ink);
+        color: #fff;
+        transition: transform 0.35s ease;
+      }
+      .fork-card-arrow svg {
+        width: 20px;
+        height: 20px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .fork-card:hover .fork-card-arrow {
+        transform: translateX(4px);
+      }
+      /* появление: анимируем translate, а не transform — иначе подъём
+         на hover перебивал бы выезд карточки */
+      .fork-intro,
+      .fork-card {
+        opacity: 0;
+        translate: 0 18px;
+        transition:
+          opacity 0.55s ease-out,
+          translate 0.55s ease-out,
+          transform 0.35s ease;
+      }
+      #fork.is-visible .fork-intro,
+      #fork.is-visible .fork-card {
+        opacity: 1;
+        translate: none;
+      }
+      #fork.is-visible .fork-card:nth-of-type(1) {
+        transition-delay: 0.12s, 0.12s, 0s;
+      }
+      #fork.is-visible .fork-card:nth-of-type(2) {
+        transition-delay: 0.22s, 0.22s, 0s;
+      }
+      @media (max-width: 900px) {
+        .fork-grid {
+          grid-template-columns: 1fr;
+          gap: 22px;
+        }
+        .fork-card {
+          min-height: 0;
+          border-radius: 42px;
+          padding: 38px 32px;
+        }
+      }
+      @media (max-width: 720px) {
+        .fork-grid {
+          margin-top: 44px;
+        }
+        .fork-card {
+          border-radius: 34px;
+          padding: 32px 26px;
+        }
+        .fork-card::before {
+          filter: blur(30px);
+        }
+        .fork-card-cta {
+          padding-top: 28px;
+          gap: 13px;
+          font-size: 12px;
+        }
+        .fork-card-arrow {
+          width: 40px;
+          height: 40px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .fork-intro,
+        .fork-card {
+          opacity: 1;
+          translate: none;
+          transition: none;
+        }
+        .fork-card:hover {
+          transform: none;
+        }
+      }
+      /* Маршрут — «лесенка»: карточки смещаются то влево, то вправо,
+         между ними изогнутые стрелки. Стрелки — inline SVG прямо в сетке:
+         у них фиксированный viewBox и height:auto, поэтому они масштабируются
+         вместе с колонками и не искажаются. */
+      .route-flow {
+        margin-top: 64px;
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        align-items: center;
+      }
+      .route-col {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 38px 34px;
+        border: 1px solid rgba(255, 255, 255, 0.09);
+        border-radius: 26px;
+        background: rgba(255, 255, 255, 0.02);
+        color: inherit;
+        transition:
+          opacity 0.5s ease-out,
+          transform 0.5s ease-out,
+          background-color 0.25s ease,
+          border-color 0.25s ease;
+      }
+      /* шаги лесенки: 1 — слева, 2 — правее и ниже, 3 — снова слева,
+         4 — крайний правый */
+      .route-col:nth-of-type(1) {
+        grid-row: 1;
+        grid-column: 1 / span 5;
+      }
+      .route-col:nth-of-type(2) {
+        grid-row: 3;
+        grid-column: 6 / span 5;
+      }
+      .route-col:nth-of-type(3) {
+        grid-row: 5;
+        grid-column: 1 / span 5;
+      }
+      .route-col:nth-of-type(4) {
+        grid-row: 7;
+        grid-column: 8 / span 5;
+      }
+      .route-col:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.16);
+      }
+      .route-col:focus-visible {
+        outline: 2px solid var(--green);
+        outline-offset: 2px;
+      }
+      /* стрелки живут в промежуточных рядах — 2, 4 и 6 */
+      .route-arrow {
+        width: 100%;
+        height: auto;
+        overflow: visible;
+        pointer-events: none;
+        color: rgba(255, 255, 255, 0.3);
+      }
+      .route-arrow:nth-of-type(1) {
+        grid-row: 2;
+        grid-column: 4 / span 3;
+      }
+      .route-arrow:nth-of-type(2) {
+        grid-row: 4;
+        grid-column: 3 / span 4;
+      }
+      .route-arrow:nth-of-type(3) {
+        grid-row: 6;
+        grid-column: 4 / span 4;
+      }
+      .route-arrow path {
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .route-col-title {
+        margin: 0;
+        font-weight: 800;
+        font-size: 26px;
+        line-height: 1.15;
+        opacity: 0.9;
+        transition: opacity 0.25s ease;
+      }
+      .route-col:hover .route-col-title {
+        opacity: 1;
+      }
+      .route-col:nth-of-type(1) .slash {
+        color: var(--route-1);
+      }
+      .route-col:nth-of-type(2) .slash {
+        color: var(--route-2);
+      }
+      .route-col:nth-of-type(3) .slash {
+        color: var(--route-3);
+      }
+      .route-col:nth-of-type(4) .slash {
+        color: var(--route-4);
+      }
+      .route-col-desc {
+        margin: 16px 0 0;
+        max-width: 34ch;
+        color: rgba(255, 255, 255, 0.62);
+        font-size: 16px;
+        line-height: 1.55;
+      }
+      /* появление: карточки по очереди, стрелки прорисовываются следом.
+         pathLength="1" в разметке позволяет гонять dashoffset от 1 к 0
+         независимо от реальной длины кривой */
+      .route-col {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+      #route.is-visible .route-col {
+        opacity: 1;
+        transform: none;
+      }
+      /* задержка только для появления — hover остаётся мгновенным */
+      #route.is-visible .route-col:nth-of-type(2) {
+        transition-delay: 0.18s, 0.18s, 0s, 0s;
+      }
+      #route.is-visible .route-col:nth-of-type(3) {
+        transition-delay: 0.36s, 0.36s, 0s, 0s;
+      }
+      #route.is-visible .route-col:nth-of-type(4) {
+        transition-delay: 0.54s, 0.54s, 0s, 0s;
+      }
+      .route-arrow-line {
+        stroke-dasharray: 1;
+        stroke-dashoffset: 1;
+        transition: stroke-dashoffset 0.6s ease-out;
+      }
+      .route-arrow-head {
+        opacity: 0;
+        transition: opacity 0.2s ease-out;
+      }
+      #route.is-visible .route-arrow-line {
+        stroke-dashoffset: 0;
+      }
+      #route.is-visible .route-arrow-head {
+        opacity: 1;
+      }
+      #route.is-visible .route-arrow:nth-of-type(1) .route-arrow-line {
+        transition-delay: 0.12s;
+      }
+      #route.is-visible .route-arrow:nth-of-type(1) .route-arrow-head {
+        transition-delay: 0.68s;
+      }
+      #route.is-visible .route-arrow:nth-of-type(2) .route-arrow-line {
+        transition-delay: 0.3s;
+      }
+      #route.is-visible .route-arrow:nth-of-type(2) .route-arrow-head {
+        transition-delay: 0.86s;
+      }
+      #route.is-visible .route-arrow:nth-of-type(3) .route-arrow-line {
+        transition-delay: 0.48s;
+      }
+      #route.is-visible .route-arrow:nth-of-type(3) .route-arrow-head {
+        transition-delay: 1.04s;
+      }
+      /* на средних экранах лесенка та же, но карточки шире, а смещение мельче */
+      @media (max-width: 1100px) {
+        .route-col:nth-of-type(1),
+        .route-col:nth-of-type(3) {
+          grid-column: 1 / span 7;
+        }
+        .route-col:nth-of-type(2),
+        .route-col:nth-of-type(4) {
+          grid-column: 6 / span 7;
+        }
+        .route-arrow:nth-of-type(1),
+        .route-arrow:nth-of-type(3) {
+          grid-column: 5 / span 3;
+        }
+        .route-arrow:nth-of-type(2) {
+          grid-column: 4 / span 4;
+        }
+      }
+      /* на телефоне лесенка не читается — обычный столбец,
+         вместо изогнутых стрелок короткие шевроны между карточками */
+      @media (max-width: 720px) {
+        .route-title {
+          font-size: clamp(30px, 8vw, 44px);
+        }
+        .route-flow {
+          grid-template-columns: 1fr;
+          row-gap: 46px;
+        }
+        .route-col:nth-of-type(1),
+        .route-col:nth-of-type(2),
+        .route-col:nth-of-type(3),
+        .route-col:nth-of-type(4) {
+          grid-row: auto;
+          grid-column: 1;
+        }
+        .route-col {
+          padding: 30px 24px;
+        }
+        .route-arrow {
+          display: none;
+        }
+        .route-col:not(:last-of-type)::after {
+          content: "";
+          position: absolute;
+          left: 50%;
+          bottom: -30px;
+          width: 11px;
+          height: 11px;
+          margin-left: -6px;
+          border-right: 2px solid rgba(255, 255, 255, 0.3);
+          border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+          transform: rotate(45deg);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .route-col {
+          opacity: 1;
+          transform: none;
+          transition:
+            background-color 0.25s ease,
+            border-color 0.25s ease;
+        }
+        .route-arrow-line {
+          stroke-dashoffset: 0;
+          transition: none;
+        }
+        .route-arrow-head {
+          opacity: 1;
+          transition: none;
+        }
+      }
+
       .footer-top {
         position: relative;
         z-index: 1;
@@ -5026,6 +6204,130 @@
         <div class="he-grain"></div>
       </section>
 
+      <!-- Развилка: город соединяет производителей и заказчиков.
+           Верхний блок намеренно без карточки — только текст. -->
+      <section class="content-section dark fork" id="fork">
+        <div class="fork-intro">
+          <h2 class="fork-title">
+            Город соединяет производителей роботов с реальными задачами
+          </h2>
+          <p class="fork-lead">
+            Производители развивают и предлагают решения, заказчики находят
+            лучшие из них для внедрения.
+          </p>
+        </div>
+        <div class="fork-grid">
+          <a class="fork-card" href="#producer" data-route-link="producer">
+            <h3 class="fork-card-title">Производителям</h3>
+            <p class="fork-card-desc">
+              Развивайте, испытывайте и выводите решения к потенциальным
+              заказчикам.
+            </p>
+            <span class="fork-card-cta">
+              <span class="fork-card-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M4 12h14M13 6l6 6-6 6" />
+                </svg>
+              </span>
+              Предложить своего робота
+            </span>
+          </a>
+          <a class="fork-card" href="#customer" data-route-link="customer">
+            <h3 class="fork-card-title">Заказчикам</h3>
+            <p class="fork-card-desc">
+              Выбирайте лучших роботов для своих задач и получайте поддержку
+              на внедрение.
+            </p>
+            <span class="fork-card-cta">
+              <span class="fork-card-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M4 12h14M13 6l6 6-6 6" />
+                </svg>
+              </span>
+              Подобрать робота
+            </span>
+          </a>
+        </div>
+      </section>
+
+      <!-- Один маршрут. Слэши вокруг акцентных слов рисуются
+           псевдоэлементами .slash, в тексте их нет: так он копируется
+           и читается скринридером без мусора. -->
+      <section class="content-section dark" id="route">
+        <h2 class="route-title">
+          Один маршрут для <span class="slash">всей отрасли</span>
+        </h2>
+        <div class="route-flow">
+          <a class="route-col" href="#producer">
+            <h3 class="route-col-title"><span class="slash">Создавайте</span></h3>
+            <p class="route-col-desc">
+              Инженерная поддержка, площадки и оборудование для прототипов
+              и мелких серий
+            </p>
+          </a>
+          <svg
+            class="route-arrow"
+            viewBox="0 0 260 76"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path
+              class="route-arrow-line"
+              pathLength="1"
+              d="M6 10C120 10 100 64 244 64"
+            />
+            <path class="route-arrow-head" d="M231 55l15 9-15 9" />
+          </svg>
+          <a class="route-col" href="#producer">
+            <h3 class="route-col-title"><span class="slash">Проверяйте</span></h3>
+            <p class="route-col-desc">
+              Лаборатория и стенды, где решение проходит проверку в условиях
+              реальной эксплуатации
+            </p>
+          </a>
+          <svg
+            class="route-arrow"
+            viewBox="0 0 260 76"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path
+              class="route-arrow-line"
+              pathLength="1"
+              d="M254 10C140 10 160 64 16 64"
+            />
+            <path class="route-arrow-head" d="M29 55l-15 9 15 9" />
+          </svg>
+          <a class="route-col" href="#pilot">
+            <h3 class="route-col-title"><span class="slash">Пилотируйте</span></h3>
+            <p class="route-col-desc">
+              Запуск на настоящей задаче заказчика с оценкой эффекта
+              и потенциала внедрения
+            </p>
+          </a>
+          <svg
+            class="route-arrow"
+            viewBox="0 0 260 76"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path
+              class="route-arrow-line"
+              pathLength="1"
+              d="M6 10C120 10 100 64 244 64"
+            />
+            <path class="route-arrow-head" d="M231 55l15 9-15 9" />
+          </svg>
+          <a class="route-col" href="#customer">
+            <h3 class="route-col-title"><span class="slash">Внедряйте</span></h3>
+            <p class="route-col-desc">
+              Сопровождение поставки и вывод решения в постоянную работу
+              бизнеса и города
+            </p>
+          </a>
+        </div>
+      </section>
+
       <!-- Список моделей: превью за курсором собирает скрипт. Без него
            остаётся полный список со строчными миниатюрами. -->
       <section class="catalog catalog-rows" id="catalog">
@@ -5217,6 +6519,85 @@
       </section>
 
 
+      <!-- Реестр: те же роботы, что в каталоге, но выложены колодой —
+           центральная карточка прямая, боковые развёрнуты веером. -->
+      <section class="content-section dark registry" id="registry">
+        <div class="reg-head">
+          <h2 class="reg-title">
+            Реестр, в котором<br />вас находят заказчики
+          </h2>
+        </div>
+
+        <div class="reg-deck">
+          <article class="reg-card">
+            <div class="reg-shot">
+              <span class="reg-badge is-listed">В реестре</span>
+              <img
+                src="images/ronavi-h1500.png"
+                alt="Ronavi H1500"
+                loading="lazy"
+              />
+            </div>
+            <h3 class="reg-name">Ronavi H1500</h3>
+            <p class="reg-desc">
+              Перевозит паллеты и стеллажи до&nbsp;1500 кг по складу
+            </p>
+          </article>
+
+          <article class="reg-card">
+            <div class="reg-shot">
+              <span class="reg-badge is-tested">Испытания пройдены</span>
+              <img
+                src="images/ronavi-cbd16.png"
+                alt="Ronavi × Seer CBD16"
+                loading="lazy"
+              />
+            </div>
+            <h3 class="reg-name">Ronavi × Seer CBD16</h3>
+            <p class="reg-desc">
+              Вилочный погрузчик без оператора, до&nbsp;1600 кг
+            </p>
+          </article>
+
+          <article class="reg-card">
+            <div class="reg-shot">
+              <span class="reg-badge is-tested">Испытания пройдены</span>
+              <img src="images/amr1500.png" alt="МОРОС AMR1500" loading="lazy" />
+            </div>
+            <h3 class="reg-name">МОРОС AMR1500</h3>
+            <p class="reg-desc">
+              Транспортировка грузов на складах и в цехах
+            </p>
+          </article>
+
+          <article class="reg-card">
+            <div class="reg-shot">
+              <span class="reg-badge is-listed">В реестре</span>
+              <img src="images/pixel.png" alt="Пиксель" loading="lazy" />
+            </div>
+            <h3 class="reg-name">Пиксель</h3>
+            <p class="reg-desc">
+              Уборка парков и тротуаров круглый год, без водителя
+            </p>
+          </article>
+
+          <article class="reg-card">
+            <div class="reg-shot">
+              <span class="reg-badge is-tested">Испытания пройдены</span>
+              <img src="images/mark2se.png" alt="MARK 2 SE" loading="lazy" />
+            </div>
+            <h3 class="reg-name">MARK 2 SE</h3>
+            <p class="reg-desc">Поломоечный робот для торговых залов</p>
+          </article>
+        </div>
+
+        <div class="reg-foot">
+          <a class="reg-cta" href="#producer" data-route-link="producer"
+            >Разместить своего робота</a
+          >
+        </div>
+      </section>
+
       <section class="warp" id="steps">
         <div class="warp-inner" id="contact">
           <div class="warp-copy">
@@ -5250,20 +6631,29 @@
     </main>
 
     <main class="route-view subpage" data-route="producer" hidden>
-      <section class="sub-hero">
-        <div class="sub-hero-inner">
-          <h1>Стройте, испытывайте, внедряйте</h1>
-          <p>
-            Получите ресурсы для разработки робота, развития производства и
-            подготовки первой поставки — от прототипа до реального применения.
-          </p>
-          <div class="actions">
-            <a class="btn primary" href="mailto:roboty@cluster.mos.ru"
-              >Подать заявку на испытания <span class="arr">↗</span></a
-            ><a class="btn" href="#catalog" data-route-link="catalog"
-              >Посмотреть реестр</a
-            >
+      <!-- Панель первого экрана: заголовок слева, карточка с описанием
+           и кнопками справа. Текст прежний, изменена только компоновка. -->
+      <section class="sub-hero prod-hero">
+        <div class="sub-hero-inner prod-hero-inner">
+          <div class="prod-hero-main">
+            <h1>Стройте, испытывайте, внедряйте</h1>
           </div>
+          <aside class="prod-hero-card">
+            <div class="prod-hero-media">
+              <img src="images/inchbot-l1.png" alt="" loading="lazy" />
+            </div>
+            <p>
+              Получите ресурсы для разработки робота, развития производства и
+              подготовки первой поставки — от прототипа до реального применения.
+            </p>
+            <div class="actions">
+              <a class="btn primary" href="mailto:roboty@cluster.mos.ru"
+                >Подать заявку на испытания <span class="arr">↗</span></a
+              ><a class="btn" href="#catalog" data-route-link="catalog"
+                >Посмотреть реестр</a
+              >
+            </div>
+          </aside>
         </div>
       </section>
       <section class="content-section">
@@ -5576,56 +6966,68 @@
     </main>
 
     <main class="route-view subpage" data-route="catalog" hidden>
-      <section class="sub-hero">
-        <div class="sub-hero-inner">
-          <h1>Роботы, которые уже работают</h1>
-          <p>
-            Решения, прошедшие испытания или включённые в реестр: назначение,
-            характеристики и статус видны сразу.
-          </p>
+      <section class="content-section catalog-page">
+        <h1 class="catalog-title">Роботы</h1>
+        <!-- Счётчики у фильтров, «показано N из M» и признак реестра
+             считает скрипт: числа в разметке — только заглушки. -->
+        <div class="filters" id="catalogFilters">
+          <button class="filter-btn active" type="button" data-filter="all">
+            Все роботы <span class="filter-count"></span></button
+          ><button
+            class="filter-btn"
+            type="button"
+            data-filter="Промышленные роботы"
+          >
+            Промышленные <span class="filter-count"></span></button
+          ><button
+            class="filter-btn"
+            type="button"
+            data-filter="Сервисные роботы"
+          >
+            Сервисные <span class="filter-count"></span></button
+          ><button
+            class="filter-btn"
+            type="button"
+            data-filter="Беспилотный транспорт"
+          >
+            Транспортные <span class="filter-count"></span>
+          </button>
         </div>
-      </section>
-      <section class="content-section">
-        <div class="catalog-classifiers">
-          <div class="classifier">
-            <label for="filterType">Тип робота</label>
+
+        <div class="cat-tools">
+          <input
+            class="cat-search"
+            id="catalogSearch"
+            type="search"
+            autocomplete="off"
+            placeholder="Поиск: название, бренд, производитель, задача…"
+            aria-label="Поиск по каталогу"
+          />
+          <button
+            class="cat-toggle"
+            id="registryOnly"
+            type="button"
+            aria-pressed="false"
+          >
+            Только из реестра <span class="filter-count"></span>
+          </button>
+          <label class="cat-select">
+            <span>Отрасль применения</span>
             <select id="filterType">
-              <option value="all">Все</option>
+              <option value="all">все</option>
             </select>
-          </div>
-          <div class="classifier">
-            <label for="filterCompany">Производитель</label>
+          </label>
+          <label class="cat-select">
+            <span>Производитель</span>
             <select id="filterCompany">
-              <option value="all">Все</option>
+              <option value="all">все</option>
             </select>
-          </div>
+          </label>
         </div>
-        <div class="catalog-toolbar">
-          <div class="filters" id="catalogFilters">
-            <button class="filter-btn active" type="button" data-filter="all">
-              Все</button
-            ><button
-              class="filter-btn"
-              type="button"
-              data-filter="Сервисные роботы"
-            >
-              Сервисные</button
-            ><button
-              class="filter-btn"
-              type="button"
-              data-filter="Промышленные роботы"
-            >
-              Промышленные</button
-            ><button
-              class="filter-btn"
-              type="button"
-              data-filter="Беспилотный транспорт"
-            >
-              Беспилотный транспорт
-            </button>
-          </div>
-          <div><b id="catalogCount">17</b> решений</div>
-        </div>
+
+        <p class="cat-shown">
+          Показано <b id="catalogCount">17</b> из <b id="catalogTotal">17</b>
+        </p>
         <div class="market-grid" id="marketGrid"></div>
       </section>
       <section class="contact-band">
@@ -5874,13 +7276,21 @@
             (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c],
           );
 
+        /* Роботы, включённые в реестр города. Заготовка: правьте список —
+           бейдж в карточке и счётчик у фильтра считаются отсюда. */
+        const REGISTRY = ["Ronavi H1500", "Пиксель"];
+        const inRegistry = (r) => REGISTRY.indexOf(r.name) !== -1;
+
         grid.innerHTML = ROBOTS.map(
           (r, i) => `<article class="market-card" data-cat="${esc(r.category)}"
             data-tag="${esc(r.tag)}" data-company="${esc(r.company)}"
+            data-registry="${inRegistry(r) ? "1" : "0"}"
+            data-search="${esc([r.name, r.company, r.tag, r.category, r.short].join(" ").toLowerCase())}"
             data-i="${i}" tabindex="0" role="button"
             aria-label="${esc(r.name)} — подробнее">
             <div class="market-visual">
               <img src="${esc(r.img)}" alt="${esc(r.name)}" loading="lazy">
+              ${inRegistry(r) ? '<span class="registry-badge">В реестре роботов</span>' : ""}
             </div>
             <h3>${esc(r.name)}</h3>
             <div class="vendor">${esc(r.company)}</div>
@@ -5918,6 +7328,29 @@
               .join("");
         }
 
+        const searchEl = document.getElementById("catalogSearch");
+        const totalEl = document.getElementById("catalogTotal");
+        const registryBtn = document.getElementById("registryOnly");
+
+        /* счётчики у кнопок категорий и у переключателя реестра */
+        filterButtons.forEach((b) => {
+          const f = b.dataset.filter;
+          const n =
+            f === "all"
+              ? cards.length
+              : cards.filter((c) => c.dataset.cat === f).length;
+          const slot = b.querySelector(".filter-count");
+          if (slot) slot.textContent = n;
+        });
+        if (registryBtn) {
+          const slot = registryBtn.querySelector(".filter-count");
+          if (slot)
+            slot.textContent = cards.filter(
+              (c) => c.dataset.registry === "1",
+            ).length;
+        }
+        if (totalEl) totalEl.textContent = cards.length;
+
         function applyFilters() {
           const activeBtn = filterButtons.find((b) =>
             b.classList.contains("active"),
@@ -5925,12 +7358,17 @@
           const cat = activeBtn ? activeBtn.dataset.filter : "all";
           const type = typeSelect ? typeSelect.value : "all";
           const company = companySelect ? companySelect.value : "all";
+          const q = searchEl ? searchEl.value.trim().toLowerCase() : "";
+          const onlyReg =
+            registryBtn && registryBtn.getAttribute("aria-pressed") === "true";
           let count = 0;
           cards.forEach((card) => {
             const visible =
               (cat === "all" || card.dataset.cat === cat) &&
               (type === "all" || card.dataset.tag === type) &&
-              (company === "all" || card.dataset.company === company);
+              (company === "all" || card.dataset.company === company) &&
+              (!onlyReg || card.dataset.registry === "1") &&
+              (!q || card.dataset.search.indexOf(q) !== -1);
             card.hidden = !visible;
             if (visible) count++;
           });
@@ -5947,6 +7385,14 @@
         if (typeSelect) typeSelect.addEventListener("change", applyFilters);
         if (companySelect)
           companySelect.addEventListener("change", applyFilters);
+        if (searchEl) searchEl.addEventListener("input", applyFilters);
+        if (registryBtn)
+          registryBtn.addEventListener("click", () => {
+            const on = registryBtn.getAttribute("aria-pressed") === "true";
+            registryBtn.setAttribute("aria-pressed", on ? "false" : "true");
+            registryBtn.classList.toggle("active", !on);
+            applyFilters();
+          });
         if (countEl) countEl.textContent = cards.length;
 
         // ---- увеличенная карточка ----
@@ -6933,6 +8379,28 @@
         });
       }, {rootMargin: '80px'}).observe(list);
     }
+  })();
+
+  /* ===== Появление секций «Развилка», «Реестр» и «Один маршрут» =====
+     Один IntersectionObserver, срабатывает один раз. Всё движение —
+     CSS-переходы, никаких rAF-петель. */
+  (function(){
+    ['fork','registry','route'].forEach(function(id){
+      var section = document.getElementById(id);
+      if(!section) return;
+      if(!('IntersectionObserver' in window)){
+        section.classList.add('is-visible');
+        return;
+      }
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){
+          if(!en.isIntersecting) return;
+          io.disconnect();
+          section.classList.add('is-visible');
+        });
+      }, {threshold: 0.25});
+      io.observe(section);
+    });
   })();
 
     </script>

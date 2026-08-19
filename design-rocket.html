@@ -50,7 +50,7 @@ img{display:block;max-width:100%}
 .nolow{text-transform:none}
 
 /* ---------- типографическая шкала ---------- */
-.h-display{font-size:clamp(40px,8.4vw,150px);line-height:.88;letter-spacing:-.045em;font-weight:500;margin:0}
+.h-display{font-size:clamp(34px,6.2vw,108px);line-height:.9;letter-spacing:-.04em;font-weight:500;margin:0}
 .h1{font-size:clamp(34px,5.6vw,92px);line-height:.94;letter-spacing:-.04em;font-weight:500;margin:0}
 .h2{font-size:clamp(26px,3.4vw,56px);line-height:1;letter-spacing:-.035em;font-weight:500;margin:0}
 .h3{font-size:clamp(20px,1.9vw,30px);line-height:1.08;letter-spacing:-.025em;font-weight:500;margin:0}
@@ -192,7 +192,23 @@ dialog#pathDlg::backdrop{background:rgba(6,10,8,.72);backdrop-filter:blur(10px)}
   background:var(--ink);color:#fff;border-radius:999px;padding:15px 30px;font-size:15px}
 
 /* ---------- две роли: пастельные «карманы» ---------- */
-.roles{padding:clamp(40px,6vw,80px) var(--gut) clamp(60px,8vw,120px)}
+.roles{position:relative;padding:clamp(40px,6vw,80px) var(--gut) clamp(60px,8vw,120px)}
+/* рука появляется над карточкой под курсором и ездит только по её верхней
+   границе: по вертикали стоит на кромке, внутрь не заходит */
+.roles-hand{position:absolute;left:0;top:0;width:clamp(84px,7vw,116px);z-index:4;
+  opacity:0;pointer-events:none;user-select:none;
+  /* положение пишет скрипт в translate, а transform занят покачиванием —
+     свойства независимые, поэтому не конфликтуют */
+  transition:opacity .25s ease,translate .18s cubic-bezier(.2,.7,.2,1);
+  animation:hand-bob 1.9s ease-in-out infinite;
+  /* тень без смещения: элемент развёрнут, направленная тень ушла бы вверх */
+  filter:drop-shadow(0 0 22px rgba(0,0,0,.5))}
+.roles-hand.is-on{opacity:1}
+/* рука развёрнута пальцем вниз, к карточке. Из-за разворота локальный +Y
+   выглядит движением вверх, поэтому качается она только над кромкой */
+@keyframes hand-bob{
+  0%,100%{transform:rotate(180deg) translateY(0)}
+  50%{transform:rotate(180deg) translateY(11px)}}
 .roles-slug{max-width:760px;margin-bottom:clamp(26px,3.5vw,50px)}
 .pockets{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .pocket{border-radius:var(--r);padding:clamp(26px,3vw,44px);min-height:clamp(300px,34vw,440px);
@@ -440,9 +456,9 @@ dialog#pathDlg::backdrop{background:rgba(6,10,8,.72);backdrop-filter:blur(10px)}
       <video src="hf_20260818_194413_95e32f8a-3319-4738-a7d3-7f0406999b07.mp4" autoplay muted loop playsinline preload="auto"></video>
     </div>
     <div class="hero-slug">
-      <h1 class="h-display">будущее<br>роботов<br>начинается здесь</h1>
+      <h1 class="h-display">выпускаем роботов<br>в город</h1>
       <div class="hero-bottom">
-        <p class="lead">объединяем разработку, испытания и внедрение<br>робототехнических решений в одной экосистеме</p>
+        <p class="lead">городская инфраструктура для тех, кто делает роботов,<br>и тех, кому они нужны</p>
         <div class="hero-cta is-corner">
           <a href="#catalog" class="btn btn-green btn-lg">смотреть каталог</a>
         </div>
@@ -499,6 +515,7 @@ dialog#pathDlg::backdrop{background:rgba(6,10,8,.72);backdrop-filter:blur(10px)}
 
 <!-- ============ две роли ============ -->
 <section class="roles rev">
+  <img class="roles-hand" src="images/hand-pointer.png" alt="" aria-hidden="true">
   <div class="roles-slug">
     <h2 class="h1">город соединяет производителей роботов с реальными задачами</h2>
   </div>
@@ -784,6 +801,35 @@ var cards=TASKS.concat(TASKS,TASKS).map(function(x){
  return '<article class="task"><div><h4>'+x.t+'</h4><p>'+x.d+'</p></div></article>';
 }).join('');
 document.getElementById('tape').innerHTML=cards+cards;
+
+/* ---- рука над карточками «производителям / заказчикам» ----
+   Ездит строго по верхней кромке карточки: по горизонтали следует за курсором
+   в пределах ширины карточки, по вертикали стоит ровно на границе. */
+(function(){
+  var sec=document.querySelector('.roles');
+  var hand=document.querySelector('.roles-hand');
+  if(!sec||!hand) return;
+  if(window.matchMedia && matchMedia('(hover: none), (pointer: coarse)').matches){ hand.remove(); return; }
+  var cards=Array.prototype.slice.call(sec.querySelectorAll('.pocket'));
+  if(!cards.length) return;
+
+  function place(card, clientX){
+    var s=sec.getBoundingClientRect(), c=card.getBoundingClientRect();
+    var w=hand.offsetWidth, h=hand.offsetHeight;
+    /* центр руки не выходит за края карточки */
+    var x=Math.min(Math.max(clientX, c.left+w/2), c.right-w/2);
+    hand.style.translate=Math.round(x-s.left-w/2)+'px '+Math.round(c.top-s.top-h)+'px';
+  }
+  cards.forEach(function(card){
+    card.addEventListener('mouseenter', function(e){
+      place(card, e.clientX);
+      hand.classList.add('is-on');
+    });
+    card.addEventListener('mousemove', function(e){ place(card, e.clientX); });
+    card.addEventListener('mouseleave', function(){ hand.classList.remove('is-on'); });
+  });
+  addEventListener('scroll', function(){ hand.classList.remove('is-on'); }, {passive:true});
+})();
 
 /* ---- колода шагов: карточки сменяются по мере прокрутки ----
    Пока дорожка .stack-runway идёт мимо экрана, стопка приколота, а верхняя

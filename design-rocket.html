@@ -497,16 +497,7 @@ dialog#taskDlg::backdrop{background:rgba(6,10,8,.72);
 
 /* ---------- поддержка города: аккордеон-плитки ---------- */
 .support{padding:0 var(--gut) clamp(50px,7vw,110px)}
-/* заголовок слева, кадр справа; выравниваем по нижнему краю, чтобы низ
-   снимка стоял на одной линии с последней строкой лида */
-.sup-head{display:flex;align-items:flex-end;justify-content:space-between;
-  gap:clamp(24px,4vw,60px);margin-bottom:34px}
-.sup-head .sup-copy{max-width:820px;min-width:0}
-/* размер задаём шириной, высоту считает aspect-ratio: атрибуты width/height
-   у <img> тогда не ломают пропорцию */
-.sup-photo{flex:none;width:clamp(280px,32vw,520px);height:auto;aspect-ratio:3/2;
-  object-fit:cover;border-radius:var(--r-s)}
-@media(max-width:900px){.sup-photo{display:none}}
+.sup-head{max-width:820px;margin-bottom:34px}
 .sup-list{border-top:1px solid var(--w-16)}
 .sup-item{border-bottom:1px solid var(--w-16)}
 .sup-item summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:20px;
@@ -517,6 +508,59 @@ dialog#taskDlg::backdrop{background:rgba(6,10,8,.72);
   display:grid;place-items:center;font-size:20px;flex:none;transition:.25s}
 .sup-item[open] .plus{background:var(--green);color:#06110B;border-color:var(--green);transform:rotate(45deg)}
 .sup-item p{margin:0 0 26px;max-width:62ch;color:var(--w-70);font-size:17px;line-height:1.4}
+
+/* новый блок поддержки: переключатель аудитории + сетка карточек с суммами.
+   Правила .sup-list/.sup-item выше не удаляем — формат аккордеона может
+   пригодиться другим секциям, новые классы называются иначе */
+.sup-tabs{display:inline-flex;gap:4px;margin-bottom:18px;padding:5px;
+  border:1px solid var(--w-16);border-radius:999px}
+.sup-tab{padding:11px 22px;border-radius:999px;font-size:15px;letter-spacing:-.015em;
+  color:var(--w-70);transition:.25s}
+.sup-tab:hover{color:var(--white)}
+.sup-tab.is-on{background:var(--green);color:#06110B}
+.sup-tab:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+.sup-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+/* показываются только карточки выбранной аудитории */
+.sup-card{display:none}
+.sup-grid[data-aud="buy"] .sup-card[data-aud="buy"],
+.sup-grid[data-aud="make"] .sup-card[data-aud="make"]{display:flex}
+.sup-card{flex-direction:column;gap:11px;padding:clamp(16px,1.6vw,22px);
+  background:var(--coal);border:1px solid var(--w-08);border-radius:var(--r-s);
+  transition:.3s cubic-bezier(.2,.7,.3,1)}
+.sup-card:hover{border-color:var(--green);transform:translateY(-5px)}
+.se-agency{display:flex;align-items:center;gap:9px;
+  font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--w-45)}
+/* знак ведомства: файлов по дпир, дипп и мфппип у нас нет, для департаментов
+   правительства москвы ставим герб — тот же, что в шапке рядом с подписью
+   «правительство москвы» */
+.se-logo{flex:none;width:20px;height:20px;object-fit:contain;opacity:.85}
+.se-t{margin:0;font-size:clamp(18px,1.45vw,21px);line-height:1.08;letter-spacing:-.03em;font-weight:500}
+/* плашка по ширине текста, не на всю карточку */
+.se-sum{align-self:flex-start;background:var(--green);color:#06110B;border-radius:12px;
+  padding:7px 12px;font-size:clamp(17px,1.5vw,22px);letter-spacing:-.02em;font-weight:500}
+.se-d{margin:0;font-size:14px;line-height:1.4;color:var(--w-70)}
+.se-cond{margin:0;padding:0;list-style:none;display:grid;gap:7px}
+.se-cond li{position:relative;padding-left:15px;font-size:13px;line-height:1.35;color:var(--w-70)}
+.se-cond li::before{content:"";position:absolute;left:0;top:7px;width:5px;height:5px;
+  border-radius:999px;background:var(--green)}
+/* подвал прижат к низу — статусы всех карточек ряда на одной линии */
+.se-foot{margin-top:auto;padding-top:12px;border-top:1px solid var(--w-08);
+  display:flex;align-items:center;justify-content:space-between;gap:10px}
+.se-status{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--w-45)}
+.se-status.on{color:var(--green)}
+.se-arr{color:var(--w-45)}
+
+.sup-note{margin:14px 4px 0;max-width:78ch;font-size:13px;line-height:1.45;color:var(--w-45)}
+@media(max-width:1180px){
+  .sup-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:680px){
+  .sup-grid{grid-template-columns:1fr}
+  /* грид, а не флекс: две колонки 1fr дают ровно равные кнопки независимо
+     от длины подписи, флекс упирался в минимальную ширину контента */
+  .sup-tabs{display:grid;grid-template-columns:1fr 1fr;width:100%}
+  .sup-tab{padding:11px 8px;text-align:center}
+}
 
 /* ---------- видеополоса со сменой подписей ---------- */
 .reel{padding:0 var(--gut) clamp(50px,7vw,110px)}
@@ -780,28 +824,121 @@ dialog#taskDlg::backdrop{background:rgba(6,10,8,.72);
   <div class="tape" id="tape"></div>
 </section>
 
-<!-- ============ испытания ============ -->
-<section class="testing rev" id="testing">
-  <div class="test-box">
-    <div class="test-l">
+<!-- ============ две роли ============ -->
+<section class="roles rev">
+  <img class="roles-hand" src="images/hand-pointer.png" alt="" aria-hidden="true">
+  <div class="roles-slug">
+    <h2 class="h1">соединяем производителей с заказчиками</h2>
+    <img class="roles-robot" src="images/robot-wave.png" alt="" width="684" height="900" loading="lazy">
+  </div>
+  <div class="pockets">
+    <div class="pocket pocket-1">
       <div>
-        <h2 class="h2" style="margin:0 0 16px">доступная инфраструктура<br>для любых сценариев</h2>
-        <p class="lead">площадки в иц «сколково» и индустриальном парке «руднево»: от городской среды до испытаний в воздухе и на воде</p>
+        <h3 class="h2">предлагайте своих роботов заказчикам</h3>
+        <p>получите финансирование для разработки робота, развития производства и подготовки первой поставки — от прототипа до реального применения</p>
       </div>
-      <div class="env">
-        <button type="button" class="env-i is-on"><span class="n">01</span><span class="t">городская инфраструктура</span><span class="s">дороги, тротуары и сложный рельеф</span></button>
-        <button type="button" class="env-i"><span class="n">02</span><span class="t">вода</span><span class="s">надводные и подводные системы</span></button>
-        <button type="button" class="env-i"><span class="n">03</span><span class="t">воздух</span><span class="s">беспилотные аппараты и навигация</span></button>
-        <button type="button" class="env-i"><span class="n">04</span><span class="t">в помещениях</span><span class="s">склады, офисы и торговые объекты</span></button>
+      <a href="#support" class="btn">предложить своего робота →</a>
+      <div class="pocket-glyph">01</div>
+    </div>
+    <div class="pocket pocket-2">
+      <div>
+        <h3 class="h2">выбирайте лучших роботов для своих задач</h3>
+        <p>найдите подходящего робота и используйте поддержку города для покупки, интеграции и обслуживания</p>
       </div>
-      <a href="#band" class="btn btn-green" style="align-self:flex-start">подать заявку на испытания ↗</a>
+      <a href="#catalog" class="btn">подобрать робота →</a>
+      <div class="pocket-glyph">02</div>
     </div>
-    <div class="test-r">
-      <img class="is-on" src="images/env-city.jpg" alt="" width="1400" height="1050">
-      <img src="images/env-water.jpg" alt="" width="1400" height="700" loading="lazy">
-      <img src="images/env-air.jpg" alt="" width="1400" height="933" loading="lazy">
-      <img src="images/path-04.jpg" alt="" width="700" height="466" loading="lazy">
-    </div>
+  </div>
+</section>
+
+<!-- ============ поддержка города ============ -->
+<section class="support rev" id="support">
+  <div class="sup-head">
+    <h2 class="h1">город помогает финансированием и временем</h2>
+  </div>
+  <div class="sup-tabs" role="tablist" aria-label="кому адресованы меры">
+    <button type="button" class="sup-tab is-on" role="tab" data-aud="make" aria-selected="true">я произвожу</button>
+    <button type="button" class="sup-tab" role="tab" data-aud="buy" aria-selected="false">я заказчик</button>
+  </div>
+  <div class="sup-grid" id="supGrid" data-aud="make">
+    <article class="sup-card" data-aud="buy">
+      <div class="se-agency"><img class="se-logo" src="images/gerb-moskvy.png" alt="" width="20" height="20" loading="lazy">дпир москвы</div>
+      <h3 class="se-t">гранты на закупку сервисных роботов</h3>
+      <div class="se-sum">до 100 млн ₽ · до 30%</div>
+      <p class="se-d">софинансирование приобретения сервисных роботов, произведённых в рф</p>
+      <ul class="se-cond"><li>компенсация лизинга и прямой покупки: до 15% на первом уровне локализации, до 30% на втором</li><li>компенсация кредитной ставки 14,25%</li><li>московская компания или ип, любой оквэд; решение из реестра москвы</li><li>не больше налогов, уплаченных в бюджет москвы за год</li></ul>
+      <div class="se-foot"><span class="se-status">готовится · сентябрь 2026</span><span class="se-arr">↗</span></div>
+    </article>
+    <article class="sup-card" data-aud="buy">
+      <div class="se-agency"><img class="se-logo" src="images/gerb-moskvy.png" alt="" width="20" height="20" loading="lazy">дипп москвы</div>
+      <h3 class="se-t">субсидия на внедрение роботов в производство</h3>
+      <div class="se-sum">до 100 млн ₽ · до 80%</div>
+      <p class="se-d">возмещение затрат на внедрение робота на производстве</p>
+      <ul class="se-cond"><li>промышленное предприятие москвы, оквэд раздел c</li><li>коэффициент обновления основных средств не ниже 0,5%, робот на балансе</li><li>договоры купли-продажи с 01.06.2026 по 01.06.2027</li></ul>
+      <div class="se-foot"><span class="se-status">готовится · сентябрь 2026</span><span class="se-arr">↗</span></div>
+    </article>
+    <article class="sup-card" data-aud="buy">
+      <div class="se-agency">мфппип</div>
+      <h3 class="se-t">компенсация ставки по кредиту</h3>
+      <div class="se-sum">до 3–7%</div>
+      <p class="se-d">компенсация части процентной ставки по кредиту на покупку и интеграцию промышленного робота</p>
+      <ul class="se-cond"><li>участок производства: до 7%, на московских роботах до 5%</li><li>цех целиком: до 5%, на московских до 4%</li><li>трансформация предприятия: до 4%, на московских до 3%</li></ul>
+      <div class="se-foot"><span class="se-status">готовится · сентябрь 2026</span><span class="se-arr">↗</span></div>
+    </article>
+    <article class="sup-card" data-aud="buy">
+      <div class="se-agency">мфппип</div>
+      <h3 class="se-t">робот по подписке, raas</h3>
+      <div class="se-sum">до 70% платежа</div>
+      <p class="se-d">компенсация ежемесячного платежа за роботизированную услугу</p>
+      <ul class="se-cond"><li>до 70% на роботов, произведённых в москве</li><li>до 50% на произведённых в других субъектах рф</li><li>не более 12 млн ₽ в год на один комплекс</li></ul>
+      <div class="se-foot"><span class="se-status">готовится · сентябрь 2026</span><span class="se-arr">↗</span></div>
+    </article>
+    <article class="sup-card" data-aud="make">
+      <div class="se-agency"><img class="se-logo" src="images/gerb-moskvy.png" alt="" width="20" height="20" loading="lazy">дпир москвы</div>
+      <h3 class="se-t">займы на разработку новых роботов</h3>
+      <div class="se-sum">до 50 млн ₽ · 10%</div>
+      <p class="se-d">финансирование создания новых решений. оператор — московский венчурный фонд</p>
+      <ul class="se-cond"><li>московский разработчик на ранней стадии с работающим прототипом</li><li>частные инвестиции в размере займа</li><li>до 5 лет; оборудование, фот, аренда, испытания, сертификация, логистика</li></ul>
+      <div class="se-foot"><span class="se-status on">действует</span><span class="se-arr">↗</span></div>
+    </article>
+    <article class="sup-card" data-aud="make">
+      <div class="se-agency"><img class="se-logo" src="images/gerb-moskvy.png" alt="" width="20" height="20" loading="lazy">дипп москвы</div>
+      <h3 class="se-t">льготное финансирование производства</h3>
+      <div class="se-sum">до 5 млрд ₽ · ½ ставки цб</div>
+      <p class="se-d">компенсация части ставки по кредиту на создание или модернизацию производства. оператор — мфппип</p>
+      <ul class="se-cond"><li>промышленное предприятие москвы</li><li>оквэд раздел c «обрабатывающие производства»</li><li>срок компенсации до 5 лет</li></ul>
+      <div class="se-foot"><span class="se-status on">действует</span><span class="se-arr">↗</span></div>
+    </article>
+    <article class="sup-card" data-aud="make">
+      <div class="se-agency"><img class="se-logo" src="images/gerb-moskvy.png" alt="" width="20" height="20" loading="lazy">дпир москвы</div>
+      <h3 class="se-t">займы на производство под контракт</h3>
+      <div class="se-sum">до 100 млн ₽ · 10%</div>
+      <p class="se-d">оборотные средства на производство партии роботов под контракт. оператор — московский венчурный фонд</p>
+      <ul class="se-cond"><li>московский производитель робототехники</li><li>продукция включена в реестр москвы</li><li>есть контракт на поставку; до 24 месяцев</li></ul>
+      <div class="se-foot"><span class="se-status">готовится · сентябрь 2026</span><span class="se-arr">↗</span></div>
+    </article>
+    <article class="sup-card" data-aud="make">
+      <div class="se-agency"><img class="se-logo" src="images/gerb-moskvy.png" alt="" width="20" height="20" loading="lazy">дпир москвы</div>
+      <h3 class="se-t">гранты на пилотное тестирование</h3>
+      <div class="se-sum">до 4 млн ₽</div>
+      <p class="se-d">финансирование апробации технологии на городских площадках. оператор — фонд «московский инновационный кластер»</p>
+      <ul class="se-cond"><li>московская компания-разработчик или производитель</li><li>экспертиза инновационности</li><li>соглашение о проведении пилотного тестирования</li></ul>
+      <div class="se-foot"><span class="se-status on">действует</span><span class="se-arr">↗</span></div>
+    </article>
+  </div>
+  </div>
+  <p class="sup-note">часть мер находится в проработке — они помечены «готовится». приём заявок по ним откроется после запуска программ. данные на странице демонстрационные.</p>
+</section>
+
+<!-- ============ каталог ============ -->
+<section class="catalog rev" id="catalog">
+  <div class="cat-head">
+    <h2 class="h1">найдите<br>своего робота</h2>
+  </div>
+  <ul class="robot-list" id="robotList"></ul>
+  <div class="cat-actions">
+    <a href="#band" class="btn btn-green btn-lg">перейти в каталог →</a>
+    <p class="lead">17 решений в каталоге — промышленные, сервисные и транспортные</p>
   </div>
 </section>
 
@@ -822,42 +959,28 @@ dialog#taskDlg::backdrop{background:rgba(6,10,8,.72);
   </div>
 </section>
 
-<!-- ============ две роли ============ -->
-<section class="roles rev">
-  <img class="roles-hand" src="images/hand-pointer.png" alt="" aria-hidden="true">
-  <div class="roles-slug">
-    <h2 class="h1">соединяем производителей с заказчиками</h2>
-    <img class="roles-robot" src="images/robot-wave.png" alt="" width="684" height="900" loading="lazy">
-  </div>
-  <div class="pockets">
-    <div class="pocket pocket-1">
+<!-- ============ испытания ============ -->
+<section class="testing rev" id="testing">
+  <div class="test-box">
+    <div class="test-l">
       <div>
-        <h3 class="h2">испытывайте и предлагайте решения заказчикам</h3>
-        <p>получите ресурсы для разработки робота, развития производства и подготовки первой поставки — от прототипа до реального применения</p>
+        <h2 class="h2" style="margin:0 0 16px">доступная инфраструктура<br>для любых испытаний</h2>
+        <p class="lead">площадки в иц «сколково» и индустриальном парке «руднево»: от городской среды до испытаний в воздухе и на воде</p>
       </div>
-      <a href="#band" class="btn">предложить своего робота →</a>
-      <div class="pocket-glyph">01</div>
-    </div>
-    <div class="pocket pocket-2">
-      <div>
-        <h3 class="h2">выбирайте лучших роботов для своих задач</h3>
-        <p>начните с задачи предприятия, найдите подходящее решение и используйте поддержку города для покупки, интеграции и обслуживания</p>
+      <div class="env">
+        <button type="button" class="env-i is-on"><span class="n">01</span><span class="t">городская инфраструктура</span><span class="s">дороги, тротуары и сложный рельеф</span></button>
+        <button type="button" class="env-i"><span class="n">02</span><span class="t">вода</span><span class="s">надводные и подводные системы</span></button>
+        <button type="button" class="env-i"><span class="n">03</span><span class="t">воздух</span><span class="s">беспилотные аппараты и навигация</span></button>
+        <button type="button" class="env-i"><span class="n">04</span><span class="t">в помещениях</span><span class="s">склады, офисы и торговые объекты</span></button>
       </div>
-      <a href="#catalog" class="btn">подобрать робота →</a>
-      <div class="pocket-glyph">02</div>
+      <a href="#band" class="btn btn-green" style="align-self:flex-start">подать заявку на испытания ↗</a>
     </div>
-  </div>
-</section>
-
-<!-- ============ каталог ============ -->
-<section class="catalog rev" id="catalog">
-  <div class="cat-head">
-    <h2 class="h1">найдите<br>своего робота</h2>
-  </div>
-  <ul class="robot-list" id="robotList"></ul>
-  <div class="cat-actions">
-    <a href="#band" class="btn btn-green btn-lg">перейти в каталог →</a>
-    <p class="lead">17 решений в каталоге — промышленные, сервисные и транспортные</p>
+    <div class="test-r">
+      <img class="is-on" src="images/env-city.jpg" alt="" width="1400" height="1050">
+      <img src="images/env-water.jpg" alt="" width="1400" height="700" loading="lazy">
+      <img src="images/env-air.jpg" alt="" width="1400" height="933" loading="lazy">
+      <img src="images/path-04.jpg" alt="" width="700" height="466" loading="lazy">
+    </div>
   </div>
 </section>
 
@@ -865,7 +988,6 @@ dialog#taskDlg::backdrop{background:rgba(6,10,8,.72);
 <section class="cases rev" id="cases">
   <div class="cases-head">
     <h2 class="h1">роботы, которые<br>уже вышли на работу</h2>
-    <p class="lead">что предприятия поручили роботам и что из этого вышло</p>
   </div>
   <div class="case-grid">
     <article class="case">
@@ -887,27 +1009,6 @@ dialog#taskDlg::backdrop{background:rgba(6,10,8,.72);
 </section>
 
 <dialog id="taskDlg" aria-label="подбор роботов под работу"></dialog>
-
-<!-- ============ поддержка города ============ -->
-<section class="support rev" id="support">
-  <div class="sup-head">
-    <div class="sup-copy">
-      <h2 class="h1">город помогает деньгами и временем</h2>
-      <p class="lead" style="margin-top:18px">можно начать с одного инструмента и подключать остальные по мере развития проекта</p>
-    </div>
-    <img class="sup-photo" src="images/support-robotaxi.jpg" alt="" width="1400" height="933" loading="lazy">
-  </div>
-  <div class="sup-list">
-    <details class="sup-item"><summary>приобрести решение<span class="plus">+</span></summary>
-      <p>поддержка покупки робототехнического решения для предприятия.</p></details>
-    <details class="sup-item"><summary>провести интеграцию<span class="plus">+</span></summary>
-      <p>поддержка адаптации робота к действующим процессам предприятия.</p></details>
-    <details class="sup-item"><summary>компенсировать затраты<span class="plus">+</span></summary>
-      <p>возмещение части расходов на внедрение и запуск решения.</p></details>
-    <details class="sup-item"><summary>использовать робота как услугу<span class="plus">+</span></summary>
-      <p>сервисная модель без единовременной покупки оборудования.</p></details>
-  </div>
-</section>
 
 <!-- ============ полоса контакта ============ -->
 <section class="band rev" id="band">
@@ -1452,6 +1553,25 @@ var openWork=null;
  addEventListener('scroll',onScroll,{passive:true});
  addEventListener('resize',onScroll);
  measure();
+})();
+
+/* ---- поддержка: переключатель аудитории ----
+   Видимость карточек решает css по data-aud на сетке, скрипт только
+   переставляет атрибут и подсветку кнопок */
+(function(){
+ var tabs=document.querySelectorAll('.sup-tab');
+ var grid=document.getElementById('supGrid');
+ if(!tabs.length||!grid) return;
+ Array.prototype.forEach.call(tabs,function(tab){
+  tab.addEventListener('click',function(){
+   Array.prototype.forEach.call(tabs,function(o){
+    var on=o===tab;
+    o.classList.toggle('is-on',on);
+    o.setAttribute('aria-selected',on?'true':'false');
+   });
+   grid.setAttribute('data-aud',tab.getAttribute('data-aud'));
+  });
+ });
 })();
 
 /* ---- появление при скролле ---- */

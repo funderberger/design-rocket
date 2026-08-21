@@ -366,6 +366,224 @@ section{position:relative}
 .task h4{margin:0;font-size:26px;letter-spacing:-.035em;font-weight:500;line-height:1}
 .task p{margin:10px 0 0;font-size:14.5px;line-height:1.32;opacity:.68}
 
+/* ---------- «зачем здесь робот?»: колода кейсов ----------
+   Три карточки лежат стопкой по глубине. Скролл не переключает кейсы —
+   он раскрывает активный: за одним и тем же роботом сменяется среда.
+   Кейсы переключаются только кликом по задней карточке, стрелке или
+   номеру. Задние карточки свою историю не проигрывают. */
+.why{padding:clamp(40px,5vw,84px) var(--gut) clamp(18px,2.2vw,32px)}
+.why-head{max-width:820px;margin:0 auto clamp(12px,1.6vw,20px);text-align:center}
+.why-head .lead{margin-top:10px}
+/* навигация: номера кейсов слева, круглые стрелки справа */
+.why-nav{display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  margin-bottom:clamp(10px,1.4vw,18px)}
+.wn-arrows{display:flex;gap:8px;margin-left:auto}
+/* строка навигации осталась только со стрелками */
+.why-nav{justify-content:flex-end}
+.wn-arr{width:44px;height:44px;border-radius:999px;border:1px solid var(--w-16);
+  display:grid;place-items:center;font-size:17px;color:var(--w-70);transition:.28s}
+.wn-arr:hover{background:var(--green);border-color:var(--green);color:#06110B}
+
+/* дорожка короткая: вся секция примерно 130vh, а не три экрана */
+/* истории листаются тапом, длинная дорожка прокрутки не нужна */
+.why-runway{height:auto}
+.why-stick{position:static;height:min(700px,74vh)}
+/* поля сверху и справа — место под торцы приподнятой стопки */
+/* сверху — место под две видимые полоски задних карточек */
+/* --dy — место под две полоски задних карточек */
+/* карточка центрируется сама, задние уезжают вбок */
+.why-deck{position:relative;height:100%;margin-inline:auto}
+.wcard{inset:var(--dy) 0 0 0}
+
+/* карточка портретная, по центру; задние — по бокам и в глубине */
+.wcard{position:absolute;top:0;bottom:0;left:50%;width:min(500px,38vw);
+  margin-left:calc(min(500px,38vw) / -2);
+  display:flex;flex-direction:column;overflow:hidden;
+  padding:clamp(10px,1vw,15px);
+  border-radius:clamp(18px,1.8vw,26px);background:var(--ink);
+  border:2px solid transparent;cursor:pointer;
+  transition:transform .74s cubic-bezier(.2,.75,.25,1),
+             opacity .5s ease,border-color .35s ease,box-shadow .5s ease}
+.wcard[data-pos="0"]{transform:none;z-index:3;cursor:default;
+  border-color:var(--green);box-shadow:0 40px 90px rgba(0,0,0,.55)}
+.wcard[data-pos="1"]{transform:translateX(62%) scale(.9);z-index:2}
+.wcard[data-pos="2"]{transform:translateX(-62%) scale(.9);z-index:2}
+.wcard[data-pos="1"]:hover{transform:translateX(58%) scale(.925);border-color:var(--w-45)}
+.wcard[data-pos="2"]:hover{transform:translateX(-58%) scale(.925);border-color:var(--w-45)}
+.wcard:not([data-pos="0"]):focus-visible{outline:2px solid var(--green);outline-offset:4px}
+/* задние уходят в тень, но остаются читаемыми как превью */
+.wcard:not([data-pos="0"])::after{content:"";position:absolute;inset:0;z-index:6;
+  border-radius:inherit;pointer-events:none;background:rgba(8,11,9,.62)}
+
+/* фотография с отступом от краёв карточки, со своим скруглением */
+.wc-media{position:relative;flex:0 0 70%;min-height:0;overflow:hidden;
+  border-radius:clamp(10px,1vw,16px);background:var(--coal)}
+.wc-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  opacity:0;transform:scale(1.06);
+  transition:opacity 1s ease,transform 1.6s cubic-bezier(.2,.75,.25,1)}
+.wcard[data-state="0"] .wc-bg:nth-of-type(1),
+.wcard[data-state="1"] .wc-bg:nth-of-type(2),
+.wcard[data-state="2"] .wc-bg:nth-of-type(3){opacity:1;transform:scale(1)}
+.wc-media::before{content:"";position:absolute;inset:0 0 auto;height:34%;z-index:1;
+  pointer-events:none;background:linear-gradient(180deg,rgba(9,12,10,.55),rgba(9,12,10,0))}
+/* робот отдельным слоем: при смене среды остаётся на месте */
+.wc-hero{position:absolute;right:2%;bottom:0;height:86%;width:auto;max-width:52%;
+  object-fit:contain;object-position:bottom right;pointer-events:none;
+  filter:drop-shadow(0 20px 42px rgba(0,0,0,.55));
+  transition:transform 1.6s cubic-bezier(.2,.75,.25,1)}
+.wcard[data-pos="0"][data-state="1"] .wc-hero{transform:translate(-2%,1%) scale(1.03)}
+.wcard[data-pos="0"][data-state="2"] .wc-hero{transform:translate(1.5%,-1%) scale(1.05)}
+/* полоски прогресса как в сторис: пройденные кадры залиты */
+.wc-bars{position:absolute;top:10px;left:10px;right:10px;z-index:4;
+  display:flex;gap:5px;pointer-events:none}
+.wc-bars i{flex:1;height:3px;border-radius:3px;background:rgba(255,255,255,.28);
+  overflow:hidden;transition:background .35s ease}
+.wcard[data-state="0"] .wc-bars i:nth-child(-n+1),
+.wcard[data-state="1"] .wc-bars i:nth-child(-n+2),
+.wcard[data-state="2"] .wc-bars i:nth-child(-n+3){background:var(--white)}
+/* половины кадра: слева назад, справа вперёд. На задних карточках выключены,
+   чтобы клик по ним по-прежнему выводил кейс вперёд */
+.wc-zone{position:absolute;top:0;bottom:0;width:50%;z-index:3;background:none;border:0;
+  cursor:pointer}
+.wc-prev{left:0}
+.wc-next{right:0}
+.wcard:not([data-pos="0"]) .wc-zone{pointer-events:none}
+.wc-zone:focus-visible{outline:2px solid var(--green);outline-offset:-4px}
+
+/* информационный блок */
+.wc-info{flex:1;min-height:0;display:flex;flex-direction:column;
+  padding:clamp(12px,1.3vw,18px) clamp(8px,.8vw,12px) 0}
+.wc-t{margin:0;font-size:clamp(20px,2vw,30px);line-height:.98;letter-spacing:-.03em;
+  font-weight:700;text-transform:uppercase}
+.wc-q{margin:clamp(12px,1.4vw,20px) 0 0;font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--green);font-weight:500}
+.wc-d{margin:clamp(8px,.9vw,13px) 0 0;font-size:clamp(13px,1.15vw,16px);line-height:1.45;
+  color:var(--w-70)}
+
+/* стрелки по краям колоды */
+.why-nav{position:relative;justify-content:flex-end}
+.wn-arrows{display:flex;gap:8px}
+
+@media(max-width:1024px){
+  .wcard{width:min(460px,54vw);margin-left:calc(min(460px,54vw) / -2)}
+  .wcard[data-pos="1"]{transform:translateX(56%) scale(.9)}
+  .wcard[data-pos="2"]{transform:translateX(-56%) scale(.9)}
+  .wcard[data-pos="1"]:hover{transform:translateX(52%) scale(.925)}
+  .wcard[data-pos="2"]:hover{transform:translateX(-52%) scale(.925)}
+}
+/* на телефоне колоды нет: одна карточка, переключение стрелками и свайпом */
+@media(max-width:760px){
+  .why-stick{height:auto}
+  .why-deck{height:auto;max-width:none;padding:0}
+  .wcard{position:relative;left:auto;top:auto;bottom:auto;width:100%;margin-left:0;
+    transition:opacity .5s ease}
+  .wcard[data-pos="1"],.wcard[data-pos="2"]{position:absolute;inset:0;transform:none;
+    opacity:0;pointer-events:none}
+  .wcard[data-pos="0"]{box-shadow:none}
+  .wc-media{flex:none;aspect-ratio:4/3}
+  .wc-info{flex:none;padding-bottom:0}
+  .wc-hero{height:78%;max-width:56%}
+}
+@media(prefers-reduced-motion:reduce){
+  .wc-bg,.wc-hero{transition:none}
+}
+
+/* ---------- раздел «роботы»: полный каталог ----------
+   Отдельный экран внутри той же страницы: при хеше #robots лендинг
+   прячется целиком, остаётся шапка, каталог и подвал */
+#robots{display:none}
+body.is-catalog #robots{display:block}
+body.is-catalog > section:not(#robots){display:none}
+.cat-page{padding:clamp(26px,3.4vw,56px) var(--gut) clamp(60px,8vw,110px)}
+.cp-head{display:flex;align-items:baseline;gap:clamp(14px,2.2vw,30px);flex-wrap:wrap;
+  margin-bottom:clamp(18px,2.4vw,32px)}
+.cp-title{margin:0;font-size:clamp(38px,6.2vw,100px);line-height:.92;
+  letter-spacing:-.045em;font-weight:500}
+/* фильтры: первый уровень — категории, второй — задачи внутри категории */
+.cp-cats{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:10px}
+.cp-chip{display:inline-flex;align-items:center;gap:9px;padding:13px 24px;
+  border:1px solid var(--w-16);border-radius:999px;font-size:14.5px;letter-spacing:.02em;
+  text-transform:uppercase;color:var(--w-70);transition:.25s}
+.cp-chip b{font-weight:400;font-size:13px;color:var(--w-45)}
+.cp-chip:hover{color:var(--white);border-color:var(--w-45)}
+.cp-chip.is-on{background:var(--green);border-color:var(--green);color:#06110B}
+.cp-chip.is-on b{color:rgba(6,17,11,.55)}
+.cp-chip:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+/* второй уровень мельче, активная заливается белым — как в референсе */
+.cp-subs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.cp-sub{display:inline-flex;align-items:center;gap:8px;padding:9px 17px;
+  border:1px solid var(--w-16);border-radius:999px;font-size:12.5px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--w-45);transition:.25s}
+.cp-sub b{font-weight:400;color:var(--w-45)}
+.cp-sub:hover{color:var(--white);border-color:var(--w-45)}
+.cp-sub.is-on{background:var(--white);border-color:var(--white);color:#06110B}
+.cp-sub.is-on b{color:rgba(6,17,11,.5)}
+.cp-sub:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+.cp-hint{margin:0 0 14px;min-height:18px;font-size:13.5px;color:var(--w-45)}
+/* строка инструментов: поиск, переключатель реестра и три списка */
+.cp-tools{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+.cp-search{flex:1 1 320px;min-width:0;padding:14px 20px;border-radius:999px;
+  background:var(--coal);border:1px solid var(--w-08);color:var(--white);
+  font:inherit;font-size:14.5px;letter-spacing:-.01em}
+.cp-search::placeholder{color:var(--w-45)}
+.cp-search:focus{outline:none;border-color:var(--green)}
+.cp-toggle{display:inline-flex;align-items:center;gap:10px;padding:14px 22px;
+  border-radius:999px;background:var(--coal);border:1px solid var(--w-08);
+  font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--w-70);transition:.25s}
+.cp-toggle b{font-weight:400;color:var(--w-45)}
+.cp-toggle:hover{border-color:var(--w-45);color:var(--white)}
+.cp-toggle.is-on{background:var(--green);border-color:var(--green);color:#06110B}
+.cp-toggle.is-on b{color:rgba(6,17,11,.55)}
+.cp-sel{display:inline-flex;align-items:center;gap:10px;padding:0 18px;
+  border-radius:999px;background:var(--coal);border:1px solid var(--w-08);
+  font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--w-45);
+  cursor:pointer;transition:.25s}
+.cp-sel:hover{border-color:var(--w-45)}
+.cp-sel:focus-within{border-color:var(--green)}
+.cp-sel select{padding:14px 0;background:none;border:0;color:var(--white);
+  font:inherit;font-size:13px;letter-spacing:-.01em;text-transform:none;cursor:pointer}
+.cp-sel select:focus{outline:none}
+.cp-sel option{background:var(--ink);color:var(--white)}
+.cp-sel.is-off{display:none}
+.cp-showing{margin-bottom:16px;font-size:11.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--w-45)}
+/* сетка карточек; всё внутри .cp-card — span, это <button> */
+/* три в ряд; grid-auto-rows:1fr равняет высоту всех строк, поэтому
+   карточки во всём каталоге одинаковые, а не только внутри ряда */
+.cp-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:1fr;gap:12px}
+.cp-card{display:flex;flex-direction:column;width:100%;padding:0;text-align:left;
+  background:var(--coal);border:1px solid var(--w-08);border-radius:var(--r-s);overflow:hidden;
+  transition:.3s cubic-bezier(.2,.7,.3,1)}
+.cp-card:hover{border-color:var(--green);transform:translateY(-5px)}
+.cp-card:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+.cp-pic{display:block;position:relative;aspect-ratio:4/3;
+  background:radial-gradient(90% 90% at 50% 20%,#1F2A25,#0E1211)}
+/* абсолютное позиционирование обязательно: в потоке <img> растягивает
+   контейнер под свою пропорцию и aspect-ratio выше не действует.
+   inset даёт полям воздух, contain не режет технику */
+.cp-pic img{position:absolute;inset:14px;width:calc(100% - 28px);height:calc(100% - 28px);
+  object-fit:contain}
+.cp-tag{position:absolute;left:12px;top:12px;padding:5px 11px;
+  background:rgba(6,17,11,.7);border:1px solid var(--w-16);border-radius:999px;
+  font-size:11.5px;letter-spacing:.04em;color:var(--w-70);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.cp-b{flex:1;display:flex;flex-direction:column;padding:16px 18px 18px}
+.cp-n{display:block;font-size:18px;letter-spacing:-.025em;font-weight:500}
+.cp-d{display:block;margin-top:8px;font-size:13.5px;line-height:1.35;color:var(--w-45)}
+.cp-s{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.cp-s span{border:1px solid var(--w-16);border-radius:999px;padding:5px 11px;
+  font-size:12.5px;color:var(--w-70)}
+/* строка действия прижата к низу — у всех карточек ряда на одной линии */
+.cp-go{margin-top:auto;padding-top:14px;display:flex;align-items:center;
+  justify-content:space-between;gap:10px;font-size:13.5px;color:var(--green)}
+.cp-empty{padding:40px 0;color:var(--w-45);font-size:16px}
+@media(max-width:1024px){.cp-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:680px){
+  .cp-tools{flex-direction:column;align-items:stretch}
+  .cp-sel,.cp-toggle{justify-content:space-between}
+}
+@media(max-width:560px){.cp-grid{grid-template-columns:1fr}}
+
 /* ---------- окно подбора роботов под работу ---------- */
 /* два уровня живут в одном <dialog>: экран работы и карточка модели.
    Содержимое целиком собирает скрипт из ROBOTS и WORKS */
@@ -733,7 +951,7 @@ dialog#taskDlg::backdrop{background:rgba(6,10,8,.72);
     </span>
     <nav class="nav">
       <a href="#top">главная</a>
-      <a href="#catalog">роботы</a>
+      <a href="#robots">роботы</a>
       <a href="#support">финансирование</a>
       <a href="#testing">испытания</a>
       <a href="#tasks">аналитика</a>
@@ -823,6 +1041,75 @@ dialog#taskDlg::backdrop{background:rgba(6,10,8,.72);
     <h2 class="h1">выберите что<br>должен делать робот</h2>
   </div>
   <div class="tape" id="tape"></div>
+</section>
+
+<!-- ============ зачем здесь робот: колода кейсов ============ -->
+<section class="why rev" id="why">
+  <div class="why-head">
+    <h2 class="h1">для чего нужен такой робот</h2>
+  </div>
+  <nav class="why-nav" aria-label="кейсы">
+    <span class="wn-arrows">
+      <button type="button" class="wn-arr" data-step="-1" aria-label="предыдущий кейс">←</button>
+      <button type="button" class="wn-arr" data-step="1" aria-label="следующий кейс">→</button>
+    </span>
+  </nav>
+  <div class="why-runway">
+    <div class="why-stick">
+      <div class="why-deck" id="whyDeck">
+      <article class="wcard" data-pos="0" data-state="0" tabindex="0"
+               role="button" aria-label="кейс 01, робот-собака">
+        <div class="wc-media">
+          <img class="wc-bg" src="images/path-03.jpg" alt="" style="object-position:center" loading="lazy" draggable="false">
+          <img class="wc-bg" src="images/env-city.jpg" alt="" style="object-position:center 62%" loading="lazy" draggable="false">
+          <img class="wc-bg" src="images/task-patrol.jpg" alt="" style="object-position:center" loading="lazy" draggable="false">
+          <img class="wc-hero" src="images/inchbot-l1.png" alt="" loading="lazy" draggable="false">
+          <div class="wc-bars" aria-hidden="true"><i></i><i></i><i></i></div>
+          <button type="button" class="wc-zone wc-prev" aria-label="предыдущий кадр"></button>
+          <button type="button" class="wc-zone wc-next" aria-label="следующий кадр"></button>
+        </div>
+        <div class="wc-info">
+          <h3 class="wc-t">робот-собака</h3>
+          <p class="wc-q">почему этот робот не игрушка?</p>
+          <p class="wc-d">проходит там, где колёсами не проедешь, а человеку небезопасно</p>
+        </div>
+      </article>
+      <article class="wcard" data-pos="1" data-state="0" tabindex="-1"
+               role="button" aria-label="кейс 02, ronavi h1500">
+        <div class="wc-media">
+          <img class="wc-bg" src="images/task-cargo.jpg" alt="" style="object-position:center" loading="lazy" draggable="false">
+          <img class="wc-bg" src="images/path-02.jpg" alt="" style="object-position:center" loading="lazy" draggable="false">
+          <img class="wc-bg" src="images/step-02.jpg" alt="" style="object-position:center" loading="lazy" draggable="false">
+          <img class="wc-hero" src="images/ronavi-h1500.png" alt="" loading="lazy" draggable="false">
+          <div class="wc-bars" aria-hidden="true"><i></i><i></i><i></i></div>
+          <button type="button" class="wc-zone wc-prev" aria-label="предыдущий кадр"></button>
+          <button type="button" class="wc-zone wc-next" aria-label="следующий кадр"></button>
+        </div>
+        <div class="wc-info">
+          <h3 class="wc-t">складской робот</h3>
+          <p class="wc-q">почему этот робот не просто тележка?</p>
+          <p class="wc-d">сам строит маршруты, объезжает препятствия и перевозит грузы без участия человека</p>
+        </div>
+      </article>
+      <article class="wcard" data-pos="2" data-state="0" tabindex="-1"
+               role="button" aria-label="кейс 03, робот-гуманоид">
+        <div class="wc-media">
+          <img class="wc-bg" src="images/path-04.jpg" alt="" style="object-position:center" loading="lazy" draggable="false">
+          <img class="wc-bg" src="images/path-01.jpg" alt="" style="object-position:center" loading="lazy" draggable="false">
+          <img class="wc-bg" src="images/step-01.jpg" alt="" style="object-position:center" loading="lazy" draggable="false">
+          <img class="wc-hero" src="images/unitree-h2.png" alt="" loading="lazy" draggable="false">
+          <div class="wc-bars" aria-hidden="true"><i></i><i></i><i></i></div>
+          <button type="button" class="wc-zone wc-prev" aria-label="предыдущий кадр"></button>
+          <button type="button" class="wc-zone wc-next" aria-label="следующий кадр"></button>
+        </div>
+        <div class="wc-info">
+          <h3 class="wc-t">робот-гуманоид</h3>
+          <p class="wc-q">для чего ему нужны ноги?</p>
+          <p class="wc-d">чтобы свободно перемещаться там, где всё рассчитано на человека</p>
+        </div>
+      </article>
+      </div>
+  </div>
 </section>
 
 <!-- ============ две роли ============ -->
@@ -938,7 +1225,7 @@ dialog#taskDlg::backdrop{background:rgba(6,10,8,.72);
   </div>
   <ul class="robot-list" id="robotList"></ul>
   <div class="cat-actions">
-    <a href="#band" class="btn btn-green btn-lg">перейти в каталог →</a>
+    <a href="#robots" class="btn btn-green btn-lg">перейти в каталог →</a>
     <p class="lead">17 решений в каталоге — промышленные, сервисные и транспортные</p>
   </div>
 </section>
@@ -1009,6 +1296,26 @@ dialog#taskDlg::backdrop{background:rgba(6,10,8,.72);
   </div>
 </section>
 
+<!-- ============ раздел «роботы»: полный каталог ============ -->
+<section class="cat-page" id="robots">
+  <div class="cp-head">
+    <h1 class="cp-title">каталог роботов</h1>
+  </div>
+  <div class="cp-cats" id="cpCats"></div>
+  <div class="cp-subs" id="cpSubs"></div>
+  <p class="cp-hint" id="cpHint"></p>
+  <div class="cp-tools">
+    <input class="cp-search" id="cpSearch" type="search" autocomplete="off"
+           placeholder="поиск: название, производитель, описание…" aria-label="поиск по каталогу">
+    <button type="button" class="cp-toggle" id="cpReg">только из реестра<b>0</b></button>
+    <label class="cp-sel" id="cpKinWrap"><span>кинематика</span><select id="cpKin"></select></label>
+    <label class="cp-sel"><span>отрасль применения</span><select id="cpInd"></select></label>
+    <label class="cp-sel"><span>производитель</span><select id="cpMaker"></select></label>
+  </div>
+  <div class="cp-showing" id="cpShowing"></div>
+  <div class="cp-grid" id="cpGrid"></div>
+</section>
+
 <dialog id="taskDlg" aria-label="подбор роботов под работу"></dialog>
 
 <!-- ============ полоса контакта ============ -->
@@ -1039,7 +1346,7 @@ dialog#taskDlg::backdrop{background:rgba(6,10,8,.72);
     <a href="mailto:roboty@cluster.mos.ru" class="btn btn-ghost btn-lg">задать вопрос</a>
   </div>
   <nav class="f-tiles">
-    <a class="f-tile" href="#catalog">роботы<span>↗</span></a>
+    <a class="f-tile" href="#robots">роботы<span>↗</span></a>
     <a class="f-tile" href="#support">финансирование<span>↗</span></a>
     <a class="f-tile" href="#testing">испытания<span>↗</span></a>
     <a class="f-tile" href="#tasks">аналитика<span>↗</span></a>
@@ -1098,26 +1405,62 @@ var ROBOTS=[
  {cat:'транспортные',name:'Evocargo N1',d:'беспилотный грузовик для закрытых территорий — заводов и складов',s:['запас хода 200 км','до 25 км/ч','лидары, камеры, радары'],img:'images/evocargo-n1.png',hint:'для открытой территории',works:['cargo'],sp:{cargo:['по запросу','до 25 км/ч','запас хода 200 км']}},
  {cat:'транспортные',name:'Роботакси',d:'легковой автомобиль',s:['11 лидаров','18 камер','до 3 пассажиров'],img:'images/robotaxi.png',hint:'перевозка пассажиров',works:[],sp:{}}
 ];
-/* паспортные поля дописываем одним проходом: у всех моделей они одинаковы
-   или выводятся из категории. Реальных данных по производителю, цене и
-   сайту у нас нет — честно ставим «по запросу», как и обещает подпись
-   в подвале про демонстрационные данные */
-var INDUSTRY={'логистика':'склады и внутренняя логистика','промышленность':'производство и обработка',
- 'обслуживающие':'городское хозяйство и сервис','биоморфные':'инспекция и обходы',
- 'транспортные':'перевозки и транспорт'};
-var KIND={'логистика':'мобильный робот','промышленность':'манипулятор',
- 'обслуживающие':'сервисный робот','биоморфные':'шагающая платформа','транспортные':'беспилотный транспорт'};
-var KIND_FIX={'Ronavi × Seer CBD16':'мобильный робот'};
+/* карточные поля из таблицы «Роборешения для Реестра»: три категории,
+   подкатегории-задачи, кинематика, производитель и сайт — реальные.
+   Цена, происхождение и регион в таблице отсутствуют — там «по запросу»,
+   как и обещает подпись в подвале про демонстрационные данные */
+var REG={
+ 'Ronavi H1500':{cat:'сервисные',sub:['store'],kin:'складские роботы',maker:'ООО «Ронави Роботикс»',site:'https://ronavi-robotics.ru/catalogue/h1500',industry:'склады и логистика'},
+ 'Ronavi × Seer CBD16':{cat:'сервисные',sub:['store'],kin:'складские роботы',maker:'ООО «Ронави Роботикс»',site:'https://ronavi-robotics.ru/catalogue/cbd16',industry:'склады и логистика'},
+ 'AMR1500':{cat:'сервисные',sub:['store'],kin:'складские роботы',maker:'ООО «МОРОС»',site:'https://морос.рф/amr-1500/',industry:'склады и производство'},
+ 'Пиксель':{cat:'сервисные',sub:['clean'],kin:'уборщики',maker:'ООО «Автономика»',site:'https://www.avtonomika.ru/products/pixel/',industry:'городское хозяйство'},
+ 'MARK 2 SE':{cat:'сервисные',sub:['clean'],kin:'уборщики',maker:'ООО «Р2Б»',site:'https://r2b.company/mark2se',industry:'торговые объекты'},
+ 'Inchbot L1/L1 Edu':{cat:'сервисные',sub:['watch'],kin:'биоморфные',maker:'АО «КЬЮ ГРУПП»',site:'https://qubot.ru/catalog/roboty-sobaki/inchbot-l1',industry:'промышленные объекты'},
+ 'Unitree H2':{cat:'сервисные',sub:['guest'],kin:'биоморфные',maker:'АО «КЬЮ ГРУПП»',site:'https://qubot.ru/catalog/roboty-gumanoidy/unitree-h2',industry:'промышленность и сервис'},
+ 'Birbi S-1 PRO':{cat:'промышленные',sub:['move','assy'],kin:'scara-роботы',maker:'ООО «БиАйДи Технолоджис Рус»',site:'https://bid.life',industry:'производство'},
+ 'Birbi D-1':{cat:'промышленные',sub:['move'],kin:'дельта-роботы',maker:'ООО «БиАйДи Технолоджис Рус»',site:'https://bid.life',industry:'производство'},
+ 'DOKA RC30':{cat:'промышленные',sub:['move','weld','mach','pall'],kin:'коллаборативные роботы',maker:'ООО «РобоПро»',site:'https://doka-robots.ru',industry:'производство'},
+ 'Promobot M13':{cat:'промышленные',sub:['assy','weld','mach','pall'],kin:'коллаборативные роботы',maker:'ООО «Промобот»',site:'https://promo-bot.ru',industry:'производство'},
+ 'A12-1450':{cat:'промышленные',sub:['move','assy','weld'],kin:'коллаборативные роботы',maker:'АО «Эйдос Робототехника»',site:'https://eidos-robotics.ru',industry:'производство'},
+ 'ARM-IMR-95':{cat:'промышленные',sub:['assy','mach'],kin:'коллаборативные роботы',maker:'ООО «ПРИКЛАДНАЯ РОБОТОТЕХНИКА»',site:'https://wiki.appliedrobotics.ru',industry:'лаборатории и производство'},
+ '«Берилл» РП25.22ШС':{cat:'промышленные',sub:['move','weld','mach'],kin:'коллаборативные роботы',maker:'ООО «Валдай Роботы»',site:'https://vald.ai',industry:'производство'},
+ 'Navio L5':{cat:'транспортные',sub:['cargo'],kin:'',maker:'ООО «Автотех»',site:'https://navio.auto',industry:'магистральные перевозки'},
+ 'Evocargo N1':{cat:'транспортные',sub:['cargo'],kin:'',maker:'ООО «ЭвоКарго»',site:'https://evocargo.com',industry:'закрытые территории'},
+ 'Роботакси':{cat:'транспортные',sub:['pass'],kin:'',maker:'МКПАО «Яндекс»',site:'https://autonomy.yandex.ru',industry:'городские перевозки'}
+};
+/* задачи внутри категории: ключ -> подпись и пояснение под фильтром */
+var SUBS={
+ store:['складские перевозки','перемещение паллет, стеллажей и тележек внутри склада'],
+ clean:['уборка','уборка помещений и городских территорий без оператора'],
+ guest:['обслуживание посетителей','работа в человеческой среде: залы, офисы, точки обслуживания'],
+ watch:['мониторинг и инспекция','обходы по маршруту, сбор данных и выявление отклонений'],
+ move:['перекладка деталей','перекладка изделий внутри линии: с конвейера и обратно'],
+ assy:['сборка','сборочные операции и работа с мелкими деталями'],
+ weld:['сварка','сварочные операции на участке и в ячейке'],
+ mach:['обслуживание станков','загрузка и разгрузка оборудования, смена оснастки'],
+ pall:['паллетирование','укладка готовой продукции на паллеты'],
+ cargo:['грузовые перевозки','доставка грузов по территории и по трассе'],
+ pass:['перевозка пассажиров','автономная перевозка людей в городе']
+};
+var KIND={'промышленные':'манипулятор','сервисные':'сервисный робот','транспортные':'беспилотный транспорт'};
+var KIND_FIX={'Ronavi × Seer CBD16':'мобильный робот','Ronavi H1500':'мобильный робот',
+ 'AMR1500':'мобильный робот','Inchbot L1/L1 Edu':'шагающая платформа','Unitree H2':'шагающая платформа'};
 ROBOTS.forEach(function(r){
- r.maker='по запросу'; r.origin='по запросу'; r.price='по запросу'; r.site='по запросу';
- r.region='по запросу'; r.owner='робопортал москвы · данные демонстрационные';
- r.industry=INDUSTRY[r.cat]||'по запросу';
+ var t=REG[r.name]||{};
+ r.cat=t.cat||r.cat; r.sub=t.sub||[]; r.kin=t.kin||'';
+ r.maker=t.maker||'по\u00a0запросу'; r.site=t.site||'по\u00a0запросу';
+ r.industry=t.industry||'по\u00a0запросу';
+ r.origin='по\u00a0запросу'; r.price='по\u00a0запросу'; r.region='по\u00a0запросу';
+ r.owner='робопортал москвы · данные демонстрационные';
  r.kind=KIND_FIX[r.name]||KIND[r.cat]||'решение';
- r.badges=['испытания пройдены','в реестре',r.cat,r.kind];
- /* второго кадра на модель у нас нет — в галерее будет одна плитка */
+ /* в реестре пока никто: в таблице этих отметок нет, выдавать за
+    включённые нельзя. Проставьте true тем, кто действительно вошёл */
+ r.registry=false;
+ r.badges=['испытания\u00a0пройдены',r.cat,r.kind];
  r.photos=r.photos||[r.img];
  r.hint=r.hint||''; r.works=r.works||[]; r.sp=r.sp||{};
 });
+
 
 /* на главной — пять моделей из разных категорий: биоморфные, транспорт,
    обслуживающие, логистика и промышленность. Все семнадцать — в каталоге.
@@ -1273,7 +1616,7 @@ var WORKS=[
          'место под зарядную станцию','оператор — дежурный службы безопасности']}
 ];
 
-var openWork=null;
+var openWork=null,openModelCard=null;
 (function(){
  var dlg=document.getElementById('taskDlg');
  if(!dlg||!dlg.showModal) return;
@@ -1322,14 +1665,14 @@ var openWork=null;
    '<h2 class="tw-title">'+esc(w.title)+'</h2>'+
    '<p class="tw-now">как сейчас: '+esc(w.now)+'</p>'+
    box('роботы под эту работу','<div class="tr-grid">'+cards+'</div>'+
-     (rest>0?'<a class="tr-more" href="#catalog" data-x>ещё '+rest+' в каталоге →</a>':''))+
+     (rest>0?'<a class="tr-more" href="#robots" data-x>ещё '+rest+' в каталоге →</a>':''))+
    box('как выбрать','<div class="tpick">'+w.pick.map(function(pp){
      return '<div>'+esc(pp[0])+' <i>→</i> <b class="nolow">'+esc(pp[1])+'</b></div>'; }).join('')+'</div>')+
    box('что нужно на объекте','<div class="tneed">'+w.needs.map(function(n){
      return '<div>'+esc(n)+'</div>'; }).join('')+'</div>')+
    '<div class="tw-cta">'+
     '<a class="btn btn-green" href="#band" data-x>обсудить пилот</a>'+
-    '<a class="btn btn-ghost" href="#catalog" data-x>все роботы этой категории</a>'+
+    '<a class="btn btn-ghost" href="#robots" data-x>все роботы этой категории</a>'+
    '</div>';
 
   shell('<span class="tbox-h" style="margin:0">подбор под работу</span>',body);
@@ -1339,9 +1682,13 @@ var openWork=null;
  /* ---------- уровень 2: карточка модели ---------- */
  function renderModel(name){
   var r=byName(name); if(!r) return;
-  var w=byKey(curWork), sp=(r.sp&&r.sp[curWork])||[];
-  var tech=(w?w.specs:[]).map(function(lab,n){ return [lab,sp[n]||'по запросу']; })
-    .concat([['категория',r.cat],['тип решения',r.kind||'по запросу']]);
+  /* из каталога модель открывают без контекста работы — тогда берём
+     первую работу самой модели, а если её нет, показываем сырые данные */
+  var key=curWork||(r.works&&r.works[0])||null;
+  var w=byKey(key), sp=(r.sp&&r.sp[key])||[];
+  var tech=w?w.specs.map(function(lab,n){ return [lab,sp[n]||'по запросу']; })
+          :[['ключевые характеристики',(r.s||[]).join(' · ')||'по запросу']];
+  tech=tech.concat([['категория',r.cat],['тип решения',r.kind||'по запросу']]);
 
   var body=
    '<div class="tm-badges">'+(r.badges||[]).map(function(b){
@@ -1366,18 +1713,26 @@ var openWork=null;
      ['за данные отвечает',r.owner]
    ]));
 
-  shell('<button type="button" class="tdlg-back" data-back>← назад к работе</button>',body);
+  /* кнопка «назад» нужна только когда пришли с экрана работы */
+  shell(curWork?'<button type="button" class="tdlg-back" data-back>← назад к работе</button>'
+               :'<span class="tbox-h" style="margin:0">карточка решения</span>',body);
   var back=dlg.querySelector('[data-back]'); if(back) back.focus();
  }
 
  /* ---------- открытие, закрытие, навигация ---------- */
+ function show(){
+  bodyOverflow=document.body.style.overflow;
+  document.body.style.overflow='hidden';   /* страница под окном не едет */
+  dlg.showModal();
+ }
  openWork=function(k,from){
   if(!byKey(k)) return;
-  opener=from||null;
-  renderWork(k);
-  bodyOverflow=document.body.style.overflow;
-  document.body.style.overflow='hidden';   /* страница под окном не едет */
-  dlg.showModal();
+  opener=from||null; renderWork(k); show();
+ };
+ /* открыть карточку модели напрямую — из сетки каталога */
+ openModelCard=function(name,from){
+  if(!byName(name)) return;
+  opener=from||null; curWork=null; renderModel(name); show();
  };
 
  /* уборка идемпотентна и зовётся напрямую из shut(): полагаться только на
@@ -1573,6 +1928,229 @@ var openWork=null;
    grid.setAttribute('data-aud',tab.getAttribute('data-aud'));
   });
  });
+})();
+
+/* ---- раздел «роботы»: каталог с двухуровневым фильтром ----
+   Первый уровень — категория из таблицы реестра, второй — задача внутри
+   категории. Плюс поиск, отметка реестра и три выпадающих списка. */
+(function(){
+ var page=document.getElementById('robots');
+ if(!page) return;
+ var grid=document.getElementById('cpGrid'),
+     cats=document.getElementById('cpCats'),
+     subs=document.getElementById('cpSubs'),
+     hint=document.getElementById('cpHint'),
+     showing=document.getElementById('cpShowing'),
+     search=document.getElementById('cpSearch'),
+     regBtn=document.getElementById('cpReg'),
+     kinWrap=document.getElementById('cpKinWrap'),
+     selKin=document.getElementById('cpKin'),
+     selInd=document.getElementById('cpInd'),
+     selMaker=document.getElementById('cpMaker');
+
+ function esc(t){ return String(t==null?'':t)
+   .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+ function plural(n){ var a=n%10,b=n%100;
+  if(a===1&&b!==11) return 'решение';
+  if(a>=2&&a<=4&&(b<12||b>14)) return 'решения';
+  return 'решений'; }
+
+ var CATS=['промышленные','сервисные','транспортные'];
+ var state={cat:'все',sub:'все',q:'',reg:false,kin:'все',ind:'все',maker:'все'};
+
+ /* набор по категории — основа и для второго уровня, и для списков */
+ function inCat(){ return state.cat==='все'?ROBOTS
+   :ROBOTS.filter(function(r){return r.cat===state.cat}); }
+ /* полный фильтр */
+ function list(){
+  var q=state.q.trim().toLowerCase();
+  return inCat().filter(function(r){
+   if(state.sub!=='все'&&(r.sub||[]).indexOf(state.sub)<0) return false;
+   if(state.reg&&!r.registry) return false;
+   if(state.kin!=='все'&&r.kin!==state.kin) return false;
+   if(state.ind!=='все'&&r.industry!==state.ind) return false;
+   if(state.maker!=='все'&&r.maker!==state.maker) return false;
+   if(q){ var hay=(r.name+' '+r.d+' '+r.maker+' '+(r.kin||'')).toLowerCase();
+          if(hay.indexOf(q)<0) return false; }
+   return true;
+  });
+ }
+
+ function drawCats(){
+  var all=[['все','все роботы',ROBOTS.length]].concat(CATS.map(function(c){
+    return [c,c,ROBOTS.filter(function(r){return r.cat===c}).length]; }));
+  cats.innerHTML=all.map(function(a){
+   return '<button type="button" class="cp-chip'+(state.cat===a[0]?' is-on':'')+
+    '" data-cat="'+esc(a[0])+'">'+esc(a[1])+'<b>'+a[2]+'</b></button>'; }).join('');
+ }
+ function drawSubs(){
+  if(state.cat==='все'){ subs.innerHTML=''; hint.textContent=''; return; }
+  var pool=inCat(), keys=[];
+  pool.forEach(function(r){ (r.sub||[]).forEach(function(k){ if(keys.indexOf(k)<0) keys.push(k); }); });
+  var all=[['все','все '+state.cat,pool.length]].concat(keys.map(function(k){
+    return [k,SUBS[k]?SUBS[k][0]:k,pool.filter(function(r){return (r.sub||[]).indexOf(k)>=0}).length]; }));
+  subs.innerHTML=all.map(function(a){
+   return '<button type="button" class="cp-sub'+(state.sub===a[0]?' is-on':'')+
+    '" data-sub="'+esc(a[0])+'">'+esc(a[1])+'<b>'+a[2]+'</b></button>'; }).join('');
+  hint.textContent=(state.sub!=='все'&&SUBS[state.sub])?SUBS[state.sub][1]:'';
+ }
+ /* списки строим по текущей категории: лишних значений в них не будет */
+ function fill(sel,field,cur){
+  var pool=inCat(), vals=[];
+  pool.forEach(function(r){ var v=r[field];
+   if(v&&vals.indexOf(v)<0) vals.push(v); });
+  vals.sort();
+  sel.innerHTML=['<option value="все">все</option>'].concat(vals.map(function(v){
+   return '<option value="'+esc(v)+'"'+(cur===v?' selected':'')+'>'+esc(v)+'</option>'; })).join('');
+  if(vals.indexOf(cur)<0) sel.value='все';
+  return vals.length;
+ }
+ function drawTools(){
+  var nKin=fill(selKin,'kin',state.kin);
+  /* у беспилотного транспорта кинематики нет — список прячем */
+  kinWrap.classList.toggle('is-off',nKin===0);
+  if(nKin===0) state.kin='все';
+  fill(selInd,'industry',state.ind);
+  fill(selMaker,'maker',state.maker);
+  var regN=inCat().filter(function(r){return r.registry}).length;
+  regBtn.innerHTML='только из реестра<b>'+regN+'</b>';
+  regBtn.classList.toggle('is-on',state.reg);
+ }
+
+ function card(r){
+  return '<button type="button" class="cp-card" data-model="'+esc(r.name)+'">'+
+   '<span class="cp-pic"><img src="'+esc(r.img)+'" alt="" loading="lazy" draggable="false">'+
+    '<span class="cp-tag">'+esc(r.cat)+'</span></span>'+
+   '<span class="cp-b">'+
+    '<span class="cp-n nolow">'+esc(r.name)+'</span>'+
+    '<span class="cp-d">'+esc(r.d)+'</span>'+
+    '<span class="cp-s">'+(r.s||[]).map(function(v){
+       return '<span>'+esc(v)+'</span>'; }).join('')+'</span>'+
+    '<span class="cp-go"><span>открыть карточку</span><span>→</span></span>'+
+   '</span></button>';
+ }
+ function draw(){
+  drawCats(); drawSubs(); drawTools();
+  var l=list(), pool=inCat().length;
+  showing.textContent='показано '+l.length+' из '+pool+' '+plural(pool);
+  grid.innerHTML=l.length?l.map(card).join('')
+    :'<p class="cp-empty">по этим условиям ничего не нашлось — снимите часть фильтров</p>';
+ }
+ draw();
+
+ cats.addEventListener('click',function(e){
+  var b=e.target.closest('.cp-chip'); if(!b) return;
+  state.cat=b.getAttribute('data-cat'); state.sub='все';
+  state.kin='все'; state.ind='все'; state.maker='все'; state.reg=false;
+  draw();
+ });
+ subs.addEventListener('click',function(e){
+  var b=e.target.closest('.cp-sub'); if(!b) return;
+  state.sub=b.getAttribute('data-sub'); draw();
+ });
+ regBtn.addEventListener('click',function(){ state.reg=!state.reg; draw(); });
+ search.addEventListener('input',function(){ state.q=search.value; draw(); });
+ selKin.addEventListener('change',function(){ state.kin=selKin.value; draw(); });
+ selInd.addEventListener('change',function(){ state.ind=selInd.value; draw(); });
+ selMaker.addEventListener('change',function(){ state.maker=selMaker.value; draw(); });
+
+ grid.addEventListener('click',function(e){
+  var c=e.target.closest('.cp-card'); if(!c) return;
+  if(typeof openModelCard==='function') openModelCard(c.getAttribute('data-model'),c);
+ });
+
+ /* маршрут по хешу: #robots — каталог, всё остальное — лендинг */
+ function route(){
+  var h=location.hash, on=h==='#robots';
+  document.body.classList.toggle('is-catalog',on);
+  if(on){ window.scrollTo(0,0); return; }
+  if(h.length>1){ var t=document.getElementById(h.slice(1)); if(t) t.scrollIntoView(); }
+ }
+ addEventListener('hashchange',route);
+ route();
+})();
+
+/* ---- «для чего нужен такой робот»: колода кейсов ----
+   Кадры внутри активного кейса переключаются как сторис: полоски сверху
+   показывают, сколько кадров и сколько просмотрено, тап по левой или
+   правой половине кадра листает. Скролл в это не вмешивается.
+   Кейсы меняются кликом по задней карточке, стрелками и свайпом. */
+(function(){
+ var sec=document.getElementById('why');
+ var deck=document.getElementById('whyDeck');
+ if(!sec||!deck) return;
+ var cards=Array.prototype.slice.call(deck.querySelectorAll('.wcard'));
+ if(!cards.length) return;
+ var n=cards.length, active=0;
+ /* у каждого кейса свой счётчик кадров */
+ var shots=cards.map(function(c){ return c.querySelectorAll('.wc-bg').length||1; });
+ var step=cards.map(function(){ return 0; });
+
+ function paint(i){
+  cards[i].setAttribute('data-state',String(step[i]));
+  var bars=cards[i].querySelectorAll('.wc-bars i');
+  Array.prototype.forEach.call(bars,function(b,k){
+   b.style.display = k<shots[i] ? '' : 'none';
+  });
+ }
+ function place(){
+  cards.forEach(function(c,i){
+   var d=(i-active+n)%n;                 /* 0 впереди, дальше в глубину */
+   c.setAttribute('data-pos',String(d));
+   c.setAttribute('aria-hidden',d?'true':'false');
+   c.tabIndex=d?-1:0;
+  });
+ }
+ function setActive(i){
+  i=(i%n+n)%n;
+  if(i===active) return;
+  active=i;
+  step[i]=0; paint(i);                   /* новый кейс начинает с первого кадра */
+  place();
+ }
+ function slide(dir){
+  var k=step[active]+dir;
+  if(k<0||k>=shots[active]) return;      /* на краях стоим, кейс не листаем */
+  step[active]=k; paint(active);
+ }
+
+ place();
+ cards.forEach(function(_,i){ paint(i); });
+
+ deck.addEventListener('click',function(e){
+  /* половины кадра листают кадры активной карточки */
+  var z=e.target.closest('.wc-zone');
+  if(z){ e.preventDefault(); slide(z.classList.contains('wc-next')?1:-1); return; }
+  var c=e.target.closest('.wcard'); if(!c) return;
+  var i=cards.indexOf(c);
+  if(i<0||i===active) return;
+  e.preventDefault(); setActive(i);
+ });
+ deck.addEventListener('keydown',function(e){
+  if(e.key==='ArrowRight'||e.key==='ArrowLeft'){
+   if(e.target.closest('.wcard')===cards[active]){ e.preventDefault(); slide(e.key==='ArrowRight'?1:-1); }
+   return;
+  }
+  if(e.key!=='Enter'&&e.key!==' ') return;
+  var c=e.target.closest('.wcard'); if(!c) return;
+  var i=cards.indexOf(c); if(i<0||i===active) return;
+  e.preventDefault(); setActive(i);
+ });
+ Array.prototype.forEach.call(sec.querySelectorAll('.wn-arr'),function(a){
+  a.addEventListener('click',function(){ setActive(active+ +a.getAttribute('data-step')); });
+ });
+
+ /* смахивание на тачскрине переключает кейсы */
+ var sx=0,sy=0,down=false;
+ deck.addEventListener('pointerdown',function(e){
+  if(e.pointerType==='mouse') return;
+  down=true; sx=e.clientX; sy=e.clientY;
+ },{passive:true});
+ deck.addEventListener('pointerup',function(e){
+  if(!down) return; down=false;
+  var dx=e.clientX-sx, dy=e.clientY-sy;
+  if(Math.abs(dx)>48&&Math.abs(dx)>Math.abs(dy)) setActive(active+(dx<0?1:-1));
+ },{passive:true});
 })();
 
 /* ---- появление при скролле ---- */

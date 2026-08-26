@@ -385,125 +385,94 @@ body.is-catalog > section:not(#robots){display:none}
   margin-bottom:clamp(18px,2.4vw,32px)}
 .cp-title{margin:0;font-size:clamp(38px,6.2vw,100px);line-height:.92;
   letter-spacing:-.045em;font-weight:500}
-/* фильтры: первый уровень — категории, второй — задачи внутри категории */
-.cp-cats{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:10px}
-.cp-chip{display:inline-flex;align-items:center;gap:9px;padding:11px 20px;
-  border:1px solid var(--w-16);border-radius:999px;font-size:15px;letter-spacing:.02em;
-  text-transform:uppercase;color:var(--w-70);transition:.25s}
-.cp-chip b{font-weight:400;font-size:13px;color:var(--w-45)}
-.cp-chip:hover{color:var(--white);border-color:var(--w-45)}
-.cp-chip.is-on{background:var(--green);border-color:var(--green);color:#06110B}
-.cp-chip.is-on b{color:rgba(6,17,11,.55)}
-.cp-chip:focus-visible{outline:2px solid var(--green);outline-offset:2px}
-/* второй уровень мельче, активная заливается белым — как в референсе */
-.cp-subs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
-.cp-sub{display:inline-flex;align-items:center;gap:8px;padding:8px 15px;
-  border:1px solid var(--w-16);border-radius:999px;font-size:13px;letter-spacing:.06em;
-  text-transform:uppercase;color:var(--w-45);transition:.25s}
-.cp-sub b{font-weight:400;color:var(--w-45)}
-.cp-sub:hover{color:var(--white);border-color:var(--w-45)}
-.cp-sub.is-on{background:var(--white);border-color:var(--white);color:#06110B}
-.cp-sub.is-on b{color:rgba(6,17,11,.5)}
-.cp-sub:focus-visible{outline:2px solid var(--green);outline-offset:2px}
-.cp-hint{margin:0 0 14px;min-height:18px;font-size:13.5px;color:var(--w-45)}
-/* строка инструментов: поиск, переключатель реестра и три списка */
-.cp-tools{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
-.cp-search{flex:1 1 320px;min-width:0;padding:12px 18px;border-radius:999px;
+/* верхние вкладки — категории реестра, как строка разделов в референсе */
+.cp-cats{display:flex;flex-wrap:wrap;gap:clamp(14px,2vw,30px);
+  padding-bottom:14px;border-bottom:1px solid var(--w-08);
+  margin-bottom:clamp(18px,2.4vw,30px)}
+.cp-chip{display:inline-flex;align-items:baseline;gap:8px;padding:4px 0;
+  font-size:16px;letter-spacing:-.01em;color:var(--w-45);transition:.25s}
+.cp-chip b{font-weight:400;font-size:12.5px;color:var(--w-16)}
+.cp-chip:hover{color:var(--white)}
+.cp-chip.is-on{color:var(--white);box-shadow:inset 0 -1px 0 var(--green)}
+.cp-chip.is-on b{color:var(--green)}
+.cp-chip:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+
+/* две колонки: слева фильтры, справа сетка решений */
+.cp-layout{display:grid;grid-template-columns:clamp(200px,17vw,260px) minmax(0,1fr);
+  gap:clamp(20px,2.6vw,48px);align-items:start}
+.cp-filters{display:none}
+.cp-side-in{border-top:1px solid var(--w-08)}
+/* группа фильтра: заголовок со знаком, значения выезжают под ним */
+.cp-g{border-bottom:1px solid var(--w-08)}
+.cp-g-h{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  width:100%;padding:16px 0;text-align:left;font-size:16px;letter-spacing:-.01em;
+  color:var(--white);transition:color .25s}
+.cp-g-h:hover{color:var(--green)}
+.cp-g-h i{font-style:normal;flex:none;font-size:18px;line-height:1;color:var(--w-45);
+  transition:transform .3s cubic-bezier(.2,.7,.3,1),color .25s}
+.cp-g.on .cp-g-h i{transform:rotate(45deg);color:var(--green)}
+.cp-g-list{display:grid;grid-template-rows:0fr;
+  transition:grid-template-rows .32s cubic-bezier(.2,.7,.3,1)}
+.cp-g.on .cp-g-list{grid-template-rows:1fr}
+.cp-g-in{overflow:hidden}
+.cp-v{display:flex;align-items:baseline;justify-content:space-between;gap:10px;
+  width:100%;padding:7px 0;text-align:left;font-size:14px;line-height:1.25;
+  color:var(--w-70);transition:color .2s}
+.cp-v:last-child{padding-bottom:18px}
+.cp-v:hover{color:var(--white)}
+.cp-v.on{color:var(--green)}
+.cp-v b{font-weight:400;font-size:12px;color:var(--w-45)}
+.cp-count{margin:18px 0 0;font-size:12.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--w-45)}
+
+.cp-main{min-width:0}
+.cp-search{width:100%;padding:13px 18px;border-radius:999px;margin-bottom:14px;
   background:var(--coal);border:1px solid var(--w-08);color:var(--white);
   font:inherit;font-size:15px;letter-spacing:-.01em}
 .cp-search::placeholder{color:var(--w-45)}
 .cp-search:focus{outline:none;border-color:var(--green)}
-.cp-toggle{display:inline-flex;align-items:center;gap:10px;padding:12px 20px;
-  border-radius:999px;background:var(--coal);border:1px solid var(--w-08);
-  font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--w-70);transition:.25s}
-.cp-toggle b{font-weight:400;color:var(--w-45)}
-.cp-toggle:hover{border-color:var(--w-45);color:var(--white)}
-.cp-toggle.is-on{background:var(--green);border-color:var(--green);color:#06110B}
-.cp-toggle.is-on b{color:rgba(6,17,11,.55)}
-/* max-width и min-width обязательны: <select> не сжимается сам и на узком
-   экране растягивал строку фильтров шире вьюпорта */
-.cp-sel{display:inline-flex;align-items:center;gap:10px;padding:0 18px;
-  max-width:100%;min-width:0;
-  border-radius:999px;background:var(--coal);border:1px solid var(--w-08);
-  font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--w-45);
-  cursor:pointer;transition:.25s}
-.cp-sel>span{flex:none}
-.cp-sel:hover{border-color:var(--w-45)}
-.cp-sel:focus-within{border-color:var(--green)}
-.cp-sel select{flex:1 1 auto;min-width:0;padding:12px 0;background:none;border:0;
-  color:var(--white);font:inherit;font-size:13px;letter-spacing:-.01em;
-  text-transform:none;cursor:pointer}
-.cp-sel select:focus{outline:none}
-.cp-sel option{background:var(--ink);color:var(--white)}
-.cp-sel.is-off{display:none}
-.cp-showing{margin-bottom:16px;font-size:12.5px;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--w-45)}
-/* сетка карточек; всё внутри .cp-card — span, это <button> */
-/* плотность: 4 в ряд на 1440, 3 на 1280, 2 на планшете, 1 на телефоне.
-   grid-auto-rows:1fr равняет высоту всех строк, поэтому карточки во всём
-   каталоге одинаковые, а не только внутри ряда */
-.cp-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:1fr;gap:12px}
-.cp-card{display:flex;flex-direction:column;width:100%;padding:0;text-align:left;
-  background:var(--coal);border:1px solid var(--w-08);border-radius:var(--r-s);overflow:hidden;
-  transition:transform .3s cubic-bezier(.2,.7,.3,1),border-color .3s}
-.cp-card:hover{border-color:var(--green);transform:translateY(-3px)}
-.cp-card:focus-visible{outline:2px solid var(--green);outline-offset:3px}
-/* кадр — примерно 35–40% высоты карточки. В каталоге сравнивают по
-   назначению и параметрам, фотография лишь подсказывает форм-фактор:
-   пропорция 4:3 растила карточку до галереи, поэтому высота задана явно */
-.cp-pic{display:block;position:relative;flex:none;overflow:hidden;
-  height:clamp(132px,10.4vw,158px);
-  background:radial-gradient(90% 90% at 50% 20%,#1F2A25,#0E1211)}
-/* абсолютное позиционирование обязательно: в потоке <img> растягивает
-   контейнер под свою пропорцию и высота выше не действует.
-   inset даёт полям воздух, contain не режет технику */
-.cp-pic img{position:absolute;inset:14px;width:calc(100% - 28px);height:calc(100% - 28px);
-  object-fit:contain;transition:transform .3s cubic-bezier(.2,.7,.3,1)}
-.cp-card:hover .cp-pic img{transform:scale(1.03)}
-.cp-tag{position:absolute;left:12px;top:12px;padding:5px 11px;
-  background:rgba(6,17,11,.7);border:1px solid var(--w-16);border-radius:999px;
-  font-size:12.5px;letter-spacing:.04em;color:var(--w-70);
-  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
-.cp-b{flex:1;display:flex;flex-direction:column;padding:18px 20px 20px}
-/* иерархия перевёрнута: первым читается имя, затем назначение и только
-   потом параметры — фотография в этой очереди последняя */
-.cp-n{display:block;font-size:clamp(21px,1.65vw,25px);line-height:1.06;
-  letter-spacing:-.03em;font-weight:500}
-.cp-d{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
-  margin-top:10px;font-size:15.5px;line-height:1.32;letter-spacing:-.01em;color:var(--w-70)}
-/* параметры — строкой через точку: соседние карточки сравниваются взглядом,
-   а плашки не спорят по весу с названием */
-.cp-s{display:flex;flex-wrap:wrap;gap:0 13px;margin-top:14px;
-  font-size:13.5px;line-height:1.5;color:var(--w-45)}
-.cp-s span:not(:last-child)::after{content:'·';margin-left:13px;color:var(--w-16)}
-.cp-maker{margin-top:auto;padding-top:16px;font-size:13.5px;color:var(--w-45);
-  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-/* строка действия прижата к низу — у всех карточек ряда на одной линии */
-.cp-go{margin-top:12px;padding-top:12px;border-top:1px solid var(--w-08);
-  display:flex;align-items:center;justify-content:space-between;
-  gap:10px;font-size:15px;color:var(--green);transition:color .25s}
-.cp-go b{font-weight:400;transition:transform .25s cubic-bezier(.2,.7,.3,1)}
-.cp-card:hover .cp-go{color:var(--mint)}
-.cp-card:hover .cp-go b{transform:translateX(4px)}
+
+/* сетка без коробок: ячейки разделены волосяными линейками, как в референсе.
+   Всё внутри .cp-card — span, это <button> */
+.cp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+  border-top:1px solid var(--w-08);border-left:1px solid var(--w-08)}
+.cp-card{display:flex;flex-direction:column;width:100%;text-align:left;
+  padding:clamp(16px,1.6vw,24px);background:none;
+  border-right:1px solid var(--w-08);border-bottom:1px solid var(--w-08);
+  transition:background .25s}
+.cp-card:hover{background:var(--coal)}
+.cp-card:focus-visible{outline:2px solid var(--green);outline-offset:-2px}
+.cp-pic{display:block;position:relative;height:clamp(150px,13vw,210px);margin-bottom:18px}
+.cp-pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;
+  transition:transform .3s cubic-bezier(.2,.7,.3,1)}
+.cp-card:hover .cp-pic img{transform:scale(1.04)}
+/* текста по минимуму: название и задача одной строкой */
+.cp-n{display:block;font-size:15px;letter-spacing:.02em;text-transform:uppercase;
+  font-weight:500;color:var(--white)}
+.cp-task{display:block;margin-top:7px;font-size:14px;line-height:1.3;color:var(--w-45)}
 .cp-empty{grid-column:1/-1;padding:40px 0;color:var(--w-45);font-size:16px}
 @media(min-width:1700px){.cp-grid{grid-template-columns:repeat(5,1fr)}}
 @media(max-width:1359px){.cp-grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:1023px){.cp-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:680px){
-  /* в колонку flex-basis у поиска становится высотой — поле раздувалось
-     в круг на 320px, поэтому здесь основа сбрасывается */
-  .cp-tools{flex-direction:column;align-items:stretch}
-  .cp-search{flex:none}
-  .cp-sel,.cp-toggle{justify-content:space-between}
+@media(max-width:1023px){
+  .cp-layout{grid-template-columns:minmax(0,1fr)}
+  .cp-filters{display:inline-flex;align-items:center;gap:10px;justify-self:start;
+    padding:10px 18px;border-radius:999px;border:1px solid var(--w-16);
+    font-size:15px;color:var(--white)}
+  .cp-filters b{display:inline-flex;align-items:center;justify-content:center;
+    min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:var(--green);
+    color:#06110B;font-weight:500;font-size:12px}
+  .cp-filters b:empty{display:none}
+  .cp-side{display:grid;gap:14px;margin-bottom:20px}
+  .cp-side:not(.is-open) .cp-side-in,.cp-side:not(.is-open) .cp-count{display:none}
+  .cp-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:640px){
-  .cp-grid{grid-template-columns:1fr}
-  .cp-pic{height:clamp(150px,42vw,200px)}
+  .cp-grid{grid-template-columns:1fr 1fr}
+  .cp-pic{height:clamp(130px,34vw,180px)}
 }
 @media (prefers-reduced-motion:reduce){
-  .cp-card,.cp-pic img,.cp-go b{transition:none}
-  .cp-card:hover{transform:none}
-  .cp-card:hover .cp-pic img,.cp-card:hover .cp-go b{transform:none}
+  .cp-card,.cp-pic img{transition:none}
+  .cp-card:hover .cp-pic img{transform:none}
 }
 
 
@@ -808,21 +777,23 @@ body.is-trials > section:not(#trials){display:none}
 }
 
 /* факты строкой */
-.tr-nums{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;
-  margin:clamp(28px,3.4vw,52px) 0 0}
-/* крупное число, тонкая линейка, подпись под ней: числа однострочные,
-   поэтому линейки у всех карточек ряда встают на одну высоту */
-.tr-num{display:flex;flex-direction:column;padding:clamp(18px,1.9vw,26px);
-  background:var(--coal);border:1px solid var(--w-08);border-radius:var(--r-s);
-  transition:.3s cubic-bezier(.2,.7,.3,1)}
-.tr-num:hover{border-color:var(--green);transform:translateY(-4px)}
-.tr-num b{display:block;padding-bottom:clamp(13px,1.5vw,18px);
-  border-bottom:1px solid var(--w-08);
-  font-size:clamp(38px,3.8vw,58px);line-height:.88;letter-spacing:-.05em;
-  font-weight:500;color:var(--green);font-variant-numeric:tabular-nums}
-.tr-num:hover b{border-color:rgba(66,227,131,.3)}
-.tr-num span{display:block;margin-top:clamp(13px,1.5vw,18px);
-  font-size:15px;line-height:1.3;color:var(--w-70)}
+/* факты — полосой, а не коробками: числа стоят на одной линии,
+   между ними волосяные линейки, единица измерения — плашкой у числа */
+.tr-nums{display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+  margin:clamp(28px,3.4vw,52px) 0 0;
+  border-top:1px solid var(--w-08);border-bottom:1px solid var(--w-08)}
+.tr-num{padding:clamp(22px,2.4vw,34px) clamp(14px,1.6vw,24px);
+  border-left:1px solid var(--w-08)}
+.tr-num:first-child{border-left:0;padding-left:0}
+.tr-num b{display:flex;align-items:flex-end;gap:8px;white-space:nowrap;
+  font-size:clamp(28px,2.7vw,44px);line-height:.86;letter-spacing:-.05em;
+  font-weight:700;color:var(--white);font-variant-numeric:tabular-nums}
+/* плашка только у единиц площади: если ставить её каждому числу,
+   ряд превращается в россыпь зелёных ярлыков */
+.tr-num i{position:relative;bottom:.12em;flex:none;padding:2px 7px;border-radius:5px;
+  background:var(--green);color:#06110B;font-style:normal;
+  font-size:clamp(12px,.95vw,14px);font-weight:600;letter-spacing:-.01em}
+.tr-num span{display:block;margin-top:14px;font-size:14.5px;line-height:1.3;color:var(--w-45)}
 
 /* три обещания */
 
@@ -885,37 +856,134 @@ body.is-trials > section:not(#trials){display:none}
 .tr-who{margin:auto 0 0;padding-top:12px;border-top:1px solid var(--w-08);
   font-size:13px;line-height:1.35;color:var(--w-45)}
 
-/* рельс этапов */
-.tr-rail{counter-reset:tr;display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
-.tr-step{position:relative;padding:clamp(18px,1.8vw,26px) clamp(16px,1.5vw,22px);
-  background:var(--coal);border:1px solid var(--w-08);border-radius:var(--r-s)}
-/* нить между шагами: тонкая линия по верхней кромке ряда */
-.tr-step::before{counter-increment:tr;content:counter(tr,decimal-leading-zero);
-  display:grid;place-items:center;width:34px;height:34px;border-radius:50%;
-  border:1px solid var(--green);color:var(--green);font-size:12.5px}
-.tr-step b{display:block;margin-top:14px;font-size:clamp(16px,1.3vw,19px);
-  line-height:1.12;letter-spacing:-.025em;font-weight:500}
-.tr-step span{display:block;margin-top:9px;font-size:14px;line-height:1.4;color:var(--w-70)}
+/* рельс этапов: нитка через весь ряд, зелёная часть растёт по мере
+   прокрутки, шаги проявляются один за другим. --p задаёт скрипт */
+.tr-rail{position:relative;display:grid;grid-template-columns:repeat(5,1fr);
+  gap:clamp(14px,1.8vw,30px);padding-top:2px}
+.tr-rail::before,.tr-rail::after{content:"";position:absolute;left:0;top:13px;height:2px}
+.tr-rail::before{right:0;background:var(--w-08)}
+.tr-rail::after{width:calc(var(--p,0)*100%);background:var(--green);
+  transition:width .2s linear}
+.tr-step{position:relative;padding-top:46px}
+.tr-step i{position:absolute;left:0;top:0;z-index:1;display:grid;place-items:center;
+  width:34px;height:28px;background:var(--black);border:1px solid var(--w-16);
+  font-style:normal;font-size:11.5px;letter-spacing:.08em;color:var(--w-45);
+  transition:background .3s,border-color .3s,color .3s}
+.tr-step.on i{background:var(--green);border-color:var(--green);color:#06110B}
+.tr-step b{display:block;font-size:clamp(15px,1.25vw,18px);line-height:1.12;
+  letter-spacing:-.01em;text-transform:uppercase;font-weight:600;color:var(--white);
+  opacity:0;transform:translateY(10px);transition:opacity .45s,transform .45s}
+.tr-step span{display:block;margin-top:10px;font-size:14px;line-height:1.4;
+  color:var(--w-70);opacity:0;transform:translateY(10px);
+  transition:opacity .45s .07s,transform .45s .07s}
+.tr-step.on b,.tr-step.on span{opacity:1;transform:none}
 
 /* кому подходит */
-/* документы и контакты — два самостоятельных блока на одном уровне,
-   без общего заголовка: регламент отдаётся кнопкой, контакты рядом */
-.tr-foot{display:grid;grid-template-columns:1fr 1fr;gap:12px;
-  margin:clamp(48px,6vw,96px) 0 0}
-.tr-fb{display:flex;flex-direction:column;gap:12px;padding:clamp(18px,1.8vw,28px);
-  background:var(--coal);border:1px solid var(--w-08);border-radius:var(--r-s)}
-.tr-fl{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--w-45)}
-.tr-fb b{font-size:clamp(16px,1.3vw,19px);line-height:1.25;letter-spacing:-.02em;
+/* ---------- «Нам доверяют»: стопка кейсов ----------
+   Активная карточка стоит прямо и подсвечена, соседние уходят вбок,
+   уменьшаются и заваливаются на пару градусов — стопка, а не ряд.
+   Позиции считает скрипт: он же гоняет карточки по кругу. */
+.tw-stage{position:relative;display:grid;justify-items:center;
+  gap:clamp(18px,2.2vw,30px);margin-top:clamp(18px,2.4vw,34px)}
+/* overflow обязателен: ушедшие вбок карточки иначе растягивают страницу */
+.tw-deck{position:relative;width:100%;overflow:hidden;height:clamp(400px,42vw,560px)}
+.tw-card{position:absolute;top:0;left:50%;width:min(560px,76vw);height:100%;
+  margin-left:calc(min(560px,76vw) / -2);display:flex;flex-direction:column;
+  overflow:hidden;text-align:left;padding:0;
+  background:var(--ink);border:1px solid var(--w-08);border-radius:var(--r-s);
+  transition:transform .55s cubic-bezier(.2,.7,.3,1),opacity .45s,
+    border-color .35s,filter .45s}
+.tw-card.is-on{border-color:var(--green);cursor:default}
+.tw-card:not(.is-on){filter:grayscale(.5) brightness(.6)}
+.tw-card:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+.tw-ph{position:relative;display:block;flex:1;min-height:0;background:var(--coal)}
+.tw-ph img{width:100%;height:100%;object-fit:cover}
+.tw-num{position:absolute;left:14px;top:14px;padding:6px 12px;
+  background:rgba(6,10,8,.82);border:1px solid var(--w-16);
+  font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--white)}
+.tw-card.is-on .tw-num{background:var(--green);border-color:var(--green);color:#06110B}
+.tw-info{display:block;padding:clamp(16px,1.8vw,26px)}
+.tw-t{display:block;font-size:clamp(20px,2vw,30px);line-height:1.05;
+  letter-spacing:-.03em;font-weight:600;text-transform:uppercase;color:var(--white)}
+.tw-o{display:block;margin-top:10px;font-size:15px;line-height:1.3;color:var(--w-70)}
+/* стрелки стоят по краям сцены, поверх ушедших назад карточек */
+.tw-nav{position:absolute;top:50%;z-index:5;width:46px;height:46px;
+  display:grid;place-items:center;transform:translateY(-50%);
+  border:1px solid var(--w-16);background:rgba(11,13,12,.7);
+  font-size:20px;color:var(--w-70);transition:.25s}
+.tw-nav:hover{border-color:var(--green);color:var(--green)}
+.tw-prev{left:0}
+.tw-next{right:0}
+.tw-dots{display:flex;gap:8px}
+.tw-dots button{width:26px;height:3px;border-radius:2px;background:var(--w-16);transition:.25s}
+.tw-dots button.on{background:var(--green)}
+@media(max-width:680px){
+  .tw-deck{height:clamp(360px,96vw,460px)}
+  .tw-card{width:82vw;margin-left:-41vw}
+  .tw-nav{width:40px;height:40px}
+}
+
+/* ---------- «Коротко о главном»: вопросы строками ----------
+   Номер, вопрос и знак раскрытия; открытая строка зеленеет,
+   под ней выезжает ответ. Открыт всегда один вопрос. */
+.faq{border-top:1px solid var(--w-08);margin-top:clamp(18px,2.4vw,34px)}
+.faq-row{border-bottom:1px solid var(--w-08)}
+.faq-q{display:grid;grid-template-columns:44px minmax(0,1fr) 34px;align-items:center;
+  gap:clamp(12px,1.6vw,24px);width:100%;text-align:left;
+  padding:clamp(16px,1.7vw,22px) clamp(10px,1.2vw,18px);transition:.25s}
+@media(hover:hover){
+  .faq-q:hover{background:var(--green)}
+  .faq-q:hover .faq-t,.faq-q:hover .faq-x{color:#06110B}
+  .faq-q:hover .faq-n{color:rgba(6,17,11,.6)}
+}
+.faq-row.on .faq-q{background:var(--green)}
+.faq-q:focus-visible{outline:2px solid var(--green);outline-offset:-2px}
+.faq-n{font-size:13px;letter-spacing:.14em;color:var(--w-45)}
+.faq-t{font-size:clamp(16px,1.4vw,21px);line-height:1.15;letter-spacing:-.02em;
   font-weight:500;color:var(--white)}
-.tr-fb .btn{align-self:flex-start;margin-top:auto}
+.faq-x{justify-self:end;font-size:20px;line-height:1;color:var(--w-45);transition:.25s}
+.faq-row.on .faq-n{color:rgba(6,17,11,.6)}
+.faq-row.on .faq-t{color:#06110B}
+.faq-row.on .faq-x{color:#06110B;transform:rotate(45deg)}
+.faq-body{display:grid;grid-template-rows:0fr;
+  transition:grid-template-rows .35s cubic-bezier(.2,.7,.3,1)}
+.faq-row.on .faq-body{grid-template-rows:1fr}
+.faq-a{overflow:hidden;margin:0;max-width:86ch;font-size:15px;line-height:1.45;color:var(--w-70)}
+.faq-row.on .faq-a{padding:clamp(14px,1.6vw,20px) clamp(10px,1.2vw,18px) clamp(20px,2.2vw,28px) 56px}
+@media(max-width:680px){
+  .faq-q{grid-template-columns:32px minmax(0,1fr) 28px}
+  .faq-row.on .faq-a{padding-left:clamp(10px,1.2vw,18px)}
+}
+
+/* документы: одна полоса во всю ширину — слева подпись и название
+   регламента, справа кнопка запроса */
+.tr-foot{margin:clamp(48px,6vw,96px) 0 0}
+.tr-fb{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;
+  gap:clamp(16px,2.4vw,40px);padding:clamp(20px,2.2vw,32px) clamp(20px,2.4vw,36px);
+  background:var(--coal);border:1px solid var(--w-08);border-radius:var(--r-s)}
+.tr-fl{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--w-45)}
+.tr-fb b{display:block;margin-top:9px;max-width:52ch;
+  font-size:clamp(16px,1.4vw,21px);line-height:1.25;letter-spacing:-.02em;
+  font-weight:500;color:var(--white)}
+.tr-fb .btn{justify-self:end;white-space:nowrap}
+@media(max-width:760px){
+  .tr-fb{grid-template-columns:minmax(0,1fr)}
+  .tr-fb .btn{justify-self:start}
+}
 
 @media(max-width:1180px){
-  .tr-nums{grid-template-columns:repeat(3,1fr)}
+  .tr-nums{grid-template-columns:1fr 1fr}
+  .tr-num:nth-child(odd){border-left:0;padding-left:0}
+  .tr-num:nth-child(n+3){border-top:1px solid var(--w-08)}
   .tr-sites{grid-template-columns:1fr 1fr}
   .tr-rail{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:680px){
-  .tr-nums,.tr-sites,.tr-rail,.tr-foot{grid-template-columns:1fr}
+  .tr-sites,.tr-rail{grid-template-columns:1fr}
+  .tr-nums{grid-template-columns:1fr 1fr}
+  .tr-num{border-left:1px solid var(--w-08)}
+  .tr-num:nth-child(odd){border-left:0;padding-left:0}
+  .tr-num:nth-child(n+3){border-top:1px solid var(--w-08)}
   .tr-envs{grid-template-columns:1fr}
 }
 
@@ -1008,12 +1076,36 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
 .mc-card{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);
   gap:clamp(18px,2.4vw,32px);align-items:start}
 .mc-media{--pad:clamp(18px,2.4vw,34px);position:sticky;top:0;overflow:hidden;
-  aspect-ratio:4/5;border:1px solid var(--w-08);border-radius:var(--r-s);
+  border:1px solid var(--w-08);border-radius:var(--r-s);
   background:radial-gradient(90% 90% at 50% 20%,#1F2A25,#0E1211)}
 /* кадр держит пропорцию только при абсолютном позиционировании: в потоке
    снимок растягивает панель под свою высоту, как и в карточке каталога */
+.mc-stage{position:relative;display:block;aspect-ratio:4/5}
 .mc-media img{position:absolute;inset:var(--pad);
   width:calc(100% - var(--pad)*2);height:calc(100% - var(--pad)*2);object-fit:contain}
+/* снимки лежат стопкой, видно только текущий */
+.mc-stage img{opacity:0;transition:opacity .3s}
+.mc-stage img.is-on{opacity:1}
+/* стрелки листания — по краям кадра */
+.mc-nav{position:absolute;top:50%;z-index:2;width:40px;height:40px;
+  display:grid;place-items:center;transform:translateY(-50%);border-radius:999px;
+  border:1px solid var(--w-16);background:rgba(11,13,12,.72);
+  font-size:20px;line-height:1;color:var(--w-70);transition:.25s}
+.mc-nav:hover{border-color:var(--green);color:var(--green)}
+.mc-prev{left:10px}
+.mc-next{right:10px}
+/* миниатюры снизу — сразу видно, что кадров несколько */
+/* строка миниатюр не переносится: при семи кадрах она уезжала во вторую
+   строку и панель разъезжалась — вместо этого горизонтальная прокрутка */
+.mc-thumbs{display:flex;gap:8px;flex-wrap:nowrap;overflow-x:auto;
+  scrollbar-width:none;padding:0 var(--pad) var(--pad)}
+.mc-thumbs::-webkit-scrollbar{display:none}
+.mc-th{position:relative;width:56px;height:56px;flex:none;overflow:hidden;
+  border-radius:12px;border:1px solid var(--w-16);background:var(--ink);
+  transition:.25s}
+.mc-th img{position:static;inset:auto;width:100%;height:100%;object-fit:cover;opacity:1}
+.mc-th:hover{border-color:var(--w-45)}
+.mc-th.is-on{border-color:var(--green)}
 .mc-info{min-width:0}
 .mc-kind{display:inline-block;padding:7px 14px;border-radius:999px;
   background:var(--green);color:#06110B;font-size:12px;font-weight:600;
@@ -1036,7 +1128,8 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
 .mc-cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
 @media(max-width:860px){
   .mc-card{grid-template-columns:1fr}
-  .mc-media{position:static;aspect-ratio:16/10}
+  .mc-media{position:static}
+  .mc-stage{aspect-ratio:16/10}
 }
 
 /* заголовки в окне кейса */
@@ -1057,7 +1150,7 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
   border:1px solid var(--w-08);aspect-ratio:16/9;background:var(--coal)}
 .cs-shot img{width:100%;height:100%;object-fit:cover}
 .tm-photos{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.tm-photos img{width:100%;aspect-ratio:4/3;object-fit:contain;background:var(--ink);
+.tm-photos img{width:100%;aspect-ratio:3/4;object-fit:cover;background:var(--ink);
   border:1px solid var(--w-08);border-radius:14px}
 
 @media(max-width:900px){
@@ -1190,25 +1283,6 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
     rgba(66,227,131,.05) 46%,transparent 70%)}
 .footer > *{position:relative;z-index:1}
 
-/* заголовок в «уголках кадрирования» */
-.f-crop{position:relative;width:fit-content;max-width:100%;margin:0 auto clamp(28px,4vw,54px);
-  padding:clamp(24px,4.4vw,68px) clamp(16px,4vw,78px)}
-.cm{position:absolute;width:clamp(22px,2.6vw,44px);height:clamp(22px,2.6vw,44px);border:1px solid var(--w-16)}
-.cm-tl{left:0;top:0;border-right:0;border-bottom:0}
-.cm-tr{right:0;top:0;border-left:0;border-bottom:0}
-.cm-bl{left:0;bottom:0;border-right:0;border-top:0}
-.cm-br{right:0;bottom:0;border-left:0;border-top:0}
-.f-title{margin:0;text-align:center;font-size:clamp(38px,8.6vw,148px);
-  line-height:.88;letter-spacing:-.05em;font-weight:500}
-/* на странице финансирования футер говорит о деле этой страницы:
-   свой заголовок и одна кнопка вместо двух */
-.f-t-fin,.f-c-fin{display:none}
-body.is-finance .f-t-base,body.is-finance .f-c-base{display:none}
-body.is-finance .f-t-fin{display:block;max-width:16ch;margin:0 auto}
-body.is-finance .f-title{font-size:clamp(32px,5.4vw,88px);line-height:.94}
-body.is-finance .f-c-fin{display:inline-flex}
-
-.f-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:clamp(32px,4.5vw,62px)}
 
 /* плитки разделов */
 .f-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:12px}
@@ -1278,7 +1352,6 @@ body.is-finance .f-c-fin{display:inline-flex}
   .f-tiles{grid-template-columns:1fr}
   .f-legal{grid-template-columns:1fr}
   .f-legal span:nth-child(even){text-align:left}
-  .f-cta .btn{width:100%;justify-content:center}
   .logo-div,.gov{display:none}
   .tasks-head{margin-left:0;max-width:none;padding:0 var(--gut)}
   .tasks-robot{display:none}
@@ -1574,21 +1647,21 @@ body.is-finance .f-c-fin{display:inline-flex}
 <!-- ============ раздел «роботы»: полный каталог ============ -->
 <section class="cat-page" id="robots">
   <div class="cp-head">
-    <h1 class="cp-title">Роботы</h1>
+    <h1 class="cp-title">Найдите<br>своего робота</h1>
   </div>
   <div class="cp-cats" id="cpCats"></div>
-  <div class="cp-subs" id="cpSubs"></div>
-  <p class="cp-hint" id="cpHint"></p>
-  <div class="cp-tools">
-    <input class="cp-search" id="cpSearch" type="search" autocomplete="off"
-           placeholder="поиск: название, производитель, описание…" aria-label="Поиск по роботам">
-    <button type="button" class="cp-toggle" id="cpReg">Только из реестра<b>0</b></button>
-    <label class="cp-sel" id="cpKinWrap"><span>Кинематика</span><select id="cpKin"></select></label>
-    <label class="cp-sel"><span>Отрасль применения</span><select id="cpInd"></select></label>
-    <label class="cp-sel"><span>Производитель</span><select id="cpMaker"></select></label>
+  <div class="cp-layout">
+    <aside class="cp-side">
+      <button type="button" class="cp-filters" id="cpFilters">Фильтры<b></b></button>
+      <div class="cp-side-in" id="cpSide"></div>
+      <p class="cp-count" id="cpShowing"></p>
+    </aside>
+    <div class="cp-main">
+      <input class="cp-search" id="cpSearch" type="search" autocomplete="off"
+             placeholder="поиск по названию и производителю" aria-label="Поиск по роботам">
+      <div class="cp-grid" id="cpGrid"></div>
+    </div>
   </div>
-  <div class="cp-showing" id="cpShowing"></div>
-  <div class="cp-grid" id="cpGrid"></div>
 </section>
 
 <!-- ============ финансирование: витрина мер ============ -->
@@ -1660,18 +1733,32 @@ body.is-finance .f-c-fin{display:inline-flex}
   </div>
   <div class="tr-rail" id="trSteps"></div>
 
+  <div class="tr-head">
+    <h2 class="h1">Нам доверяют</h2>
+    <p class="lead">Команды, которые уже прошли испытания</p>
+  </div>
+  <div class="tw-stage">
+    <button type="button" class="tw-nav tw-prev" aria-label="предыдущий кейс">‹</button>
+    <div class="tw-deck" id="trTrust"></div>
+    <button type="button" class="tw-nav tw-next" aria-label="следующий кейс">›</button>
+    <div class="tw-dots" id="trDots"></div>
+  </div>
+
   <div class="tr-foot">
     <div class="tr-fb">
-      <span class="tr-fl">Документы</span>
-      <b>Регламент проведения испытаний роботов, роботизированных и беспилотных систем</b>
+      <div class="tr-ft">
+        <span class="tr-fl">Документы</span>
+        <b>Регламент проведения испытаний роботов, роботизированных и беспилотных систем</b>
+      </div>
       <a href="mailto:roboty@cluster.mos.ru?subject=Регламент испытаний" class="btn btn-ghost">Запросить регламент, pdf →</a>
     </div>
-    <div class="tr-fb">
-      <span class="tr-fl">Контакты</span>
-      <b class="nolow">roboty@cluster.mos.ru</b>
-      <a href="#band" class="btn btn-green">Подать заявку на испытания →</a>
-    </div>
   </div>
+
+  <div class="tr-head">
+    <h2 class="h1">Коротко о главном</h2>
+    <p class="lead">Что важно знать до подачи заявки</p>
+  </div>
+  <div class="faq" id="trFaq"></div>
 </section>
 
 <dialog id="trDlg" aria-label="площадки среды"></dialog>
@@ -1696,18 +1783,6 @@ body.is-finance .f-c-fin{display:inline-flex}
 
 <!-- ============ футер ============ -->
 <footer class="footer">
-  <div class="f-crop">
-    <span class="cm cm-tl"></span><span class="cm cm-tr"></span>
-    <span class="cm cm-bl"></span><span class="cm cm-br"></span>
-    <h2 class="f-title"><span class="f-t-base">Присоединяйтесь</span><span
-      class="f-t-fin">Поможем подобрать поддержку для вас</span></h2>
-  </div>
-  <div class="f-cta">
-    <a href="#band" class="btn btn-green btn-lg f-c-base">Подать заявку на участие</a>
-    <a href="mailto:roboty@cluster.mos.ru" class="btn btn-ghost btn-lg f-c-base">Задать вопрос</a>
-    <a href="mailto:roboty@cluster.mos.ru?subject=Подбор мер поддержки"
-       class="btn btn-green btn-lg f-c-fin">Получить консультацию</a>
-  </div>
   <nav class="f-tiles">
     <a class="f-tile" href="#robots">Роботы<span>↗</span></a>
     <a class="f-tile" href="#finance">Финансирование<span>↗</span></a>
@@ -1750,13 +1825,13 @@ body.is-finance .f-c-fin{display:inline-flex}
 
 /* ---- каталог ---- */
 var ROBOTS=[
- {cat:'Логистика',name:'Ronavi H1500',d:'Складской робот',s:['1500 кг','1,5 м/с','12 ч'],img:'images/ronavi-h1500.png',hint:'Для узких проходов',works:['cargo'],sp:{cargo:['1500 кг','1,5 м/с','12 ч']}},
- {cat:'Промышленность',name:'Ronavi × Seer CBD16',d:'Вилочный робот-погрузчик',s:['1600 кг','1,8 м/с','10 ч'],img:'images/ronavi-cbd16.png',hint:'Подъём паллет с пола',works:['cargo'],sp:{cargo:['1600 кг','1,8 м/с','10 ч']}},
- {cat:'Логистика',name:'AMR1500',d:'Транспортировка грузов на складах и в цехах',s:['До 1500 кг','До 1,5 м/с','До 22 ч'],img:'images/amr1500.png',hint:'Длинная смена без подзарядки',works:['cargo'],sp:{cargo:['До 1500 кг','До 1,5 м/с','До 22 ч']}},
- {cat:'Обслуживающие',name:'Пиксель',d:'Уборка парков и тротуаров круглый год, без водителя',s:['270 кг','10 км/ч','16 ч в сутки'],img:'images/pixel.png',hint:'Для улицы и мороза',works:['service'],sp:{service:['До 10 км/ч','16 ч в сутки','Улица, круглый год']}},
- {cat:'Обслуживающие',name:'MARK 2 SE',d:'Робот-уборщик',s:['2000 м²/ч','60 л','6 ч'],img:'images/mark2se.png',hint:'Большие площади в помещении',works:['service'],sp:{service:['2000 м²/ч','6 ч','В помещении']}},
- {cat:'Биоморфные',name:'Inchbot L1/L1 Edu',d:'Робот-собака',s:['15 кг','1,6 м/с','2,5 ч'],img:'images/inchbot-l1.png',hint:'Обходы по сложному рельефу',works:['patrol'],sp:{patrol:['2,5 ч','1,6 м/с','15 кг']}},
- {cat:'Биоморфные',name:'Unitree H2',d:'Полноразмерный гуманоидный робот высотой 180 см',s:['31 степень свободы','Нагрузка 15 кг','3 часа'],img:'images/unitree-h2.png',hint:'Работа рядом с людьми',works:['service','patrol'],sp:{service:['По запросу','3 ч','В помещении, среди людей'],patrol:['3 ч','31 степень свободы','Нагрузка 15 кг']}},
+ {cat:'Логистика',name:'Ronavi H1500',d:'Складской робот',s:['1500 кг','1,5 м/с','12 ч'],img:'images/ronavi-h1500.png',photos:['images/robots/ronavi-h1500-01.webp','images/robots/ronavi-h1500-02.webp','images/robots/ronavi-h1500-03.webp','images/robots/ronavi-h1500-04.webp'],hint:'Для узких проходов',works:['cargo'],sp:{cargo:['1500 кг','1,5 м/с','12 ч']}},
+ {cat:'Промышленность',name:'Ronavi × Seer CBD16',d:'Вилочный робот-погрузчик',s:['1600 кг','1,8 м/с','10 ч'],img:'images/ronavi-cbd16.png',photos:['images/robots/ronavi-cbd16-01.webp','images/robots/ronavi-cbd16-02.webp','images/robots/ronavi-cbd16-03.webp','images/robots/ronavi-cbd16-04.webp'],hint:'Подъём паллет с пола',works:['cargo'],sp:{cargo:['1600 кг','1,8 м/с','10 ч']}},
+ {cat:'Логистика',name:'AMR1500',d:'Транспортировка грузов на складах и в цехах',s:['До 1500 кг','До 1,5 м/с','До 22 ч'],img:'images/amr1500.png',photos:['images/robots/amr1500-01.webp','images/robots/amr1500-02.webp','images/robots/amr1500-03.webp','images/robots/amr1500-04.webp','images/robots/amr1500-05.webp'],hint:'Длинная смена без подзарядки',works:['cargo'],sp:{cargo:['До 1500 кг','До 1,5 м/с','До 22 ч']}},
+ {cat:'Обслуживающие',name:'Пиксель',d:'Уборка парков и тротуаров круглый год, без водителя',s:['270 кг','10 км/ч','16 ч в сутки'],img:'images/pixel.png',photos:['images/robots/pixel-01.webp','images/robots/pixel-02.webp','images/robots/pixel-03.webp','images/robots/pixel-04.webp','images/robots/pixel-05.webp','images/robots/pixel-06.webp'],hint:'Для улицы и мороза',works:['service'],sp:{service:['До 10 км/ч','16 ч в сутки','Улица, круглый год']}},
+ {cat:'Обслуживающие',name:'MARK 2 SE',d:'Робот-уборщик',s:['2000 м²/ч','60 л','6 ч'],img:'images/mark2se.png',photos:['images/robots/mark2se-01.webp','images/robots/mark2se-02.webp','images/robots/mark2se-03.webp','images/robots/mark2se-04.webp','images/robots/mark2se-05.webp'],hint:'Большие площади в помещении',works:['service'],sp:{service:['2000 м²/ч','6 ч','В помещении']}},
+ {cat:'Биоморфные',name:'Inchbot L1/L1 Edu',d:'Робот-собака',s:['15 кг','1,6 м/с','2,5 ч'],img:'images/inchbot-l1.png',photos:['images/robots/inchbot-l1-01.webp','images/robots/inchbot-l1-02.webp','images/robots/inchbot-l1-03.webp','images/robots/inchbot-l1-04.webp'],hint:'Обходы по сложному рельефу',works:['patrol'],sp:{patrol:['2,5 ч','1,6 м/с','15 кг']}},
+ {cat:'Биоморфные',name:'Unitree H2',d:'Полноразмерный гуманоидный робот высотой 180 см',s:['31 степень свободы','Нагрузка 15 кг','3 часа'],img:'images/unitree-h2.png',photos:['images/robots/unitree-h2-01.webp','images/robots/unitree-h2-02.webp','images/robots/unitree-h2-03.webp','images/robots/unitree-h2-04.webp'],hint:'Работа рядом с людьми',works:['service','patrol'],sp:{service:['По запросу','3 ч','В помещении, среди людей'],patrol:['3 ч','31 степень свободы','Нагрузка 15 кг']}},
  {cat:'Промышленность',name:'Birbi S-1 PRO',d:'scara-робот для быстрых и точных операций с небольшими деталями',s:['4–5 осей','До 10 кг','Вылет 700 мм'],img:'images/birbi-s1pro.png',hint:'Высокий темп на мелких деталях',works:['line'],sp:{line:['4–5 осей','До 10 кг','Вылет 700 мм']}},
  {cat:'Промышленность',name:'Birbi D-1',d:'Высокоскоростной дельта-робот для работы с лёгкими изделиями',s:['3 оси','До 0,5 кг','Радиус 260 мм'],img:'images/birbi-d1.png',hint:'Самый быстрый на лёгком',works:['line'],sp:{line:['3 оси','До 0,5 кг','Радиус 260 мм']}},
  {cat:'Промышленность',name:'DOKA RC30',d:'Коллаборативный робот для операций, где обычным коботам не хватает грузоподъёмности',s:['6 осей','До 30 кг','Радиус 1300 мм'],img:'images/doka-rc30.png',hint:'Заготовки до 30 кг',works:['line'],sp:{line:['6 осей','До 30 кг','Радиус 1300 мм']}},
@@ -2175,12 +2250,26 @@ var openWork=null,openModelCard=null;
     ? '<div class="mc-row is-plain"><span>'+esc(pp[0])+'</span></div>'
     : '<div class="mc-row"><span>'+esc(pp[0])+'</span><b>'+esc(pp[1])+'</b></div>'; }).join('');
   var site=/^https?:/.test(r.site||'')?r.site:'';
-  /* кадр модели уже стоит слева — в галерею идут только остальные снимки */
-  var photos=(r.photos||[]).filter(function(src){ return src&&src!==r.img; });
+  /* первый кадр — тот же, что в каталоге, дальше живые снимки */
+  var shots=[r.img].concat((r.photos||[]).filter(function(src){ return src&&src!==r.img; }));
 
   var body=
    '<div class="mc-card">'+
-    '<div class="mc-media"><img src="'+esc(r.img)+'" alt="" draggable="false"></div>'+
+    '<div class="mc-media'+(shots.length>1?' has-gal':'')+'">'+
+     '<div class="mc-stage">'+
+      shots.map(function(src,i){
+       return '<img src="'+esc(src)+'" alt="" draggable="false"'+
+        (i?'':' class="is-on"')+(i?' loading="lazy"':'')+'>'; }).join('')+
+      (shots.length>1
+       ? '<button type="button" class="mc-nav mc-prev" data-step="-1" aria-label="предыдущий кадр">‹</button>'+
+         '<button type="button" class="mc-nav mc-next" data-step="1" aria-label="следующий кадр">›</button>'
+       : '')+
+     '</div>'+
+     (shots.length>1?'<div class="mc-thumbs">'+shots.map(function(src,i){
+       return '<button type="button" class="mc-th'+(i?'':' is-on')+'" data-i="'+i+
+        '" aria-label="кадр '+(i+1)+'"><img src="'+esc(src)+'" alt="" loading="lazy"></button>';
+      }).join('')+'</div>':'')+
+    '</div>'+
     '<div class="mc-info">'+
      '<span class="mc-kind">'+esc(r.kin||r.kind||r.cat)+'</span>'+
      '<h2 class="mc-name nolow">'+esc(r.name)+'</h2>'+
@@ -2194,17 +2283,7 @@ var openWork=null,openModelCard=null;
      '</div>'+
     '</div>'+
    '</div>'+
-   (photos.length?box('Фотографии','<div class="tm-photos">'+photos.map(function(src){
-     return '<img src="'+esc(src)+'" alt="" loading="lazy" draggable="false">'; }).join('')+'</div>'):'')+
-   box('Паспорт решения',rows([
-     ['Производитель',r.maker,1],
-     ['Происхождение',r.origin],
-     ['Цена',r.price],
-     ['Сайт решения',r.site,1],
-     ['Регион и профиль',r.region],
-     ['Отрасль применения',r.industry],
-     ['За данные отвечает',r.owner]
-   ]));
+   '';
 
   /* кнопка «назад» нужна только когда пришли с экрана работы */
   shell(curWork?'<button type="button" class="tdlg-back" data-back>← назад к работе</button>'
@@ -2243,6 +2322,20 @@ var openWork=null,openModelCard=null;
   if(t.closest('[data-back]')){ renderWork(curWork); return; }
   var card=t.closest('.tr');
   if(card){ renderModel(card.getAttribute('data-model')); return; }
+  /* листание снимков: стрелки и миниатюры под кадром */
+  var nav=t.closest('.mc-nav'), th=t.closest('.mc-th');
+  if(nav||th){
+   var box=dlg.querySelector('.mc-media');
+   var pics=Array.prototype.slice.call(box.querySelectorAll('.mc-stage img'));
+   var thumbs=Array.prototype.slice.call(box.querySelectorAll('.mc-th'));
+   var cur=0;
+   pics.forEach(function(p,i){ if(p.classList.contains('is-on')) cur=i; });
+   var next=th?+th.getAttribute('data-i')
+              :(cur+ +nav.getAttribute('data-step')+pics.length)%pics.length;
+   pics.forEach(function(p,i){ p.classList.toggle('is-on',i===next); });
+   thumbs.forEach(function(b,i){ b.classList.toggle('is-on',i===next); });
+   return;
+  }
   if(t.closest('[data-x]')){ shut(); return; }             /* крестик и ссылки наружу */
   if(!t.closest('.tdlg-box')) shut();                       /* клик по подложке */
  });
@@ -2379,15 +2472,11 @@ var openWork=null,openModelCard=null;
  if(!page) return;
  var grid=document.getElementById('cpGrid'),
      cats=document.getElementById('cpCats'),
-     subs=document.getElementById('cpSubs'),
-     hint=document.getElementById('cpHint'),
+     side=document.getElementById('cpSide'),
+     sideBox=side.parentNode,
+     filtersBtn=document.getElementById('cpFilters'),
      showing=document.getElementById('cpShowing'),
-     search=document.getElementById('cpSearch'),
-     regBtn=document.getElementById('cpReg'),
-     kinWrap=document.getElementById('cpKinWrap'),
-     selKin=document.getElementById('cpKin'),
-     selInd=document.getElementById('cpInd'),
-     selMaker=document.getElementById('cpMaker');
+     search=document.getElementById('cpSearch');
 
  function esc(t){ return String(t==null?'':t)
    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
@@ -2398,11 +2487,10 @@ var openWork=null,openModelCard=null;
 
  var CATS=['Промышленные','Сервисные','Транспортные'];
  var state={cat:'Все',sub:'Все',q:'',reg:false,kin:'Все',ind:'Все',maker:'Все'};
+ var open={};       /* какие группы фильтров раскрыты */
 
- /* набор по категории — основа и для второго уровня, и для списков */
  function inCat(){ return state.cat==='Все'?ROBOTS
    :ROBOTS.filter(function(r){return r.cat===state.cat}); }
- /* полный фильтр */
  function list(){
   var q=state.q.trim().toLowerCase();
   return inCat().filter(function(r){
@@ -2424,72 +2512,76 @@ var openWork=null,openModelCard=null;
    return '<button type="button" class="cp-chip'+(state.cat===a[0]?' is-on':'')+
     '" data-cat="'+esc(a[0])+'">'+esc(a[1])+'<b>'+a[2]+'</b></button>'; }).join('');
  }
- function drawSubs(){
-  if(state.cat==='Все'){ subs.innerHTML=''; hint.textContent=''; return; }
-  var pool=inCat(), keys=[];
-  pool.forEach(function(r){ (r.sub||[]).forEach(function(k){ if(keys.indexOf(k)<0) keys.push(k); }); });
-  var all=[['Все','Все '+state.cat,pool.length]].concat(keys.map(function(k){
-    return [k,SUBS[k]?SUBS[k][0]:k,pool.filter(function(r){return (r.sub||[]).indexOf(k)>=0}).length]; }));
-  subs.innerHTML=all.map(function(a){
-   return '<button type="button" class="cp-sub'+(state.sub===a[0]?' is-on':'')+
-    '" data-sub="'+esc(a[0])+'">'+esc(a[1])+'<b>'+a[2]+'</b></button>'; }).join('');
-  hint.textContent=(state.sub!=='Все'&&SUBS[state.sub])?SUBS[state.sub][1]:'';
- }
- /* списки строим по текущей категории: лишних значений в них не будет */
- function fill(sel,field,cur){
-  var pool=inCat(), vals=[];
-  pool.forEach(function(r){ var v=r[field];
-   if(v&&vals.indexOf(v)<0) vals.push(v); });
-  vals.sort();
-  /* значение опции — ровно 'Все': state сравнивается с ним и ниже, и в list();
-     строчное 'все' обнуляло выдачу при сбросе списка */
-  sel.innerHTML=['<option value="Все">Все</option>'].concat(vals.map(function(v){
-   return '<option value="'+esc(v)+'"'+(cur===v?' selected':'')+'>'+esc(v)+'</option>'; })).join('');
-  if(vals.indexOf(cur)<0) sel.value='Все';
-  return vals.length;
- }
- function drawTools(){
-  var nKin=fill(selKin,'kin',state.kin);
-  /* у беспилотного транспорта кинематики нет — список прячем */
-  kinWrap.classList.toggle('is-off',nKin===0);
-  if(nKin===0) state.kin='Все';
-  fill(selInd,'industry',state.ind);
-  fill(selMaker,'maker',state.maker);
-  var regN=inCat().filter(function(r){return r.registry}).length;
-  regBtn.innerHTML='Только из реестра<b>'+regN+'</b>';
-  regBtn.classList.toggle('is-on',state.reg);
+
+ /* значения группы считаем по текущей категории: пустых пунктов не будет.
+    Выбор одиночный — повторный клик снимает фильтр */
+ function values(field){
+  var pool=inCat(), out=[];
+  pool.forEach(function(r){
+   var v=r[field];
+   (Array.isArray(v)?v:[v]).forEach(function(x){
+    if(!x) return;
+    var hit=null;
+    for(var i=0;i<out.length;i++) if(out[i].v===x){ hit=out[i]; break; }
+    if(hit) hit.n++; else out.push({v:x,n:1});
+   });
+  });
+  out.sort(function(a,b){ return b.n-a.n||a.v.localeCompare(b.v,'ru'); });
+  return out;
  }
 
- /* плашка над кадром — задача, а не категория: у семи манипуляторов
-    категория одна, а «сварка» и «сборка» уже различают их взглядом.
-    Если выбран второй уровень фильтра — показываем именно его */
- function tagOf(r){
+ function group(key,label,vals,cur,name){
+  if(!vals.length) return '';
+  var on=open[key]||false;
+  return '<div class="cp-g'+(on?' on':'')+'" data-g="'+key+'">'+
+   '<button type="button" class="cp-g-h">'+esc(label)+'<i>+</i></button>'+
+   '<div class="cp-g-list"><div class="cp-g-in">'+
+    vals.map(function(x){
+     return '<button type="button" class="cp-v'+(cur===x.v?' on':'')+'" data-f="'+key+
+      '" data-v="'+esc(x.v)+'">'+esc(name?name(x.v):x.v)+'<b>'+x.n+'</b></button>';
+    }).join('')+
+   '</div></div></div>';
+ }
+
+ function drawSide(){
+  var pool=inCat();
+  var regN=pool.filter(function(r){return r.registry}).length;
+  side.innerHTML=
+   /* подписи фильтров — обычными словами: «кинематика» и «задача»
+      понятны инженеру, а не тому, кто впервые зашёл на портал */
+   group('sub','Что делает',values('sub'),state.sub,function(k){ return SUBS[k]?SUBS[k][0]:k; })+
+   group('kin','Вид робота',values('kin'),state.kin)+
+   group('ind','Где работает',values('industry'),state.ind)+
+   group('maker','Производитель',values('maker'),state.maker)+
+   (regN?'<div class="cp-g'+(open.reg?' on':'')+'" data-g="reg">'+
+     '<button type="button" class="cp-g-h">Реестр Москвы<i>+</i></button>'+
+     '<div class="cp-g-list"><div class="cp-g-in">'+
+      '<button type="button" class="cp-v'+(state.reg?' on':'')+'" data-f="reg" data-v="1">'+
+       'Только из реестра<b>'+regN+'</b></button>'+
+     '</div></div></div>':'');
+  var picked=(state.sub!=='Все')+(state.kin!=='Все')+(state.ind!=='Все')+
+             (state.maker!=='Все')+(state.reg?1:0);
+  filtersBtn.innerHTML='Фильтры<b>'+(picked||'')+'</b>';
+ }
+
+ /* задача решения — короткая строка под названием */
+ function taskOf(r){
   var k=(state.sub!=='Все'&&(r.sub||[]).indexOf(state.sub)>=0)?state.sub:(r.sub||[])[0];
   return (k&&SUBS[k]&&SUBS[k][0])||r.cat;
  }
- /* в реестре производитель записан юрлицом: в карточке каталога хватает
-    марки, полное название остаётся в карточке модели */
- function brand(m){ return String(m||'')
-   .replace(/^(МКПАО|ЗАО|ОАО|ПАО|ООО|АО|ИП)\s+/,'')
-   .replace(/^[«"']|[»"']$/g,''); }
 
+ /* карточка: снимок, название и задача — больше в каталоге не нужно */
  function card(r){
   return '<button type="button" class="cp-card" data-model="'+esc(r.name)+'">'+
-   '<span class="cp-pic"><img src="'+esc(r.img)+'" alt="" loading="lazy" draggable="false">'+
-    '<span class="cp-tag">'+esc(tagOf(r))+'</span></span>'+
-   '<span class="cp-b">'+
-    '<span class="cp-n nolow">'+esc(r.name)+'</span>'+
-    '<span class="cp-d">'+esc(r.use||r.d)+'</span>'+
-    '<span class="cp-s">'+(r.s||[]).slice(0,3).map(function(v){
-       return '<span>'+esc(v)+'</span>'; }).join('')+'</span>'+
-    '<span class="cp-maker nolow">'+esc(brand(r.maker))+'</span>'+
-    '<span class="cp-go"><span>Подробнее</span><b>→</b></span>'+
-   '</span></button>';
+   '<span class="cp-pic"><img src="'+esc(r.img)+'" alt="" loading="lazy" draggable="false"></span>'+
+   '<span class="cp-n nolow">'+esc(r.name)+'</span>'+
+   '<span class="cp-task">'+esc(taskOf(r))+'</span>'+
+  '</button>';
  }
  function draw(){
-  drawCats(); drawSubs(); drawTools();
-  var l=list(), pool=inCat().length;
-  showing.textContent='Показано '+l.length+' из '+pool+' '+plural(pool);
+  drawCats(); drawSide();
+  var l=list();
+  showing.textContent=l.length+' '+plural(l.length);
   grid.innerHTML=l.length?l.map(card).join('')
     :'<p class="cp-empty">По этим условиям ничего не нашлось — снимите часть фильтров</p>';
  }
@@ -2501,15 +2593,17 @@ var openWork=null,openModelCard=null;
   state.kin='Все'; state.ind='Все'; state.maker='Все'; state.reg=false;
   draw();
  });
- subs.addEventListener('click',function(e){
-  var b=e.target.closest('.cp-sub'); if(!b) return;
-  state.sub=b.getAttribute('data-sub'); draw();
+ side.addEventListener('click',function(e){
+  var h=e.target.closest('.cp-g-h');
+  if(h){ var k=h.parentNode.getAttribute('data-g'); open[k]=!open[k]; return drawSide(); }
+  var v=e.target.closest('.cp-v'); if(!v) return;
+  var f=v.getAttribute('data-f'), val=v.getAttribute('data-v');
+  if(f==='reg') state.reg=!state.reg;
+  else state[f]=state[f]===val?'Все':val;
+  draw();
  });
- regBtn.addEventListener('click',function(){ state.reg=!state.reg; draw(); });
+ filtersBtn.addEventListener('click',function(){ sideBox.classList.toggle('is-open'); });
  search.addEventListener('input',function(){ state.q=search.value; draw(); });
- selKin.addEventListener('change',function(){ state.kin=selKin.value; draw(); });
- selInd.addEventListener('change',function(){ state.ind=selInd.value; draw(); });
- selMaker.addEventListener('change',function(){ state.maker=selMaker.value; draw(); });
 
  grid.addEventListener('click',function(e){
   var c=e.target.closest('.cp-card'); if(!c) return;
@@ -3473,12 +3567,37 @@ var ENVIRONMENTS=[
         who:'Производители компонентов и материалов' }
     ] }
 ];
+/* значение, единица измерения и подпись — раздельно: единица встаёт
+   плашкой у числа, а подпись остаётся чистой строкой */
 var RTC_NUMBERS=[
- {n:'12', t:'Испытательных зон общей площадью 97 500 кв. м'},
- {n:'14+',t:'Типов тестируемых роборешений'},
- {n:'3',  t:'Испытательных стенда'},
- {n:'10+',t:'Км улично-дорожной сети'},
- {n:'2',  t:'Га акватории'}
+ {n:'12',     t:'испытательных зон'},
+ {n:'97 500', u:'м²', t:'общая площадь зон'},
+ {n:'2',      u:'га', t:'акватории для роботов'},
+ {n:'14+',    t:'типов роботов допускаются к испытаниям'}
+];
+/* кейсы центра испытаний: номер, что испытывали и чья разработка */
+var RTC_TRUST=[
+ {n:'01',t:'АМР (автономный мобильный робот)',org:'ООО «Мобильные роботизированные системы» (МОРОС)',img:'images/trust/moros-amr.jpg'},
+ {n:'02',t:'Робот уборщик помещений',org:'ООО «Вейбот Автомакон Роботикс»',img:'images/trust/veibot-cleaner.jpg'},
+ {n:'03',t:'Робот уборщик помещений',org:'ООО «Яку Роботикс»',img:'images/trust/yaku-cleaner.jpg'},
+ {n:'04',t:'Мониторинговый робот',org:'ООО «Гумич РТК»',img:'images/trust/gumich-monitor.jpg'},
+ {n:'05',t:'Роботы манипуляторы',org:'ООО «Прикладная робототехника»',img:'images/trust/prikladnaya-manipulator.jpg'},
+ {n:'06',t:'Роботы снегоуборщики',org:'ООО «РОБОКОМ»',img:'images/trust/robokom-snow.jpg'}
+];
+/* частые вопросы центра испытаний — перенесены с robot-mos.ru */
+var RTC_FAQ=[
+ {q:'Вы гарантируете, что робот пройдёт испытания?',
+  a:'Нет — и это честный ответ. Гарантируем другое: проверим по согласованной с вами программе, зафиксируем всё телеметрией и видео и выдадим заключение. Даже отрицательный результат — это понятный список того, что дорабатывать.'},
+ {q:'Сколько это стоит?',
+  a:'В 2026 году испытания могут проводиться бесплатно. Точные условия под ваш сценарий назовём после заявки.'},
+ {q:'Чей робот и чьи данные после испытаний?',
+  a:'Робот, технологии и данные испытаний остаются вашими. Работаем по NDA, в закрытом контуре. Идею можно дополнительно защитить в Центре интеллектуальной собственности Фонда МИК.'},
+ {q:'Кто может подать заявку?',
+  a:'Производители, стартапы, корпорации и вузы — юрлица и ИП России, без ликвидации, банкротства и записей в реестрах иностранных агентов и недобросовестных поставщиков. Приоритет — у участников инновационного кластера Москвы.'},
+ {q:'Сколько времени проходит от заявки до протокола?',
+  a:'Заявку проверяем за 5 рабочих дней, программу и методику испытаний согласуем за 5 и подписываем за 3. Сроки самих испытаний закладываем в ПМИ, протокол и заключение оформляем за 5 рабочих дней после финиша.'},
+ {q:'Что приложить к заявке?',
+  a:'Контакты, модель и тип робота, цель испытаний, требования к площадке. Из документов: паспорт изделия, техническое описание, инструкция по безопасной эксплуатации, руководство пользователя — PDF, JPG, MP4/MOV/AVI, до 500 МБ, на русском.'}
 ];
 var RTC_STEPS=[
  {t:'Заявка',d:'Вы оставляете заявку с описанием вашего робота и целей тестирования'},
@@ -3503,12 +3622,119 @@ var RTC_STEPS=[
  }
 
  document.getElementById('trNums').innerHTML=RTC_NUMBERS.map(function(x){
-  return '<div class="tr-num"><b>'+esc(x.n)+'</b><span>'+esc(x.t)+'</span></div>';
+  return '<div class="tr-num"><b>'+esc(x.n)+
+   (x.u?'<i>'+esc(x.u)+'</i>':'')+'</b><span>'+esc(x.t)+'</span></div>';
  }).join('');
 
- document.getElementById('trSteps').innerHTML=RTC_STEPS.map(function(s){
-  return '<div class="tr-step"><b>'+esc(s.t)+'</b><span>'+esc(s.d)+'</span></div>';
+ /* коротко о главном: вопрос раскрывается по клику, открыт всегда один */
+ var faq=document.getElementById('trFaq');
+ if(faq){
+  faq.innerHTML=RTC_FAQ.map(function(x,i){
+   return '<div class="faq-row">'+
+    '<button type="button" class="faq-q" aria-expanded="false">'+
+     '<span class="faq-n">'+pad(i+1)+'</span>'+
+     '<span class="faq-t">'+esc(x.q)+'</span>'+
+     '<span class="faq-x" aria-hidden="true">+</span>'+
+    '</button>'+
+    '<div class="faq-body"><p class="faq-a">'+esc(x.a)+'</p></div>'+
+   '</div>';
+  }).join('');
+  faq.addEventListener('click',function(e){
+   var b=e.target.closest('.faq-q'); if(!b) return;
+   var row=b.parentNode, open=row.classList.contains('on');
+   Array.prototype.forEach.call(faq.children,function(r){
+    r.classList.remove('on');
+    r.querySelector('.faq-q').setAttribute('aria-expanded','false');
+   });
+   if(!open){ row.classList.add('on'); b.setAttribute('aria-expanded','true'); }
+  });
+ }
+
+ /* стопка кейсов: активная карточка впереди, соседние уходят вбок,
+    уменьшаются и наклоняются. Индексы считаются по кругу */
+ var deck=document.getElementById('trTrust'), dots=document.getElementById('trDots');
+ if(deck&&dots){
+  var cur=0, n=RTC_TRUST.length;
+  deck.innerHTML=RTC_TRUST.map(function(x,i){
+   return '<button type="button" class="tw-card" data-i="'+i+'">'+
+    '<span class="tw-ph"><img src="'+esc(x.img)+'" alt="'+esc(x.t)+'" loading="lazy">'+
+     '<span class="tw-num">Кейс '+esc(x.n)+'</span></span>'+
+    '<span class="tw-info"><span class="tw-t">'+esc(x.t)+'</span>'+
+     '<span class="tw-o">'+esc(x.org)+'</span></span>'+
+   '</button>';
+  }).join('');
+  dots.innerHTML=RTC_TRUST.map(function(x,i){
+   return '<button type="button" data-i="'+i+'" aria-label="кейс '+esc(x.n)+'"></button>';
+  }).join('');
+  var cards=Array.prototype.slice.call(deck.children);
+  var pips=Array.prototype.slice.call(dots.children);
+  function place(){
+   cards.forEach(function(c,i){
+    var d=i-cur;
+    if(d>n/2) d-=n;
+    if(d<-n/2) d+=n;
+    var a=Math.abs(d);
+    c.style.transform='translateX('+(d*44)+'%) scale('+(1-a*0.1).toFixed(2)+
+     ') rotate('+(d*2.4)+'deg)';
+    c.style.opacity=a>2?0:a===0?1:a===1?.55:.25;
+    c.style.zIndex=10-a;
+    c.style.pointerEvents=a>2?'none':'auto';
+    c.classList.toggle('is-on',a===0);
+    c.setAttribute('aria-hidden',a>2?'true':'false');
+   });
+   pips.forEach(function(b,i){ b.classList.toggle('on',i===cur); });
+  }
+  function go(i){ cur=(i%n+n)%n; place(); }
+  deck.addEventListener('click',function(e){
+   var c=e.target.closest('.tw-card'); if(c) go(+c.getAttribute('data-i'));
+  });
+  dots.addEventListener('click',function(e){
+   var b=e.target.closest('button'); if(b) go(+b.getAttribute('data-i'));
+  });
+  var prev=document.querySelector('.tw-prev'), next=document.querySelector('.tw-next');
+  if(prev) prev.addEventListener('click',function(){ go(cur-1); });
+  if(next) next.addEventListener('click',function(){ go(cur+1); });
+  /* смахивание пальцем на тач-экране */
+  var x0=null;
+  deck.addEventListener('pointerdown',function(e){ x0=e.clientX; });
+  deck.addEventListener('pointerup',function(e){
+   if(x0===null) return;
+   var dx=e.clientX-x0; x0=null;
+   if(Math.abs(dx)>40) go(cur+(dx<0?1:-1));
+  });
+  place();
+ }
+
+ var rail=document.getElementById('trSteps');
+ rail.innerHTML=RTC_STEPS.map(function(s,i){
+  return '<div class="tr-step"><i>'+pad(i+1)+'</i><b>'+esc(s.t)+'</b>'+
+   '<span>'+esc(s.d)+'</span></div>';
  }).join('');
+
+ /* шаги проявляются по мере прокрутки: доля пройденного пути блока
+    через экран красит нитку и включает очередной шаг */
+ (function(){
+  var steps=Array.prototype.slice.call(rail.children);
+  var calm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(calm){ rail.style.setProperty('--p',1);
+   steps.forEach(function(x){ x.classList.add('on'); }); return; }
+  var raf=0;
+  function tick(){
+   raf=0;
+   var r=rail.getBoundingClientRect(), vh=window.innerHeight||0;
+   if(!r.height) return;
+   var p=(vh*0.84-r.top)/Math.max(1,vh*0.46);
+   p=p<0?0:p>1?1:p;
+   rail.style.setProperty('--p',p.toFixed(3));
+   steps.forEach(function(x,i){
+    x.classList.toggle('on', p*steps.length >= i+0.12);
+   });
+  }
+  function onScroll(){ if(!raf) raf=requestAnimationFrame(tick); }
+  addEventListener('scroll',onScroll,{passive:true});
+  addEventListener('resize',onScroll);
+  tick();
+ })();
 
 
  /* карточка среды: номер, число площадок и фотография. Сами площадки

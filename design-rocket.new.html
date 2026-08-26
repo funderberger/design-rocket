@@ -1878,16 +1878,16 @@ var REG={
  'MARK 2 SE':{cat:'Сервисные',sub:['clean'],kin:'Уборщики',maker:'ООО «Р2Б»',site:'https://r2b.company/mark2se',industry:'Торговые объекты'},
  'Inchbot L1/L1 Edu':{cat:'Сервисные',sub:['watch'],kin:'Биоморфные',maker:'АО «КЬЮ ГРУПП»',site:'https://qubot.ru/catalog/roboty-sobaki/inchbot-l1',industry:'Промышленные объекты'},
  'Unitree H2':{cat:'Сервисные',sub:['guest'],kin:'Биоморфные',maker:'АО «КЬЮ ГРУПП»',site:'https://qubot.ru/catalog/roboty-gumanoidy/unitree-h2',industry:'Промышленность и сервис'},
- 'Birbi S-1 PRO':{cat:'Промышленные',sub:['move','assy'],kin:'scara-роботы',maker:'ООО «БиАйДи Технолоджис Рус»',site:'https://bid.life',industry:'Производство'},
- 'Birbi D-1':{cat:'Промышленные',sub:['move'],kin:'Дельта-роботы',maker:'ООО «БиАйДи Технолоджис Рус»',site:'https://bid.life',industry:'Производство'},
- 'DOKA RC30':{cat:'Промышленные',sub:['move','weld','mach','pall'],kin:'Коллаборативные роботы',maker:'ООО «РобоПро»',site:'https://doka-robots.ru',industry:'Производство'},
- 'Promobot M13':{cat:'Промышленные',sub:['assy','weld','mach','pall'],kin:'Коллаборативные роботы',maker:'ООО «Промобот»',site:'https://promo-bot.ru',industry:'Производство'},
- 'A12-1450':{cat:'Промышленные',sub:['move','assy','weld'],kin:'Коллаборативные роботы',maker:'АО «Эйдос Робототехника»',site:'https://eidos-robotics.ru',industry:'Производство'},
- 'ARM-IMR-95':{cat:'Промышленные',sub:['assy','mach'],kin:'Коллаборативные роботы',maker:'ООО «ПРИКЛАДНАЯ РОБОТОТЕХНИКА»',site:'https://wiki.appliedrobotics.ru',industry:'Лаборатории и производство'},
- '«Берилл» РП25.22ШС':{cat:'Промышленные',sub:['move','weld','mach'],kin:'Коллаборативные роботы',maker:'ООО «Валдай Роботы»',site:'https://vald.ai',industry:'Производство'},
- 'Navio L5':{cat:'Транспортные',sub:['cargo'],kin:'',maker:'ООО «Автотех»',site:'https://navio.auto',industry:'Магистральные перевозки'},
- 'Evocargo N1':{cat:'Транспортные',sub:['cargo'],kin:'',maker:'ООО «ЭвоКарго»',site:'https://evocargo.com',industry:'Закрытые территории'},
- 'Роботакси':{cat:'Транспортные',sub:['pass'],kin:'',maker:'МКПАО «Яндекс»',site:'https://autonomy.yandex.ru',industry:'Городские перевозки'}
+ 'Birbi S-1 PRO':{cat:'Промышленные',sub:['move','assy'],kin:'Манипуляторы',maker:'ООО «БиАйДи Технолоджис Рус»',site:'https://bid.life',industry:'Производство'},
+ 'Birbi D-1':{cat:'Промышленные',sub:['move'],kin:'Манипуляторы',maker:'ООО «БиАйДи Технолоджис Рус»',site:'https://bid.life',industry:'Производство'},
+ 'DOKA RC30':{cat:'Промышленные',sub:['move','weld','mach','pall'],kin:'Манипуляторы',collab:true,maker:'ООО «РобоПро»',site:'https://doka-robots.ru',industry:'Производство'},
+ 'Promobot M13':{cat:'Промышленные',sub:['assy','weld','mach','pall'],kin:'Манипуляторы',collab:true,maker:'ООО «Промобот»',site:'https://promo-bot.ru',industry:'Производство'},
+ 'A12-1450':{cat:'Промышленные',sub:['move','assy','weld'],kin:'Манипуляторы',collab:true,maker:'АО «Эйдос Робототехника»',site:'https://eidos-robotics.ru',industry:'Производство'},
+ 'ARM-IMR-95':{cat:'Промышленные',sub:['assy','mach'],kin:'Манипуляторы',collab:true,maker:'ООО «ПРИКЛАДНАЯ РОБОТОТЕХНИКА»',site:'https://wiki.appliedrobotics.ru',industry:'Лаборатории и производство'},
+ '«Берилл» РП25.22ШС':{cat:'Промышленные',sub:['move','weld','mach'],kin:'Манипуляторы',collab:true,maker:'ООО «Валдай Роботы»',site:'https://vald.ai',industry:'Производство'},
+ 'Navio L5':{cat:'Транспортные',sub:['cargo'],kin:'Беспилотный транспорт',maker:'ООО «Автотех»',site:'https://navio.auto',industry:'Магистральные перевозки'},
+ 'Evocargo N1':{cat:'Транспортные',sub:['cargo'],kin:'Беспилотный транспорт',maker:'ООО «ЭвоКарго»',site:'https://evocargo.com',industry:'Закрытые территории'},
+ 'Роботакси':{cat:'Транспортные',sub:['pass'],kin:'Беспилотный транспорт',maker:'МКПАО «Яндекс»',site:'https://autonomy.yandex.ru',industry:'Городские перевозки'}
 };
 /* задачи внутри категории: ключ -> подпись и пояснение под фильтром */
 var SUBS={
@@ -1943,6 +1943,7 @@ var DETAIL={
 ROBOTS.forEach(function(r){
  var t=REG[r.name]||{};
  r.cat=t.cat||r.cat; r.sub=t.sub||[]; r.kin=t.kin||'';
+ r.collab=!!t.collab;
  r.maker=t.maker||'по\u00a0запросу'; r.site=t.site||'по\u00a0запросу';
  r.industry=t.industry||'по\u00a0запросу';
  r.origin='по\u00a0запросу'; r.price='по\u00a0запросу'; r.region='по\u00a0запросу';
@@ -2523,7 +2524,7 @@ var openWork=null,openModelCard=null;
   return 'решений'; }
 
  var CATS=['Промышленные','Сервисные','Транспортные'];
- var state={cat:'Все',sub:'Все',q:'',reg:false,kin:'Все',ind:'Все',maker:'Все'};
+ var state={cat:'Все',sub:'Все',q:'',reg:false,collab:false,kin:'Все',ind:'Все',maker:'Все'};
  var open={};       /* какие группы фильтров раскрыты */
 
  function inCat(){ return state.cat==='Все'?ROBOTS
@@ -2533,6 +2534,7 @@ var openWork=null,openModelCard=null;
   return inCat().filter(function(r){
    if(state.sub!=='Все'&&(r.sub||[]).indexOf(state.sub)<0) return false;
    if(state.reg&&!r.registry) return false;
+   if(state.collab&&!r.collab) return false;
    if(state.kin!=='Все'&&r.kin!==state.kin) return false;
    if(state.ind!=='Все'&&r.industry!==state.ind) return false;
    if(state.maker!=='Все'&&r.maker!==state.maker) return false;
@@ -2583,6 +2585,9 @@ var openWork=null,openModelCard=null;
  function drawSide(){
   var pool=inCat();
   var regN=pool.filter(function(r){return r.registry}).length;
+  /* коллаборативность — свойство робота, а не его вид: отдельный
+     переключатель, как отметка реестра */
+  var colN=pool.filter(function(r){return r.collab}).length;
   side.innerHTML=
    /* подписи фильтров — обычными словами: «кинематика» и «задача»
       понятны инженеру, а не тому, кто впервые зашёл на портал */
@@ -2590,6 +2595,12 @@ var openWork=null,openModelCard=null;
    group('kin','Вид робота',values('kin'),state.kin)+
    group('ind','Где работает',values('industry'),state.ind)+
    group('maker','Производитель',values('maker'),state.maker)+
+   (colN?'<div class="cp-g'+(open.collab?' on':'')+'" data-g="collab">'+
+     '<button type="button" class="cp-g-h">Коллаборативные<i>+</i></button>'+
+     '<div class="cp-g-list"><div class="cp-g-in">'+
+      '<button type="button" class="cp-v'+(state.collab?' on':'')+'" data-f="collab" data-v="1">'+
+       'Только коллаборативные<b>'+colN+'</b></button>'+
+     '</div></div></div>':'')+
    (regN?'<div class="cp-g'+(open.reg?' on':'')+'" data-g="reg">'+
      '<button type="button" class="cp-g-h">Реестр Москвы<i>+</i></button>'+
      '<div class="cp-g-list"><div class="cp-g-in">'+
@@ -2597,7 +2608,7 @@ var openWork=null,openModelCard=null;
        'Только из реестра<b>'+regN+'</b></button>'+
      '</div></div></div>':'');
   var picked=(state.sub!=='Все')+(state.kin!=='Все')+(state.ind!=='Все')+
-             (state.maker!=='Все')+(state.reg?1:0);
+             (state.maker!=='Все')+(state.reg?1:0)+(state.collab?1:0);
   filtersBtn.innerHTML='Фильтры<b>'+(picked||'')+'</b>';
  }
 
@@ -2627,7 +2638,8 @@ var openWork=null,openModelCard=null;
  cats.addEventListener('click',function(e){
   var b=e.target.closest('.cp-chip'); if(!b) return;
   state.cat=b.getAttribute('data-cat'); state.sub='Все';
-  state.kin='Все'; state.ind='Все'; state.maker='Все'; state.reg=false;
+  state.kin='Все'; state.ind='Все'; state.maker='Все';
+  state.reg=false; state.collab=false;
   draw();
  });
  side.addEventListener('click',function(e){
@@ -2636,6 +2648,7 @@ var openWork=null,openModelCard=null;
   var v=e.target.closest('.cp-v'); if(!v) return;
   var f=v.getAttribute('data-f'), val=v.getAttribute('data-v');
   if(f==='reg') state.reg=!state.reg;
+  else if(f==='collab') state.collab=!state.collab;
   else state[f]=state[f]===val?'Все':val;
   draw();
  });

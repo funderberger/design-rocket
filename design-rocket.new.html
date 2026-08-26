@@ -160,18 +160,17 @@ section{position:relative}
   margin-bottom:calc(clamp(26px,3.5vw,50px)*-1);
   pointer-events:none;user-select:none}
 @media(max-width:900px){.roles-robot{display:none}}
-.pockets{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.pocket{border-radius:var(--r);padding:clamp(26px,3vw,44px);min-height:clamp(300px,34vw,440px);
+.pockets{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.pocket{border-radius:var(--r);padding:clamp(24px,2.4vw,38px);min-height:clamp(280px,26vw,380px);
   display:flex;flex-direction:column;justify-content:space-between;color:#06110B;position:relative;overflow:hidden;
   transition:.4s cubic-bezier(.2,.7,.3,1)}
 .pocket:hover{transform:translateY(-6px)}
 .pocket-1{background:var(--green)}
 .pocket-2{background:var(--sky)}
-.pocket .h2{max-width:12ch}
-.pocket p{margin:14px 0 0;font-size:clamp(16px,1.3vw,21px);line-height:1.35;opacity:.75;max-width:30ch}
+.pocket-3{background:var(--mint)}
+.pocket .h2{max-width:15ch;font-size:clamp(23px,2.4vw,38px)}
+.pocket p{margin:14px 0 0;font-size:clamp(15px,1.1vw,18px);line-height:1.35;opacity:.75;max-width:32ch}
 .pocket .btn{background:#06110B;color:#fff;align-self:flex-start;margin-top:28px}
-.pocket-glyph{position:absolute;right:-30px;bottom:-46px;font-size:clamp(120px,18vw,260px);line-height:1;
-  opacity:.13;letter-spacing:-.06em;font-weight:700;pointer-events:none}
 
 /* ---------- каталог: горизонтальная лента ---------- */
 .catalog{padding:clamp(50px,7vw,110px) 0}
@@ -321,11 +320,15 @@ section{position:relative}
    а следующая въезжает справа — доли пути считает скрипт и раздаёт их
    карточкам через --x. Полоса сверху показывает, сколько осталось. */
 .why{padding:clamp(50px,7vw,110px) var(--gut) clamp(60px,8vw,120px)}
-.why-head{max-width:820px;margin:0 auto clamp(18px,2.4vw,32px);text-align:center}
+/* заголовок живёт внутри приколотой сцены: снаружи он добавлялся к её
+   стовысотным процентам, и раздел переставал помещаться в экран */
+.why-head{max-width:1180px;width:100%;margin:0 auto;text-align:left}
+.why-head .h1{font-size:clamp(28px,4.4vw,66px)}
 /* сцена режет вылет: карточка, ждущая справа, иначе растягивает страницу */
 .why-stage{position:sticky;top:0;height:100vh;overflow:hidden;display:grid;
-  grid-template-rows:auto minmax(0,1fr);gap:clamp(14px,1.8vw,24px);
-  align-content:center;padding:clamp(70px,8vh,96px) 0 clamp(24px,4vh,52px)}
+  grid-template-rows:auto auto minmax(0,1fr) auto;gap:clamp(12px,1.6vw,22px);
+  align-content:center;padding:clamp(66px,8vh,90px) 0 clamp(18px,3vh,34px)}
+.why-cta{max-width:1180px;width:100%;margin:0 auto}
 .why-bar{display:flex;align-items:center;gap:clamp(14px,2vw,32px);flex-wrap:wrap;
   max-width:1180px;width:100%;margin-inline:auto}
 .why-tabs{display:flex;flex-wrap:wrap;gap:8px}
@@ -376,7 +379,7 @@ section{position:relative}
 /* на узком экране и без анимации — обычный список карточек */
 @media(max-width:900px),(prefers-reduced-motion:reduce){
   .why-runway{height:auto!important}
-  .why-stage{position:static;height:auto;padding:0}
+  .why-stage{position:static;height:auto;padding:0;gap:18px}
   .why-deck{display:grid;gap:12px}
   .wcard{position:static;transform:none;opacity:1!important;
     grid-template-columns:1fr;min-height:0}
@@ -1347,7 +1350,7 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
 
 /* ---------- адаптив ---------- */
 @media(max-width:1024px){
-  .pockets{grid-template-columns:1fr}
+  .pockets{grid-template-columns:1fr 1fr}
   .test-box{grid-template-columns:1fr}
   .test-r{min-height:300px}
   .band-box{grid-template-columns:1fr}
@@ -1358,6 +1361,7 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
 }
 @media(max-width:640px){
   :root{--r:26px;--r-s:20px}
+  .pockets{grid-template-columns:1fr}
   .cookies{bottom:86px;height:58px;font-size:13px}
   .f-tiles{grid-template-columns:1fr}
   .f-legal{grid-template-columns:1fr}
@@ -1429,19 +1433,24 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
   <div class="pockets">
     <div class="pocket pocket-1">
       <div>
-        <h3 class="h2">Выбирайте лучших роботов для своих задач</h3>
-        <p>Найдите робота под задачу и купите с поддержкой города</p>
+        <h3 class="h2">Подберите робота под задачу</h3>
+        <p>Каталог проверенных моделей и поддержка города на покупку</p>
       </div>
-      <a href="#robots" class="btn">Подобрать робота →</a>
-      <div class="pocket-glyph">01</div>
+      <a href="#robots" class="btn">Смотреть каталог →</a>
     </div>
     <div class="pocket pocket-2">
       <div>
-        <h3 class="h2">Предлагайте своих роботов заказчикам</h3>
-        <p>Финансирование на разработку, производство и первую поставку</p>
+        <h3 class="h2">Испытайте робота в городе</h3>
+        <p>Городские площадки, дороги, вода и воздух — по одной заявке</p>
       </div>
-      <a href="#finance" class="btn">Предложить своего робота →</a>
-      <div class="pocket-glyph">02</div>
+      <a href="#trials" class="btn">Подать заявку →</a>
+    </div>
+    <div class="pocket pocket-3">
+      <div>
+        <h3 class="h2">Получите финансирование на разработку</h3>
+        <p>Льготные займы и гранты — от прототипа до первой поставки</p>
+      </div>
+      <a href="#finance" class="btn">Смотреть меры →</a>
     </div>
   </div>
 </section>
@@ -1458,11 +1467,11 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
 
 <!-- ============ зачем здесь робот: стопка кейсов ============ -->
 <section class="why rev" id="why">
-  <div class="why-head">
-    <h2 class="h1">Для чего нужен такой робот</h2>
-  </div>
   <div class="why-runway" id="whyRunway">
    <div class="why-stage">
+    <div class="why-head">
+      <h2 class="h1">А что именно роботы умеют делать?</h2>
+    </div>
     <div class="why-bar">
       <div class="why-tabs" id="whyTabs" role="tablist" aria-label="кейсы"></div>
       <div class="why-prog"><span>Листайте дальше</span><i><b id="whyFill"></b></i></div>
@@ -1473,10 +1482,8 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
       <span class="wc-info">
         <span class="wc-t">Робот-собака</span>
         <span class="wc-q">Почему этот робот не игрушка?</span>
-        <span class="wc-d">Ходит по стройкам и промплощадкам: снимает показания
-          и фотографирует там, где человеку опасно находиться</span>
-        <span class="wc-d">Ноги у робота не для трюков, а для прохода
-          по завалам, лестницам и высоким порогам</span>
+        <span class="wc-d">Снимает показания и фотографирует там, где человеку опасно</span>
+        <span class="wc-d">Ноги нужны не для трюков, а чтобы пройти завалы и лестницы</span>
         <span class="wc-more">Посмотреть модель →</span>
       </span>
       <span class="wc-media"><img src="images/why-dog-site.png" alt="робот-собака"></span>
@@ -1485,11 +1492,9 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
     <button type="button" class="wcard" style="--i:1" data-model="Navio L5">
       <span class="wc-info">
         <span class="wc-t">Беспилотный тягач</span>
-        <span class="wc-q">Почему в кабине никого нет?</span>
-        <span class="wc-d">Робота используют на длинных и прямых дорогах,
-          где часами нет поворотов</span>
-        <span class="wc-d">Живой человек встречает машину на подъезде к городу
-          и ведёт последние километры сам до места назначения</span>
+        <span class="wc-q">Почему робот не заезжает в город?</span>
+        <span class="wc-d">Он рассчитан на трассу — сотни километров без поворотов и пешеходов</span>
+        <span class="wc-d">На подъезде к городу за руль садится человек и ведёт последние километры сам</span>
         <span class="wc-more">Посмотреть модель →</span>
       </span>
       <span class="wc-media"><img src="images/why-truck.png" alt="Беспилотный тягач на трассе" loading="lazy"></span>
@@ -1508,6 +1513,9 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
       <span class="wc-media"><img src="images/why-humanoid.png" alt="робот-гуманоид" loading="lazy"></span>
     </button>
 
+    </div>
+    <div class="why-cta">
+      <a href="#analytics" class="btn btn-green btn-lg">Узнайте больше о роботах →</a>
     </div>
    </div>
   </div>

@@ -547,12 +547,12 @@ body.is-catalog > section:not(#robots){display:none}
   transition:.3s cubic-bezier(.2,.7,.3,1)}
 .ms-card:hover{border-color:var(--green);transform:translateY(-4px)}
 .ms-card:focus-visible{outline:2px solid var(--green);outline-offset:3px}
-.ms-when{display:inline-flex;align-items:center;gap:8px;padding:6px 13px;
-  border-radius:999px;border:1px solid var(--w-16);
+/* срок приёма — строкой с точкой, без плашки: рамка спорила с суммой ниже */
+.ms-when{display:inline-flex;align-items:center;gap:8px;
   font-size:12.5px;letter-spacing:.04em;color:var(--w-45)}
 .ms-when::before{content:"";width:7px;height:7px;border-radius:999px;
   background:var(--w-45);flex:none}
-.ms-when.open{border-color:rgba(66,227,131,.45);color:var(--green)}
+.ms-when.open{color:var(--green)}
 .ms-when.open::before{background:var(--green)}
 .ms-name{display:block;margin-top:14px;font-size:clamp(17px,1.35vw,20px);
   line-height:1.18;letter-spacing:-.02em;font-weight:500;color:var(--white)}
@@ -560,8 +560,10 @@ body.is-catalog > section:not(#robots){display:none}
 .ms-lab{display:block;margin-top:16px;font-size:12px;letter-spacing:.14em;
   text-transform:uppercase;color:var(--w-45)}
 .ms-org{display:block;margin-top:5px;font-size:15px;line-height:1.35;color:var(--w-70)}
-.ms-sum{display:block;margin-top:5px;font-size:clamp(21px,1.9vw,28px);line-height:1.05;
-  letter-spacing:-.035em;color:var(--green)}
+/* сумма — зелёной плашкой: главное число карточки читается первым */
+.ms-sum{display:inline-block;margin-top:7px;padding:6px 16px;border-radius:999px;
+  background:var(--green);color:#06110B;font-size:clamp(20px,1.75vw,26px);
+  line-height:1.15;letter-spacing:-.035em}
 .ms-go{display:block;width:100%;margin-top:auto;padding-top:18px}
 .ms-go i{display:block;padding:12px 16px;border-radius:999px;font-style:normal;
   text-align:center;background:var(--w-08);color:var(--white);
@@ -1187,6 +1189,13 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
 .cm-br{right:0;bottom:0;border-left:0;border-top:0}
 .f-title{margin:0;text-align:center;font-size:clamp(38px,8.6vw,148px);
   line-height:.88;letter-spacing:-.05em;font-weight:500}
+/* на странице финансирования футер говорит о деле этой страницы:
+   свой заголовок и одна кнопка вместо двух */
+.f-t-fin,.f-c-fin{display:none}
+body.is-finance .f-t-base,body.is-finance .f-c-base{display:none}
+body.is-finance .f-t-fin{display:block;max-width:16ch;margin:0 auto}
+body.is-finance .f-title{font-size:clamp(32px,5.4vw,88px);line-height:.94}
+body.is-finance .f-c-fin{display:inline-flex}
 
 .f-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:clamp(32px,4.5vw,62px)}
 
@@ -1689,11 +1698,14 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
   <div class="f-crop">
     <span class="cm cm-tl"></span><span class="cm cm-tr"></span>
     <span class="cm cm-bl"></span><span class="cm cm-br"></span>
-    <h2 class="f-title">Присоединяйтесь</h2>
+    <h2 class="f-title"><span class="f-t-base">Присоединяйтесь</span><span
+      class="f-t-fin">Поможем подобрать поддержку для вас</span></h2>
   </div>
   <div class="f-cta">
-    <a href="#band" class="btn btn-green btn-lg">Подать заявку на участие</a>
-    <a href="mailto:roboty@cluster.mos.ru" class="btn btn-ghost btn-lg">Задать вопрос</a>
+    <a href="#band" class="btn btn-green btn-lg f-c-base">Подать заявку на участие</a>
+    <a href="mailto:roboty@cluster.mos.ru" class="btn btn-ghost btn-lg f-c-base">Задать вопрос</a>
+    <a href="mailto:roboty@cluster.mos.ru?subject=Подбор мер поддержки"
+       class="btn btn-green btn-lg f-c-fin">Получить консультацию</a>
   </div>
   <nav class="f-tiles">
     <a class="f-tile" href="#robots">Роботы<span>↗</span></a>

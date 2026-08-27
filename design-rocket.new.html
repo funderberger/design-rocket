@@ -1268,10 +1268,27 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
 .tt div:last-child{border-bottom:0;padding-bottom:0}
 .tt span{color:var(--w-45)}
 .tt b{font-weight:500;color:var(--white);text-align:right}
-/* кадр в окне истории внедрения */
-.cs-shot{margin:22px 0 4px;border-radius:var(--r-s);overflow:hidden;
-  border:1px solid var(--w-08);aspect-ratio:16/9;background:var(--coal)}
-.cs-shot img{width:100%;height:100%;object-fit:cover}
+/* окно истории внедрения: слева снимок, справа рассказ — та же раскладка,
+   что у карточки модели в каталоге. Раньше кадр лежал во всю ширину окна
+   и один занимал экран, а текст уезжал под него */
+.cs-lay{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);
+  gap:clamp(18px,2.4vw,32px);align-items:start;margin-top:clamp(20px,2.4vw,30px)}
+/* левая колонка: снимок, под ним — где робот работает */
+.cs-side{position:sticky;top:0;display:grid;gap:clamp(14px,1.6vw,20px)}
+/* снимки у кейсов разной пропорции — от квадрата до 2:1, поэтому кадр
+   фиксирован, а фотография кадрируется по нему */
+.cs-media{overflow:hidden;aspect-ratio:4/3;
+  border:1px solid var(--w-08);border-radius:var(--r-s);background:var(--coal)}
+.cs-media img{display:block;width:100%;height:100%;object-fit:cover}
+/* строки рассказа: подпись вразрядку и текст под ней, разделены волоском —
+   без рамок и подложек, иначе четыре блока подряд рябят */
+.cs-sec{padding:clamp(14px,1.6vw,20px) 0;border-top:1px solid var(--w-08)}
+.cs-sec:first-child{padding-top:0;border-top:0}
+.cs-sec p,.cs-where p{margin:0;font-size:clamp(15px,1.15vw,17px);line-height:1.45;color:var(--w-70)}
+@media(max-width:860px){
+  .cs-lay{grid-template-columns:1fr}
+  .cs-side{position:static}
+}
 .tm-photos{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .tm-photos img{width:100%;aspect-ratio:3/4;object-fit:cover;background:var(--ink);
   border:1px solid var(--w-08);border-radius:14px}
@@ -2932,9 +2949,9 @@ var openWork=null,openModelCard=null;
    задача, что сделал робот и с каким результатом. Раньше ссылка вела
    на форму контактов — обещала историю и отдавала телефон. */
 var CASES=[
- {id:'betonolom',fn:'Демонтажный робот',model:'',photo:'images/cases/case-01-betonolom.jpg',maker:'ООО «Роботехникс»',where:'Строительство метро, атомная отрасль',task:'Убрать людей из опасной зоны и заменить тяжелый ручной труд техникой',how:'Работает там, где раньше был только отбойный молоток: мощность крупной техники, оператор управляет со стороны, на безопасном расстоянии',res:'На стройках метро и объектах атомной отрасли демонтаж идет без людей в опасной зоне — оператор управляет со стороны'},
- {id:'ronavi',fn:'Транспортер паллет',model:'Ronavi H1500',photo:'images/cases/case-02-ronavi.webp',maker:'ООО «Ронави Роботикс»',where:'Склады и производственные площадки',task:'Автоматизировать длинный участок транспортировки из зоны отбора в зоны отгрузки, пополнения и доработки',how:'Робот возит грузы по складу без человека, связан с WMS и RMS. Окупаемость модернизации — 9 месяцев',res:'На складе «Восток-Сервис» себестоимость операции снизилась вдвое'},
- {id:'rubi',fn:'Робот-уборщик',model:'RUBI-M',photo:'images/cases/case-03-rubi.jpg',maker:'ООО «Робо»',where:'Школы № 281 и № 1514 в Москве, школа «Самолетум» в Красногорске',task:'Автоматизировать регулярную уборку школы и снять нагрузку с клининговой службы',how:'Убирает по автоматическим заданиям и сохраненным картам, маршруты и отчеты — удаленно',res:'В школах Москвы и Красногорска убрано 1 368 107 м² за учебный год'}
+ {id:'betonolom',fn:'Демонтажный робот',model:'',photo:'images/cases/case-01-betonolom.jpg',maker:'ООО «Роботехникс»',where:'Метрострой',task:'Убрать людей из опасной зоны и заменить тяжелый ручной труд техникой',how:'Работает там, где раньше был только отбойный молоток в руках: мощность крупной техники, оператор — на безопасном расстоянии'},
+ {id:'ronavi',fn:'Транспортер паллет',model:'Ronavi H1500',photo:'images/cases/case-02-ronavi.webp',maker:'ООО «Ронави Роботикс»',where:'Склад производственной компании «Восток-Сервис»',task:'Автоматизировать длинный участок транспортировки из зоны отбора в зоны отгрузки, пополнения и доработки',how:'Робот возит грузы по складу без человека, связан с WMS и RMS. Четыре сотрудника и штабелер заменены одной машиной'},
+ {id:'rubi',fn:'Робот-уборщик',model:'RUBI-M',photo:'images/cases/case-03-rubi.jpg',maker:'ООО «Робо»',where:'Школы № 281 и № 1514 в Москве, школа «Самолетум» в Красногорске',task:'Автоматизировать регулярную уборку школы и снять нагрузку с клининговой службы',how:'Убирает по автоматическим заданиям и сохраненным картам, маршруты и отчеты — удаленно'}
 ];
 (function(){
  var dlg=document.getElementById('caseDlg');
@@ -2944,7 +2961,8 @@ var CASES=[
  function esc(t){ return String(t==null?'':t)
    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
  function byId(id){ for(var i=0;i<CASES.length;i++) if(CASES[i].id===id) return CASES[i]; return null; }
- function box(t,inner){ return '<section class="tbox"><h3 class="tbox-h">'+esc(t)+'</h3>'+inner+'</section>'; }
+ function sec(t,text){ return '<section class="cs-sec"><h3 class="tbox-h">'+esc(t)+'</h3>'+
+   '<p>'+esc(text)+'</p></section>'; }
  function open(id,from){
   var c=byId(id); if(!c) return;
   dlg.innerHTML='<div class="tdlg"><div class="tdlg-box">'+
@@ -2954,11 +2972,19 @@ var CASES=[
     '<h2 class="tm-name">'+esc(c.fn)+'</h2>'+
     (c.model?'<p class="tm-model nolow">'+esc(c.model)+'</p>':'')+
     '<p class="tm-maker">'+esc(c.maker)+'</p>'+
-    '<div class="cs-shot"><img src="'+esc(c.photo)+'" alt="'+esc(c.name)+'"></div>'+
-    box('Где работает','<p class="se-d">'+esc(c.where)+'</p>')+
-    box('Задача','<p class="se-d">'+esc(c.task)+'</p>')+
-    box('Решение','<p class="se-d">'+esc(c.how)+'</p>')+
-    box('Результат','<p class="se-d">'+esc(c.res)+'</p>')+
+    '<div class="cs-lay">'+
+     '<div class="cs-side">'+
+      /* без loading="lazy": единственный снимок в только что открытом окне,
+         отложенная загрузка тут ничего не экономит, а показ задерживает */
+      '<div class="cs-media"><img src="'+esc(c.photo)+'" alt="'+esc(c.fn)+'"></div>'+
+      '<section class="cs-where"><h3 class="tbox-h">Где работает</h3>'+
+       '<p>'+esc(c.where)+'</p></section>'+
+     '</div>'+
+     '<div class="cs-body">'+
+      sec('Задача',c.task)+
+      sec('Решение',c.how)+
+     '</div>'+
+    '</div>'+
    '</div></div></div>';
   dlg.querySelector('.tdlg-scroll').scrollTop=0;
   opener=from||null;

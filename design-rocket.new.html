@@ -955,9 +955,9 @@ body.is-trials > section:not(#trials){display:none}
    под ней выезжает ответ. Открыт всегда один вопрос. */
 .faq{border-top:1px solid var(--w-08);margin-top:clamp(18px,2.4vw,34px)}
 .faq-row{border-bottom:1px solid var(--w-08)}
-.faq-q{display:grid;grid-template-columns:44px minmax(0,1fr) 34px;align-items:center;
+.faq-q{display:grid;grid-template-columns:48px minmax(0,1fr) 34px;align-items:center;
   gap:clamp(12px,1.6vw,24px);width:100%;text-align:left;
-  padding:clamp(16px,1.7vw,22px) clamp(10px,1.2vw,18px);transition:.25s}
+  padding:clamp(18px,2vw,28px) clamp(10px,1.2vw,18px);transition:.25s}
 @media(hover:hover){
   .faq-q:hover{background:var(--green)}
   .faq-q:hover .faq-t,.faq-q:hover .faq-x{color:#06110B}
@@ -965,28 +965,21 @@ body.is-trials > section:not(#trials){display:none}
 }
 .faq-row.on .faq-q{background:var(--green)}
 .faq-q:focus-visible{outline:2px solid var(--green);outline-offset:-2px}
-.faq-n{font-size:13px;letter-spacing:.14em;color:var(--w-45)}
-.faq-t{font-size:clamp(16px,1.4vw,21px);line-height:1.15;letter-spacing:-.02em;
+.faq-n{font-size:14px;letter-spacing:.14em;color:var(--w-45)}
+.faq-t{font-size:clamp(19px,1.8vw,28px);line-height:1.14;letter-spacing:-.025em;
   font-weight:500;color:var(--white)}
-.faq-x{justify-self:end;font-size:20px;line-height:1;color:var(--w-45);transition:.25s}
+.faq-x{justify-self:end;font-size:24px;line-height:1;color:var(--w-45);transition:.25s}
 .faq-row.on .faq-n{color:rgba(6,17,11,.6)}
 .faq-row.on .faq-t{color:#06110B}
 .faq-row.on .faq-x{color:#06110B;transform:rotate(45deg)}
 .faq-body{display:grid;grid-template-rows:0fr;
   transition:grid-template-rows .35s cubic-bezier(.2,.7,.3,1)}
 .faq-row.on .faq-body{grid-template-rows:1fr}
-.faq-a{overflow:hidden;display:grid;grid-template-columns:auto minmax(0,1fr);
-  gap:8px clamp(14px,1.6vw,26px);align-items:baseline;max-width:96ch}
-.faq-lab{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--w-45);
-  white-space:nowrap}
-.faq-val{font-size:15px;line-height:1.45;color:var(--w-70)}
-@media(max-width:560px){
-  .faq-a{grid-template-columns:minmax(0,1fr);gap:4px}
-  .faq-lab{margin-top:8px}
-}
-.faq-row.on .faq-a{padding:clamp(14px,1.6vw,20px) clamp(10px,1.2vw,18px) clamp(20px,2.2vw,28px) 56px}
+.faq-a{overflow:hidden;margin:0;max-width:76ch;
+  font-size:clamp(16px,1.35vw,20px);line-height:1.5;color:var(--w-70)}
+.faq-row.on .faq-a{padding:clamp(14px,1.6vw,20px) clamp(10px,1.2vw,18px) clamp(22px,2.4vw,32px) 60px}
 @media(max-width:680px){
-  .faq-q{grid-template-columns:32px minmax(0,1fr) 28px}
+  .faq-q{grid-template-columns:34px minmax(0,1fr) 28px}
   .faq-row.on .faq-a{padding-left:clamp(10px,1.2vw,18px)}
 }
 
@@ -1803,7 +1796,7 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
 
   <div class="tr-head">
     <h2 class="h1">Коротко о главном</h2>
-    <p class="lead">Что проверяем у отраслевых экспертов</p>
+    <p class="lead">Что чаще всего спрашивают до подачи заявки</p>
   </div>
   <div class="faq" id="trFaq"></div>
 </section>
@@ -3762,34 +3755,24 @@ var RTC_TRUST=[
  {n:'05',t:'Роботы манипуляторы',org:'ООО «Прикладная робототехника»',img:'images/trust/prikladnaya-manipulator.jpg'},
  {n:'06',t:'Роботы снегоуборщики',org:'ООО «РОБОКОМ»',img:'images/trust/robokom-snow.jpg'}
 ];
-/* вопросы отраслевым экспертам по странице испытаний — из рабочего файла
-   «Вопросы отраслевым экспертам»: сам вопрос, к какому блоку он относится
-   и что на этом месте сейчас. Опечатки исходника выправлены */
+/* вопросы центра испытаний: то, что спрашивают до заявки. Ответы взяты
+   с robot-mos.ru и из того, что описано на самой странице — среды,
+   площадки и сроки. Слово «консультация» здесь под запретом */
 var RTC_FAQ=[
- {q:'Корректны ли цифры? Есть ли более красивые цифры по этой теме?',
-  block:'Цифры вверху страницы',
-  now:'13 площадок, 97 500 м², 2 га, 20+ видов'},
- {q:'Все ли площадки и среды учтены? Нужны красивые фотографии площадок',
-  block:'Инфраструктура для любых сценариев',
-  now:'4 среды: улица, вода, воздух, помещения, 13 площадок'},
- {q:'Корректно ли описан путь испытаний?',
-  block:'Как проходят испытания',
-  now:'Заявка, отбор, программа, испытания, заключение'},
- {q:'Согласовано ли размещение фотографий роботов и названий компаний? Есть ли другие фотографии партнёров?',
-  block:'Партнёры',
-  now:'6 кейсов'},
- {q:'Это действующая редакция? Есть ли ещё документы?',
-  block:'Регламент',
-  now:'Приказ Фонда МИК от 27.05.2026'},
- {q:'Корректны ли ответы на вопросы?',
-  block:'Коротко о главном',
-  now:'5 вопросов'},
- {q:'Согласны ли упростить анкету для подачи заявки на испытание?',
-  block:'Форма заявки на испытание',
-  now:'Очень сложная, много полей (ЦИР на i.mos), в текущей версии поля упростили'},
- {q:'Какие поля точно нужны?',
-  block:'Форма заявки на испытание',
-  now:'Очень сложная, много полей (ЦИР на i.mos), в текущей версии поля упростили'}
+ {q:'А если робот не пройдёт испытания?',
+  a:'Так бывает, и это нормальный результат. Гарантируем другое: проверим по согласованной с вами программе, зафиксируем всё телеметрией и видео и выдадим заключение. Даже отрицательный результат — это понятный список того, что дорабатывать.'},
+ {q:'Сколько это стоит?',
+  a:'В 2026 году испытания могут проводиться бесплатно. Точные условия под ваш сценарий назовём после заявки.'},
+ {q:'А если робот не ездит по земле — дрон или катер?',
+  a:'Сред шесть, не только улица. Для воздуха — контролируемый объём под сеткой, полётный ангар и взлётно-посадочная полоса в индустриальном парке «Руднево», аэродромы. Для воды — пруд на границе суши и воды и гребной канал «Москва».'},
+ {q:'Чей робот и чьи данные после испытаний?',
+  a:'Робот, технологии и данные испытаний остаются вашими. Работаем по NDA, в закрытом контуре. Идею можно дополнительно защитить в Центре интеллектуальной собственности Фонда МИК.'},
+ {q:'Кто может подать заявку?',
+  a:'Производители, стартапы, корпорации и вузы — юрлица и ИП России, без ликвидации, банкротства и записей в реестрах иностранных агентов и недобросовестных поставщиков. Приоритет — у участников инновационного кластера Москвы.'},
+ {q:'Сколько времени проходит от заявки до протокола?',
+  a:'Заявку проверяем за 5 рабочих дней, программу и методику испытаний согласуем за 5 и подписываем за 3. Сроки самих испытаний закладываем в программу, протокол и заключение оформляем за 5 рабочих дней после финиша.'},
+ {q:'Что приложить к заявке?',
+  a:'Контакты, модель и тип робота, цель испытаний, требования к площадке. Из документов: паспорт изделия, техническое описание, инструкция по безопасной эксплуатации, руководство пользователя — PDF, JPG, MP4/MOV/AVI, до 500 МБ, на русском.'}
 ];
 var RTC_STEPS=[
  {t:'Заявка',d:'Вы оставляете заявку с описанием вашего робота и целей тестирования'},
@@ -3828,10 +3811,7 @@ var RTC_STEPS=[
      '<span class="faq-t">'+esc(x.q)+'</span>'+
      '<span class="faq-x" aria-hidden="true">+</span>'+
     '</button>'+
-    '<div class="faq-body"><div class="faq-a">'+
-     '<span class="faq-lab">Блок страницы</span><span class="faq-val">'+esc(x.block)+'</span>'+
-     '<span class="faq-lab">Сейчас на странице</span><span class="faq-val">'+esc(x.now)+'</span>'+
-    '</div></div>'+
+    '<div class="faq-body"><p class="faq-a">'+esc(x.a)+'</p></div>'+
    '</div>';
   }).join('');
   faq.addEventListener('click',function(e){

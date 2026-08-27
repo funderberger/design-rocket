@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Робопортал Москвы — в чём прикол</title>
+<title>Робопортал Москвы — в чем прикол</title>
 <meta name="description" content="городская экосистема робототехники: разработка, испытания, пилоты и внедрение" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -11,7 +11,7 @@
 <style>
 /* =========================================================
    робопортал Москвы — редизайн в пластике rocketbank
-   палитра: чёрный холст + кислотный зелёный + пастельные блоки
+   палитра: черный холст + кислотный зеленый + пастельные блоки
    типографика: строчные, крупно, плотный трекинг
    геометрия: скругление 40px, «острова», бегущие строки
    ========================================================= */
@@ -66,7 +66,7 @@ section{position:relative}
 .marquee-track{display:flex;width:max-content;animation:run 26s linear infinite}
 .marquee span{display:inline-flex;align-items:center;gap:10px;font-size:14px;letter-spacing:-.01em;
   padding:0 22px;white-space:nowrap;font-weight:500}
-/* логотипы ведомств белые, лента светло-зелёная — гасим их в чёрный,
+/* логотипы ведомств белые, лента светло-зеленая — гасим их в черный,
    чтобы читались так же, как текст рядом */
 .marquee img{height:24px;width:auto;flex:none;filter:brightness(0);opacity:.85}
 @keyframes run{to{transform:translateX(-50%)}}
@@ -105,13 +105,13 @@ section{position:relative}
 /* ---------- герой ---------- */
 .hero{padding:8px var(--gut) 0}
 /* поверх видео ничего не лежит: цветные подсветки и сетка убраны,
-   осталась тёмная подложка (видна, пока видео не загрузилось) */
+   осталась темная подложка (видна, пока видео не загрузилось) */
 .hero-box{position:relative;border-radius:var(--r);overflow:hidden;min-height:min(82vh,760px);
   display:flex;align-items:flex-end;
   background:linear-gradient(180deg,#12251C,#0B0D0C 72%)}
 .hero-media{position:absolute;inset:0}
 .hero-media img,.hero-media video{width:100%;height:100%;object-fit:cover}
-/* затемнение под текстом: верх кадра остаётся светлым, низ уводим в тень,
+/* затемнение под текстом: верх кадра остается светлым, низ уводим в тень,
    иначе заголовок и подпись теряются на ярких планах видео */
 .hero-box::after{content:"";position:absolute;inset:0;
   background:linear-gradient(180deg,rgba(11,13,12,0) 0%,rgba(11,13,12,.10) 46%,
@@ -122,7 +122,7 @@ section{position:relative}
 .hero-slug{position:relative;z-index:2;padding:clamp(24px,4vw,64px);width:100%;
   text-shadow:0 2px 12px rgba(0,0,0,.5),0 14px 60px rgba(0,0,0,.65)}
 /* тень нужна белому тексту поверх кадра, но она наследуется внутрь кнопок,
-   где тёмная надпись лежит на светлой заливке и от неё только грязнится */
+   где темная надпись лежит на светлой заливке и от нее только грязнится */
 .hero-slug .btn{text-shadow:none}
 .hero-slug .h-display{margin-bottom:22px}
 .hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
@@ -142,7 +142,7 @@ section{position:relative}
 
 /* ---------- две роли: пастельные «карманы» ---------- */
 
-/* блок идёт сразу за героем, у которого нет нижнего отступа. Сверху воздуха
+/* блок идет сразу за героем, у которого нет нижнего отступа. Сверху воздуха
    больше обычного шага секций: робот втянут в этот отступ отрицательным
    margin-top (см. .roles-robot) и без запаса наезжает на кадр героя */
 .roles{position:relative;padding:clamp(70px,11vw,160px) var(--gut) clamp(60px,8vw,120px)}
@@ -151,7 +151,7 @@ section{position:relative}
 .roles-slug{display:flex;align-items:flex-end;justify-content:space-between;
   gap:clamp(20px,4vw,60px);margin-bottom:clamp(26px,3.5vw,50px)}
 .roles-slug .h1{max-width:760px}
-/* высотой задаём размер, ширина считается сама — иначе атрибуты width/height
+/* высотой задаем размер, ширина считается сама — иначе атрибуты width/height
    у <img> ломают пропорцию */
 /* робот выше заголовка, и без поправок он растягивал бы полосу, оставляя
    над текстом пустоту. Нижнее поле опускает его за верхнюю кромку карточек
@@ -164,7 +164,7 @@ section{position:relative}
   pointer-events:none;user-select:none}
 @media(max-width:900px){.roles-robot{display:none}}
 .pockets{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-/* min-height держит нижнюю границу для короткой карточки, но не задаёт рост:
+/* min-height держит нижнюю границу для короткой карточки, но не задает рост:
    высоту ряда выравнивает сама сетка по самой длинной карточке. Раньше здесь
    стояла величина заведомо больше контента — и между текстом и кнопкой
    зависала пустая полоса в треть карточки */
@@ -233,7 +233,7 @@ section{position:relative}
   transition:opacity .4s ease}
 .robot-preview img.is-on{opacity:1}
 .rp-name{margin-top:12px;font-size:15px;letter-spacing:-.02em;color:var(--white);text-transform:none}
-/* подпись стоит рядом с кнопкой; на узком экране переносится под неё */
+/* подпись стоит рядом с кнопкой; на узком экране переносится под нее */
 .cat-actions{display:flex;align-items:center;gap:clamp(16px,2.4vw,36px);flex-wrap:wrap;
   padding:36px var(--gut) 0}
 .cat-actions .lead{margin:0;max-width:38ch}
@@ -249,7 +249,7 @@ section{position:relative}
   .robot-row:hover .row-main,.robot-row:focus-visible .row-main{transform:none}
 }
 
-/* ---------- испытания: тёмный «остров» с медиа ---------- */
+/* ---------- испытания: темный «остров» с медиа ---------- */
 .testing{padding:0 var(--gut) clamp(50px,7vw,110px)}
 .test-box{border-radius:var(--r);background:var(--coal);overflow:hidden;
   display:grid;grid-template-columns:1fr 1fr;min-height:520px;border:1px solid var(--w-08)}
@@ -277,18 +277,18 @@ section{position:relative}
 /* ---------- задачи предприятия: бегущая лента карточек ---------- */
 .tasks{position:relative;padding:clamp(50px,7vw,110px) 0;overflow:hidden}
 /* текст уходит вправо, слева стоит робот — видна только его передняя половина,
-   вторая уезжает за край секции (её обрезает overflow) */
+   вторая уезжает за край секции (ее обрезает overflow) */
 .tasks-head{padding:0 var(--gut) 0 0;margin-bottom:34px;margin-left:auto;max-width:min(820px,62vw)}
-/* секция режет всё, что выше её края (overflow:hidden), поэтому робот
+/* секция режет все, что выше ее края (overflow:hidden), поэтому робот
    стоит с небольшим отступом сверху — иначе поворот на 10° срезает
    красный флажок на антенне */
 .tasks-robot{position:absolute;left:0;top:clamp(16px,2vw,34px);z-index:3;
   width:clamp(180px,21vw,330px);transform:translateX(-26%) rotate(10deg);transform-origin:50% 55%;
   pointer-events:none;user-select:none}
 /* css-анимация — запасной вариант, если скрипт не отработал; при живом
-   скрипте ход ленты считает rAF, чтобы её можно было тащить курсором.
+   скрипте ход ленты считает rAF, чтобы ее можно было тащить курсором.
    touch-action:pan-y оставляет вертикальную прокрутку странице */
-/* фильтр по объекту: подсказывает, с чего начать, если задача ещё не
+/* фильтр по объекту: подсказывает, с чего начать, если задача еще не
    сформулирована. Выбранный объект гасит в ленте задачи не из его набора */
 .tasks-objs{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:26px}
 .obj-chip{padding:11px 22px;border-radius:999px;border:1px solid var(--w-16);
@@ -324,12 +324,12 @@ section{position:relative}
 .task p{margin:10px 0 0;font-size:15px;line-height:1.32;opacity:.68}
 
 /* ---------- «для чего нужен такой робот»: карточки приезжают справа ----------
-   Длинная дорожка .why-runway задаёт путь прокрутки, сцена внутри приколота
+   Длинная дорожка .why-runway задает путь прокрутки, сцена внутри приколота
    к экрану. Каждая карточка сначала стоит неподвижно, потом уезжает влево,
-   а следующая въезжает справа — доли пути считает скрипт и раздаёт их
+   а следующая въезжает справа — доли пути считает скрипт и раздает их
    карточкам через --x. Полоса сверху показывает, сколько осталось. */
 .why{padding:clamp(50px,7vw,110px) var(--gut) clamp(60px,8vw,120px)}
-/* заголовок живёт внутри приколотой сцены: снаружи он добавлялся к её
+/* заголовок живет внутри приколотой сцены: снаружи он добавлялся к ее
    стовысотным процентам, и раздел переставал помещаться в экран */
 .why-head{max-width:1180px;width:100%;margin:0 auto;text-align:left}
 .why-head .h1{font-size:clamp(28px,4.4vw,66px)}
@@ -342,7 +342,7 @@ section{position:relative}
 .why-stage{position:sticky;top:0;height:100vh;overflow:hidden;display:grid;
   grid-template-rows:auto auto auto auto;gap:clamp(12px,1.6vw,22px);
   align-content:center;padding:clamp(76px,9vh,96px) 0 clamp(18px,3vh,34px)}
-/* кнопка прижата к правому краю колоды — встаёт под фотографией и не
+/* кнопка прижата к правому краю колоды — встает под фотографией и не
    отнимает у сцены отдельную полосу высоты слева от текста */
 .why-cta{max-width:1180px;width:100%;margin:0 auto;display:flex;justify-content:flex-end}
 .why-bar{display:flex;align-items:center;gap:clamp(14px,2vw,32px);flex-wrap:wrap;
@@ -367,11 +367,11 @@ section{position:relative}
    и при align-self:center колода без своей высоты схлопнулась бы в ноль.
    min(100%) страхует от вылета, если строка сетки окажется ниже потолка */
 /* высота колоды — это остаток экрана после заголовка, табов, кнопки и полей
-   (в сумме ~370px). Считать её долей от 100vh нельзя: на низком окне колода
+   (в сумме ~370px). Считать ее долей от 100vh нельзя: на низком окне колода
    оказывалась выше, чем осталось места, и кнопку срезало нижним краем */
 .why-deck{position:relative;max-width:1180px;width:100%;margin-inline:auto;
   height:clamp(240px,calc(100vh - 370px),540px)}
-/* карточки лежат друг на друге, видно ту, чья доля пути сейчас идёт */
+/* карточки лежат друг на друге, видно ту, чья доля пути сейчас идет */
 .wcard{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;
   align-items:stretch;width:100%;text-align:left;padding:0;overflow:hidden;
   background:var(--coal);border:1px solid var(--w-08);border-radius:var(--r);
@@ -380,20 +380,20 @@ section{position:relative}
     border-color .3s;will-change:transform}
 .wcard:hover{border-color:var(--green)}
 .wcard:focus-visible{outline:2px solid var(--green);outline-offset:4px}
-/* всё внутри — span: <button> допускает только строчный контент */
+/* все внутри — span: <button> допускает только строчный контент */
 /* текст выровнен по центру колонки: прижатая к низу ссылка ушла, и без
    этого под последним абзацем оставался пустой хвост в половину карточки */
 .wc-info{display:flex;flex-direction:column;justify-content:center;
   padding:clamp(22px,2.6vw,44px);min-height:0}
 /* кегли подобраны по самой длинной карточке (гуманоид): при большем размере
-   её текст перестаёт помещаться в высоту колоды и наезжает на край */
+   ее текст перестает помещаться в высоту колоды и наезжает на край */
 /* кегли зависят и от ширины, и от высоты окна: на широком, но низком экране
    карточка становится ниже, и текст, посчитанный только по ширине, вылезал
-   за её край. min() берёт ту из двух мер, что сейчас теснее */
+   за ее край. min() берет ту из двух мер, что сейчас теснее */
 .wc-t{display:block;
   font-size:clamp(30px,min(3.7vw,6.4vh),58px);line-height:.98;
   letter-spacing:-.04em;font-weight:500;color:var(--white)}
-/* вопрос — не микроподпись, а второй заголовок: он несёт смысл карточки */
+/* вопрос — не микроподпись, а второй заголовок: он несет смысл карточки */
 .wc-q{display:block;margin-top:clamp(14px,min(1.75vw,3vh),27px);
   font-size:clamp(19px,min(1.95vw,3.4vh),29px);line-height:1.1;letter-spacing:-.03em;
   font-weight:500;color:var(--green)}
@@ -418,7 +418,7 @@ section{position:relative}
 @media(max-width:900px),(prefers-reduced-motion:reduce){
   .why-runway{height:auto!important}
   .why-stage{position:static;height:auto;padding:0;gap:18px}
-  /* в списке карточка растёт по своему тексту — потолок высоты снимаем */
+  /* в списке карточка растет по своему тексту — потолок высоты снимаем */
   .why-deck{display:grid;gap:12px;height:auto}
   .wcard{position:static;transform:none;opacity:1!important;
     grid-template-columns:1fr;min-height:0}
@@ -428,7 +428,7 @@ section{position:relative}
 
 /* ---------- раздел «роботы»: полный каталог ----------
    Отдельный экран внутри той же страницы: при хеше #robots лендинг
-   прячется целиком, остаётся шапка, каталог и подвал */
+   прячется целиком, остается шапка, каталог и подвал */
 #robots{display:none}
 body.is-catalog #robots{display:block}
 body.is-catalog > section:not(#robots){display:none}
@@ -450,7 +450,7 @@ body.is-catalog > section:not(#robots){display:none}
 .cp-chip:focus-visible{outline:2px solid var(--green);outline-offset:3px}
 
 /* второй уровень: задачи внутри выбранной категории — чипами под вкладками.
-   Активный набран белым, чтобы не спорить с зелёной активной категорией */
+   Активный набран белым, чтобы не спорить с зеленой активной категорией */
 .cp-subs{display:flex;flex-wrap:wrap;gap:8px;margin:-6px 0 clamp(18px,2.2vw,28px)}
 .cp-subs:empty{display:none}
 .cp-sub{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;
@@ -499,7 +499,7 @@ body.is-catalog > section:not(#robots){display:none}
 .cp-search:focus{outline:none;border-color:var(--green)}
 
 /* сетка без коробок: ячейки разделены волосяными линейками, как в референсе.
-   Всё внутри .cp-card — span, это <button> */
+   Все внутри .cp-card — span, это <button> */
 .cp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;
   border-top:1px solid var(--w-08);border-left:1px solid var(--w-08)}
 .cp-card{display:flex;flex-direction:column;width:100%;text-align:left;
@@ -544,7 +544,7 @@ body.is-catalog > section:not(#robots){display:none}
 
 /* ---------- финансирование: витрина мер ----------
    Иерархия по образцу i.moscow: над каждым значением стоит мелкая подпись,
-   само значение — крупное. Срок приёма поднят наверх карточки бейджем,
+   само значение — крупное. Срок приема поднят наверх карточки бейджем,
    сумма — самый крупный элемент после названия, оператор программы
    в карточку не выводится вовсе. */
 .ms-tabs{display:inline-flex;gap:4px;margin:0 0 clamp(18px,2.4vw,28px);padding:5px;
@@ -582,7 +582,7 @@ body.is-catalog > section:not(#robots){display:none}
   transition:.3s cubic-bezier(.2,.7,.3,1)}
 .ms-card:hover{border-color:var(--green);transform:translateY(-4px)}
 .ms-card:focus-visible{outline:2px solid var(--green);outline-offset:3px}
-/* срок приёма — строкой с точкой, без плашки: рамка спорила с суммой ниже */
+/* срок приема — строкой с точкой, без плашки: рамка спорила с суммой ниже */
 .ms-when{display:inline-flex;align-items:center;gap:8px;
   font-size:12.5px;letter-spacing:.04em;color:var(--w-45)}
 .ms-when::before{content:"";width:7px;height:7px;border-radius:999px;
@@ -591,11 +591,11 @@ body.is-catalog > section:not(#robots){display:none}
 .ms-when.open::before{background:var(--green)}
 .ms-name{display:block;margin-top:14px;font-size:clamp(17px,1.35vw,20px);
   line-height:1.18;letter-spacing:-.02em;font-weight:500;color:var(--white)}
-/* мелкая подпись сверху, крупное значение снизу — приём образца */
+/* мелкая подпись сверху, крупное значение снизу — прием образца */
 .ms-lab{display:block;margin-top:16px;font-size:12px;letter-spacing:.14em;
   text-transform:uppercase;color:var(--w-45)}
 .ms-org{display:block;margin-top:5px;font-size:15px;line-height:1.35;color:var(--w-70)}
-/* сумма — зелёной плашкой: главное число карточки читается первым */
+/* сумма — зеленой плашкой: главное число карточки читается первым */
 .ms-sum{display:inline-block;margin-top:7px;padding:6px 16px;border-radius:999px;
   background:var(--green);color:#06110B;font-size:clamp(20px,1.75vw,26px);
   line-height:1.15;letter-spacing:-.035em}
@@ -744,9 +744,9 @@ body.is-finance > section:not(#finance){display:none}
 
 /* ---------- раздел «аналитика»: каталог исследований ----------
    Третий отдельный экран, устроен как #robots и #finance. Поиск, сортировка
-   и раскладка переиспользуют классы .fn-* из витрины мер. Своё здесь —
+   и раскладка переиспользуют классы .fn-* из витрины мер. Свое здесь —
    карточки и панель отбора: три группы значений выводятся чипами со
-   счётчиками, чекбоксами такой список не помещается. */
+   счетчиками, чекбоксами такой список не помещается. */
 #analytics{display:none}
 body.is-analytics #analytics{display:block}
 body.is-analytics > section:not(#analytics){display:none}
@@ -754,7 +754,7 @@ body.is-analytics > section:not(#analytics){display:none}
    и все они раскрыты — по списку сразу видно, что есть внутри оси. Отступ
    сверху больше общего: иначе липкая шапка накрывает первую группу.
    Высота ограничена окном, длинная панель прокручивается внутри себя —
-   иначе последняя группа уезжает под нижний край и до неё не добраться */
+   иначе последняя группа уезжает под нижний край и до нее не добраться */
 #analytics .fn-side{top:80px}
 /* только для липкой панели: на узком экране она статична и сворачивается
    в кнопку, там внутренняя прокрутка только мешала бы пальцу */
@@ -762,7 +762,7 @@ body.is-analytics > section:not(#analytics){display:none}
   #analytics .fn-side{max-height:calc(100vh - 96px);
     overflow:auto;overscroll-behavior:contain;scrollbar-width:thin}
 }
-/* значения оси — строками с флажком и счётчиком справа: список читается
+/* значения оси — строками с флажком и счетчиком справа: список читается
    сверху вниз одним взглядом, а не собирается глазами из плиток разной
    длины. Волосяная линия между строками — граница строки, а не рамка */
 .an-opts{display:grid}
@@ -776,12 +776,12 @@ body.is-analytics > section:not(#analytics){display:none}
 .an-opt:hover{color:var(--green)}
 .an-opt.on{color:var(--white)}
 .an-opt.on b{color:var(--green)}
-/* нулевое значение остаётся на месте, чтобы список не прыгал при отборе */
+/* нулевое значение остается на месте, чтобы список не прыгал при отборе */
 .an-opt.is-off{opacity:.35;cursor:default;color:var(--w-70)}
 .fn-body{display:grid;gap:18px}
 .fn-toggle{display:none}
 .an-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-/* карточка — приглашение почитать: крупное название, строка о чём материал,
+/* карточка — приглашение почитать: крупное название, строка о чем материал,
    метки для навигации и мелкая строка выходных данных */
 .an-card{display:flex;flex-direction:column;gap:11px;width:100%;text-align:left;
   padding:clamp(18px,1.7vw,26px);background:var(--ink);border:1px solid var(--w-08);
@@ -789,7 +789,7 @@ body.is-analytics > section:not(#analytics){display:none}
 .an-card:hover{border-color:var(--green);transform:translateY(-4px)}
 .an-card:hover .an-title{color:var(--green)}
 .an-card:focus-visible{outline:2px solid var(--green);outline-offset:3px}
-/* всё внутри .an-card — span: <button> допускает только строчный контент */
+/* все внутри .an-card — span: <button> допускает только строчный контент */
 /* обложка — титульник документа целиком, с отступом от края карточки:
    так это превью документа, а не фото к новости. Рамка в пропорции
    большинства файлов (800×566), но обложки бывают и 16:9, и вертикальные,
@@ -842,7 +842,7 @@ body.is-analytics > section:not(#analytics){display:none}
 @media(max-width:680px){.an-grid{grid-template-columns:1fr}}
 
 /* ---------- раздел «испытания»: центр испытаний ----------
-   Четвёртый отдельный экран. Блоки повторяют раскладку референса:
+   Четвертый отдельный экран. Блоки повторяют раскладку референса:
    факты строкой, обещания, вкладки сред с фотографиями, карточки
    площадок, рельс этапов. Палитра и типографика — свои. */
 #trials{display:none}
@@ -876,8 +876,8 @@ body.is-trials > section:not(#trials){display:none}
 .tr-num b{display:flex;align-items:flex-end;gap:8px;white-space:nowrap;
   font-size:clamp(28px,2.7vw,44px);line-height:.86;letter-spacing:-.05em;
   font-weight:700;color:var(--white);font-variant-numeric:tabular-nums}
-/* плашка только у единиц площади: если ставить её каждому числу,
-   ряд превращается в россыпь зелёных ярлыков */
+/* плашка только у единиц площади: если ставить ее каждому числу,
+   ряд превращается в россыпь зеленых ярлыков */
 .tr-num i{position:relative;bottom:.12em;flex:none;padding:2px 7px;border-radius:5px;
   background:var(--green);color:#06110B;font-style:normal;
   font-size:clamp(12px,.95vw,14px);font-weight:600;letter-spacing:-.01em}
@@ -890,7 +890,7 @@ body.is-trials > section:not(#trials){display:none}
 .tr-head .lead{margin-top:16px}
 
 /* карточки сред: крупная сетка, фотография во всю карточку,
-   название и счётчик площадок по центру внизу */
+   название и счетчик площадок по центру внизу */
 .tr-envs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .tr-env{position:relative;display:block;width:100%;text-align:center;padding:0;
   overflow:hidden;border:1px solid var(--w-08);border-radius:var(--r-s);
@@ -925,7 +925,7 @@ body.is-trials > section:not(#trials){display:none}
 .tr-size{align-self:flex-start;padding:6px 13px;border-radius:12px;
   background:var(--green);color:#06110B;font-size:13px;letter-spacing:-.02em}
 /* у площадок со снимком карточка начинается с фотографии, бейдж размера
-   ложится на неё — как в референсе. Снимки есть не у всех площадок */
+   ложится на нее — как в референсе. Снимки есть не у всех площадок */
 .tr-site.has-ph{padding:0;overflow:hidden}
 .tr-site.has-ph>*:not(.tr-ph){margin-left:clamp(18px,1.8vw,26px);
   margin-right:clamp(18px,1.8vw,26px)}
@@ -964,7 +964,7 @@ body.is-trials > section:not(#trials){display:none}
 .trf-in::placeholder{color:var(--w-45)}
 .trf-in:focus{border-color:var(--green)}
 textarea.trf-in{min-height:118px;resize:vertical;line-height:1.4}
-/* стрелка у списка своя: системная в тёмной теме почти не видна */
+/* стрелка у списка своя: системная в темной теме почти не видна */
 select.trf-in{appearance:none;-webkit-appearance:none;cursor:pointer;padding-right:48px;
   background-image:linear-gradient(45deg,transparent 50%,var(--w-45) 50%),
     linear-gradient(135deg,var(--w-45) 50%,transparent 50%);
@@ -978,8 +978,8 @@ select.trf-in option{background:var(--coal);color:var(--white)}
 .trf-done{display:grid;gap:20px;justify-items:start;padding:clamp(10px,2vw,26px) 0}
 .trf-done .btn{align-self:start}
 
-/* рельс этапов: нитка через весь ряд, зелёная часть растёт по мере
-   прокрутки, шаги проявляются один за другим. --p задаёт скрипт */
+/* рельс этапов: нитка через весь ряд, зеленая часть растет по мере
+   прокрутки, шаги проявляются один за другим. --p задает скрипт */
 .tr-rail{position:relative;display:grid;grid-template-columns:repeat(5,1fr);
   gap:clamp(14px,1.8vw,30px);padding-top:2px}
 .tr-rail::before,.tr-rail::after{content:"";position:absolute;left:0;top:13px;height:2px}
@@ -1153,7 +1153,7 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
   transition:.3s cubic-bezier(.2,.7,.3,1)}
 .tr:hover{border-color:var(--green);transform:translateY(-4px)}
 .tr:focus-visible{outline:2px solid var(--green);outline-offset:3px}
-/* всё внутри .tr — span: <button> допускает только строчный контент */
+/* все внутри .tr — span: <button> допускает только строчный контент */
 .tr-pic{display:block;aspect-ratio:4/3;background:radial-gradient(90% 90% at 50% 20%,#1F2A25,#0E1211)}
 .tr-pic img{width:100%;height:100%;object-fit:contain}
 .tr-b{flex:1;display:flex;flex-direction:column;padding:15px 17px 17px}
@@ -1245,7 +1245,7 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
 .mc-row:last-child{border-bottom:0}
 .mc-row span{color:var(--w-45)}
 .mc-row b{font-weight:500;color:var(--white);text-align:right}
-/* в выгрузке часть характеристик идёт сплошным текстом без подписи */
+/* в выгрузке часть характеристик идет сплошным текстом без подписи */
 .mc-row.is-plain{grid-template-columns:1fr}
 .mc-row.is-plain span{color:var(--w-70);text-align:left}
 .mc-cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
@@ -1292,7 +1292,7 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
 .cases-head{max-width:820px;margin-bottom:clamp(26px,3.5vw,50px)}
 .cases-head .lead{margin-top:18px}
 .case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-/* карточка тёмная, как в каталоге; overflow режет кадр по скруглению,
+/* карточка темная, как в каталоге; overflow режет кадр по скруглению,
    поэтому собственный радиус фотографии не нужен */
 .case{--pad:clamp(20px,1.8vw,26px);display:flex;flex-direction:column;
   padding:var(--pad);background:var(--coal);border:1px solid var(--w-08);
@@ -1321,6 +1321,10 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
 /* ---------- поддержка города: аккордеон-плитки ---------- */
 .support{padding:clamp(50px,7vw,110px) var(--gut) clamp(50px,7vw,110px)}
 .sup-head{max-width:820px;margin-bottom:34px}
+/* выход в раздел мер: кнопка по правому краю сетки карточек — как в блоке
+   про роботов. Боковые поля уже есть у секции, здесь только отступ сверху */
+.sup-actions{display:flex;align-items:center;justify-content:flex-end;
+  gap:clamp(16px,2.4vw,36px);flex-wrap:wrap;margin-top:clamp(26px,3vw,40px)}
 .sup-list{border-top:1px solid var(--w-16)}
 .sup-item{border-bottom:1px solid var(--w-16)}
 .sup-item summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:20px;
@@ -1351,10 +1355,10 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
   background:var(--coal);border:1px solid var(--w-08);border-radius:var(--r-s);
   transition:.3s cubic-bezier(.2,.7,.3,1)}
 .sup-card:hover{border-color:var(--green);transform:translateY(-5px)}
-/* порядок: дата приёма → название → сумма → кому → условие → ведомство.
+/* порядок: дата приема → название → сумма → кому → условие → ведомство.
    Дата стоит первой, но набрана подписью, а не заголовком: иначе карточка
-   начинается с параметра раньше, чем назван сам предмет. Зелёный цвет
-   даты означает, что приём идёт; серый — что он ещё не открылся */
+   начинается с параметра раньше, чем назван сам предмет. Зеленый цвет
+   даты означает, что прием идет; серый — что он еще не открылся */
 .se-when{margin:0;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--w-45)}
 .se-when.on{color:var(--green)}
 .se-t{margin:0;font-size:clamp(19px,1.6vw,24px);line-height:1.12;
@@ -1375,14 +1379,14 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
 /* все шесть строк карточки — общие для ряда: дата, название, сумма, кому,
    условие и ведомство встают на одни и те же линии во всех карточках.
    Без этого черта над ведомством прыгала по высоте вслед за тем, в сколько
-   строк легло название департамента. Флекс-раскладка выше остаётся
+   строк легло название департамента. Флекс-раскладка выше остается
    запасной для браузеров без subgrid */
 @supports (grid-template-rows:subgrid){
   .sup-grid{grid-template-rows:repeat(6,auto)}
   .sup-grid[data-aud="buy"] .sup-card[data-aud="buy"],
   .sup-grid[data-aud="make"] .sup-card[data-aud="make"]{display:grid}
   .sup-card{grid-row:span 6;grid-template-rows:subgrid;row-gap:11px}
-  /* строку держит трек субгрида, подпирать её автоотступом больше не нужно */
+  /* строку держит трек субгрида, подпирать ее автоотступом больше не нужно */
   .se-org{margin:0}
 }
 @media(max-width:900px){
@@ -1431,7 +1435,7 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
 .f-tile:hover{background:var(--green);border-color:var(--green);color:#06110B;transform:translateY(-3px)}
 .f-tile:hover span{color:#06110B;transform:translate(3px,-3px)}
 
-/* карточка бренда: знак зелёный, поэтому кладём его на тёмный кружок */
+/* карточка бренда: знак зеленый, поэтому кладем его на темный кружок */
 .f-brand{display:flex;align-items:center;gap:18px;padding:20px 26px;
   border:1px solid var(--w-08);border-radius:var(--r-s);background:rgba(255,255,255,.02);
   margin-bottom:clamp(24px,3vw,42px);transition:.28s cubic-bezier(.2,.7,.3,1)}
@@ -1620,7 +1624,7 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
         <span class="wc-q">Зачем роботу человеческая форма?</span>
         <span class="wc-d">Роботу нужны руки и ноги не для сходства с человеком,
           а чтобы не менять помещение — это стоит дороже самого робота</span>
-        <span class="wc-d">Он работает там, где всё сделано для человека:
+        <span class="wc-d">Он работает там, где все сделано для человека:
           двери, лестницы, стеллажи</span>
       </span>
       <span class="wc-media"><span class="wc-go" aria-hidden="true">↗</span><img src="images/why-humanoid.png" alt="робот-гуманоид" loading="lazy"></span>
@@ -1631,7 +1635,7 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
         <span class="wc-t">Беспилотный тягач</span>
         <span class="wc-q">Почему робот не заезжает в город?</span>
         <span class="wc-d">Он рассчитан на трассу — сотни километров без поворотов и пешеходов</span>
-        <span class="wc-d">На подъезде к городу за руль садится человек и ведёт последние километры сам</span>
+        <span class="wc-d">На подъезде к городу за руль садится человек и ведет последние километры сам</span>
       </span>
       <span class="wc-media"><span class="wc-go" aria-hidden="true">↗</span><img src="images/why-truck.png" alt="Беспилотный тягач на трассе" loading="lazy"></span>
     </button>
@@ -1667,7 +1671,7 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
   </div>
   <div class="sup-grid" id="supGrid" data-aud="make">
     <article class="sup-card" data-aud="buy">
-      <p class="se-when">Приём откроется в сентябре 2026</p>
+      <p class="se-when">Прием откроется в сентябре 2026</p>
       <h3 class="se-t">Гранты на закупку сервисных роботов</h3>
       <p class="se-sum"><span>до 100 млн ₽</span></p>
       <p class="se-who"><span>Кому:</span> Московская компания или ИП, решение из реестра Москвы</p>
@@ -1675,15 +1679,15 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
       <p class="se-org">Департамент предпринимательства и инновационного развития Москвы</p>
     </article>
     <article class="sup-card" data-aud="buy">
-      <p class="se-when">Приём откроется в сентябре 2026</p>
+      <p class="se-when">Прием откроется в сентябре 2026</p>
       <h3 class="se-t">Субсидия на внедрение роботов в производство</h3>
       <p class="se-sum"><span>до 100 млн ₽</span></p>
       <p class="se-who"><span>Кому:</span> Промышленное предприятие Москвы, ОКВЭД раздел C</p>
-      <p class="se-d">До 80% подтверждённых затрат на внедрение робота</p>
+      <p class="se-d">До 80% подтвержденных затрат на внедрение робота</p>
       <p class="se-org">Департамент инвестиционной и промышленной политики Москвы</p>
     </article>
     <article class="sup-card" data-aud="buy">
-      <p class="se-when">Приём откроется в сентябре 2026</p>
+      <p class="se-when">Прием откроется в сентябре 2026</p>
       <h3 class="se-t">Компенсация ставки по кредиту</h3>
       <p class="se-sum"><span>ставка 3–7%</span></p>
       <p class="se-who"><span>Кому:</span> Промышленное предприятие Москвы</p>
@@ -1691,15 +1695,15 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
       <p class="se-org">Московский Фонд поддержки промышленности и предпринимательства</p>
     </article>
     <article class="sup-card" data-aud="buy">
-      <p class="se-when">Приём откроется в сентябре 2026</p>
+      <p class="se-when">Прием откроется в сентябре 2026</p>
       <h3 class="se-t">Робот по подписке, RaaS</h3>
       <p class="se-sum"><span>до 70% платежа</span></p>
       <p class="se-who"><span>Кому:</span> Оператор сервисной модели</p>
-      <p class="se-d">Компенсируется ежемесячный платёж за услугу роботизации</p>
+      <p class="se-d">Компенсируется ежемесячный платеж за услугу роботизации</p>
       <p class="se-org">Московский Фонд поддержки промышленности и предпринимательства</p>
     </article>
     <article class="sup-card" data-aud="make">
-      <p class="se-when on">Приём заявок — постоянно</p>
+      <p class="se-when on">Прием заявок — постоянно</p>
       <h3 class="se-t">Займы на разработку новых роботов</h3>
       <p class="se-sum"><span>до 50 млн ₽</span></p>
       <p class="se-who"><span>Кому:</span> Московский разработчик с работающим прототипом</p>
@@ -1707,7 +1711,7 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
       <p class="se-org">Департамент предпринимательства и инновационного развития Москвы</p>
     </article>
     <article class="sup-card" data-aud="make">
-      <p class="se-when on">Приём заявок — постоянно</p>
+      <p class="se-when on">Прием заявок — постоянно</p>
       <h3 class="se-t">Льготное финансирование производства</h3>
       <p class="se-sum"><span>до 5 млрд ₽</span></p>
       <p class="se-who"><span>Кому:</span> Промышленное предприятие Москвы, ОКВЭД раздел C</p>
@@ -1715,7 +1719,7 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
       <p class="se-org">Департамент инвестиционной и промышленной политики Москвы</p>
     </article>
     <article class="sup-card" data-aud="make">
-      <p class="se-when">Приём откроется в сентябре 2026</p>
+      <p class="se-when">Прием откроется в сентябре 2026</p>
       <h3 class="se-t">Займы на производство под контракт</h3>
       <p class="se-sum"><span>до 100 млн ₽</span></p>
       <p class="se-who"><span>Кому:</span> Московский производитель, продукция в реестре Москвы</p>
@@ -1723,13 +1727,16 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
       <p class="se-org">Департамент предпринимательства и инновационного развития Москвы</p>
     </article>
     <article class="sup-card" data-aud="make">
-      <p class="se-when on">Приём заявок до 31.08.2026</p>
+      <p class="se-when on">Прием заявок до 31.08.2026</p>
       <h3 class="se-t">Гранты на пилотное тестирование</h3>
       <p class="se-sum"><span>до 4 млн ₽</span></p>
       <p class="se-who"><span>Кому:</span> Московская компания-разработчик или производитель</p>
       <p class="se-d">Компенсация расходов на пилот робота на городской площадке</p>
       <p class="se-org">Департамент предпринимательства и инновационного развития Москвы</p>
     </article>
+  </div>
+  <div class="sup-actions">
+    <a href="#finance" class="btn btn-green btn-lg">Узнать больше о поддержке →</a>
   </div>
 </section>
 
@@ -1742,8 +1749,8 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
         <p class="lead">Проверим робота до того, как он выйдет в город</p>
       </div>
       <div class="env">
-        <button type="button" class="env-i is-on"><span class="n">01</span><span class="t">Город</span><span class="s">Дороги, тротуары, перекрёстки и парковки</span></button>
-        <button type="button" class="env-i"><span class="n">02</span><span class="t">Вода</span><span class="s">Открытые водоёмы и акватория пруда</span></button>
+        <button type="button" class="env-i is-on"><span class="n">01</span><span class="t">Город</span><span class="s">Дороги, тротуары, перекрестки и парковки</span></button>
+        <button type="button" class="env-i"><span class="n">02</span><span class="t">Вода</span><span class="s">Открытые водоемы и акватория пруда</span></button>
         <button type="button" class="env-i"><span class="n">03</span><span class="t">Воздух</span><span class="s">Открытые площадки и ангар с сеткой</span></button>
         <button type="button" class="env-i"><span class="n">04</span><span class="t">Помещения</span><span class="s">Склады, офисы и торговые объекты</span></button>
       </div>
@@ -1769,12 +1776,12 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
       <img class="case-photo" src="images/cases/case-01-betonolom.jpg" alt="" loading="lazy">
       <h3 class="case-t">Демонтажный робот</h3>
       <p class="case-s">Демонтаж бетонных конструкций</p>
-      <p class="case-r">На стройках метро и объектах атомной отрасли демонтаж идёт без людей в опасной зоне — оператор управляет со стороны</p>
+      <p class="case-r">На стройках метро и объектах атомной отрасли демонтаж идет без людей в опасной зоне — оператор управляет со стороны</p>
       <button type="button" class="case-link" data-case="betonolom">Смотреть историю внедрения →</button>
     </article>
     <article class="case" data-case="ronavi">
       <img class="case-photo" src="images/cases/case-02-ronavi.webp" alt="" loading="lazy">
-      <h3 class="case-t">Транспортёр паллет</h3>
+      <h3 class="case-t">Транспортер паллет</h3>
       <p class="case-s">Перемещение грузов на складах и в цехах</p>
       <p class="case-r">На складе «Восток-Сервис» себестоимость операции снизилась вдвое</p>
       <button type="button" class="case-link" data-case="ronavi">Смотреть историю внедрения →</button>
@@ -1917,7 +1924,7 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
   <div class="band-box">
     <div>
       <h2 class="h1">Поможем пройти путь от задачи до внедрения</h2>
-      <p style="margin-top:16px;font-size:clamp(16px,1.3vw,20px);opacity:.7;max-width:38ch">Опишите задачу — подберём решение и поможем запустить его на объекте</p>
+      <p style="margin-top:16px;font-size:clamp(16px,1.3vw,20px);opacity:.7;max-width:38ch">Опишите задачу — подберем решение и поможем запустить его на объекте</p>
     </div>
     <div class="band-list">
       <a href="mailto:roboty@cluster.mos.ru" class="nolow">roboty@cluster.mos.ru <span>→</span></a>
@@ -1962,7 +1969,7 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
   ];
   /* дорожка едет на -50%, поэтому содержимое дублируем ровно вдвое.
      Ведомств осталось три, и половина дорожки должна быть шире экрана,
-     иначе в цикле проступит пустота — берём шесть повторов (~2600px) */
+     иначе в цикле проступит пустота — берем шесть повторов (~2600px) */
   var half=items.concat(items,items,items,items,items).map(function(x){
     return '<span><img src="'+x.img+'" alt="">'+x.t+'</span>';
   }).join('');
@@ -1972,15 +1979,15 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
 /* ---- каталог ---- */
 var ROBOTS=[
  {cat:'Логистика',name:'Ronavi H1500',d:'Складской робот',s:['1500 кг','1,5 м/с','12 ч'],img:'images/ronavi-h1500.png',photos:['images/robots/ronavi-h1500-01.webp','images/robots/ronavi-h1500-02.webp','images/robots/ronavi-h1500-03.webp','images/robots/ronavi-h1500-04.webp'],hint:'Для узких проходов',works:['cargo'],sp:{cargo:['1500 кг','1,5 м/с','12 ч']}},
- {cat:'Промышленность',name:'Ronavi × Seer CBD16',d:'Вилочный робот-погрузчик',s:['1600 кг','1,8 м/с','10 ч'],img:'images/ronavi-cbd16.png',photos:['images/robots/ronavi-cbd16-01.webp','images/robots/ronavi-cbd16-02.webp','images/robots/ronavi-cbd16-03.webp','images/robots/ronavi-cbd16-04.webp'],hint:'Подъём паллет с пола',works:['cargo'],sp:{cargo:['1600 кг','1,8 м/с','10 ч']}},
+ {cat:'Промышленность',name:'Ronavi × Seer CBD16',d:'Вилочный робот-погрузчик',s:['1600 кг','1,8 м/с','10 ч'],img:'images/ronavi-cbd16.png',photos:['images/robots/ronavi-cbd16-01.webp','images/robots/ronavi-cbd16-02.webp','images/robots/ronavi-cbd16-03.webp','images/robots/ronavi-cbd16-04.webp'],hint:'Подъем паллет с пола',works:['cargo'],sp:{cargo:['1600 кг','1,8 м/с','10 ч']}},
  {cat:'Логистика',name:'AMR1500',d:'Транспортировка грузов на складах и в цехах',s:['До 1500 кг','До 1,5 м/с','До 22 ч'],img:'images/amr1500.png',photos:['images/robots/amr1500-01.webp','images/robots/amr1500-02.webp','images/robots/amr1500-03.webp','images/robots/amr1500-04.webp','images/robots/amr1500-05.webp'],hint:'Длинная смена без подзарядки',works:['cargo'],sp:{cargo:['До 1500 кг','До 1,5 м/с','До 22 ч']}},
  {cat:'Обслуживающие',name:'Пиксель',d:'Уборка парков и тротуаров круглый год, без водителя',s:['270 кг','10 км/ч','16 ч в сутки'],img:'images/pixel.png',photos:['images/robots/pixel-01.webp','images/robots/pixel-02.webp','images/robots/pixel-03.webp','images/robots/pixel-04.webp','images/robots/pixel-05.webp','images/robots/pixel-06.webp'],hint:'Для улицы и мороза',works:['service'],sp:{service:['До 10 км/ч','16 ч в сутки','Улица, круглый год']}},
  {cat:'Обслуживающие',name:'MARK 2 SE',d:'Робот-уборщик',s:['2000 м²/ч','60 л','6 ч'],img:'images/mark2se.png',photos:['images/robots/mark2se-01.webp','images/robots/mark2se-02.webp','images/robots/mark2se-03.webp','images/robots/mark2se-04.webp','images/robots/mark2se-05.webp'],hint:'Большие площади в помещении',works:['service'],sp:{service:['2000 м²/ч','6 ч','В помещении']}},
  {cat:'Биоморфные',name:'Inchbot L1/L1 Edu',d:'Робот-собака',s:['15 кг','1,6 м/с','2,5 ч'],img:'images/inchbot-l1.png',photos:['images/robots/inchbot-l1-01.webp','images/robots/inchbot-l1-02.webp','images/robots/inchbot-l1-03.webp','images/robots/inchbot-l1-04.webp'],hint:'Обходы по сложному рельефу',works:['patrol'],sp:{patrol:['2,5 ч','1,6 м/с','15 кг']}},
  {cat:'Биоморфные',name:'Unitree H2',d:'Полноразмерный гуманоидный робот высотой 180 см',s:['31 степень свободы','Нагрузка 15 кг','3 часа'],img:'images/unitree-h2.png',photos:['images/robots/unitree-h2-01.webp','images/robots/unitree-h2-02.webp','images/robots/unitree-h2-03.webp','images/robots/unitree-h2-04.webp'],hint:'Работа рядом с людьми',works:['service','patrol'],sp:{service:['По запросу','3 ч','В помещении, среди людей'],patrol:['3 ч','31 степень свободы','Нагрузка 15 кг']}},
  {cat:'Промышленность',name:'Birbi S-1 PRO',d:'scara-робот для быстрых и точных операций с небольшими деталями',s:['4–5 осей','До 10 кг','Вылет 700 мм'],img:'images/birbi-s1pro.png',hint:'Высокий темп на мелких деталях',works:['line'],sp:{line:['4–5 осей','До 10 кг','Вылет 700 мм']}},
- {cat:'Промышленность',name:'Birbi D-1',d:'Высокоскоростной дельта-робот для работы с лёгкими изделиями',s:['3 оси','До 0,5 кг','Радиус 260 мм'],img:'images/birbi-d1.png',hint:'Самый быстрый на лёгком',works:['line'],sp:{line:['3 оси','До 0,5 кг','Радиус 260 мм']}},
- {cat:'Промышленность',name:'DOKA RC30',d:'Коллаборативный робот для операций, где обычным коботам не хватает грузоподъёмности',s:['6 осей','До 30 кг','Радиус 1300 мм'],img:'images/doka-rc30.png',hint:'Заготовки до 30 кг',works:['line'],sp:{line:['6 осей','До 30 кг','Радиус 1300 мм']}},
+ {cat:'Промышленность',name:'Birbi D-1',d:'Высокоскоростной дельта-робот для работы с легкими изделиями',s:['3 оси','До 0,5 кг','Радиус 260 мм'],img:'images/birbi-d1.png',hint:'Самый быстрый на легком',works:['line'],sp:{line:['3 оси','До 0,5 кг','Радиус 260 мм']}},
+ {cat:'Промышленность',name:'DOKA RC30',d:'Коллаборативный робот для операций, где обычным коботам не хватает грузоподъемности',s:['6 осей','До 30 кг','Радиус 1300 мм'],img:'images/doka-rc30.png',hint:'Заготовки до 30 кг',works:['line'],sp:{line:['6 осей','До 30 кг','Радиус 1300 мм']}},
  {cat:'Промышленность',name:'Promobot M13',d:'Коллаборативный робот для автоматизации ручных производственных операций',s:['6 осей','До 13 кг','Повторяемость 0,05 мм'],img:'images/promobot-m13.png',hint:'Замена ручных операций',works:['line'],sp:{line:['6 осей','До 13 кг','По запросу']}},
  {cat:'Промышленность',name:'A12-1450',d:'Коллаборативный робот для сварки, сборки и перемещения изделий',s:['6 осей','До 12 кг','Повторяемость 0,05 мм'],img:'images/a12-1450.png',hint:'Сварка и сборка',works:['line'],sp:{line:['6 осей','До 12 кг','По запросу']}},
  {cat:'Промышленность',name:'ARM-IMR-95',d:'Коллаборативный робот для сборки, лабораторных и исследовательских задач',s:['6 осей','5 кг','Радиус 950 мм'],img:'images/arm-imr-95.png',hint:'Лаборатория и точная сборка',works:['line'],sp:{line:['6 осей','5 кг','Радиус 950 мм']}},
@@ -2031,7 +2038,7 @@ var KIND_FIX={'Ronavi × Seer CBD16':'Мобильный робот','Ronavi H15
  'AMR1500':'Мобильный робот','Inchbot L1/L1 Edu':'Шагающая платформа','Unitree H2':'Шагающая платформа'};
 /* назначение для каталога: у части моделей в описании из таблицы стоит тип
    машины («складской робот»), а выбирают по задаче. Правим только эти строки,
-   исходное r.d остаётся нетронутым — им пользуются главная и карточка модели */
+   исходное r.d остается нетронутым — им пользуются главная и карточка модели */
 var USE={
  'Ronavi H1500':'Перевозит паллеты и стеллажи между зонами склада',
  'Ronavi × Seer CBD16':'Поднимает паллеты прямо с пола и развозит их по складу',
@@ -2040,21 +2047,21 @@ var USE={
  'Unitree H2':'Работает рядом с людьми там, где среда рассчитана на человека',
  'Роботакси':'Перевозит пассажиров по городу без водителя'
 };
-/* подробные характеристики и развёрнутые описания — перенесены из index.html
+/* подробные характеристики и развернутые описания — перенесены из index.html
    того же проекта: там лежит полная выгрузка по всем семнадцати моделям.
    Ключ — имя модели, как в REG. Строка из одного элемента печатается
-   во всю ширину: в источнике часть характеристик идёт сплошным текстом */
+   во всю ширину: в источнике часть характеристик идет сплошным текстом */
 var DETAIL={
- "Ronavi H1500":{"d": "Ronavi H1500 — это российский автономный мобильный робот (AMR) для перевозки грузов грузоподъёмностью до 1500 кг. Перевозит паллеты, стеллажи, тележки и конвейерные модули. Этот грузовой робот разработан для автоматизации внутрискладского перемещения грузов без участия человека", "sp": [["Габариты", "1044x654x380 мм"], ["Вес", "250 кг"], ["Грузоподъемность", "до 1500 кг"], ["Тип навигации", "QR-метки и SLAM (локализация и построение карты)"], ["Максимальная скорость передвижения", "1.5 м/с"], ["Вид беспроводной связи", "Wi-Fi 5 ГГц 802.11 a/c/n"], ["Минимальная ширина проезда", "750 мм"], ["Время автономной работы (c 80% до 20%)", "до 10 часов"]]},
+ "Ronavi H1500":{"d": "Ronavi H1500 — это российский автономный мобильный робот (AMR) для перевозки грузов грузоподъемностью до 1500 кг. Перевозит паллеты, стеллажи, тележки и конвейерные модули. Этот грузовой робот разработан для автоматизации внутрискладского перемещения грузов без участия человека", "sp": [["Габариты", "1044x654x380 мм"], ["Вес", "250 кг"], ["Грузоподъемность", "до 1500 кг"], ["Тип навигации", "QR-метки и SLAM (локализация и построение карты)"], ["Максимальная скорость передвижения", "1.5 м/с"], ["Вид беспроводной связи", "Wi-Fi 5 ГГц 802.11 a/c/n"], ["Минимальная ширина проезда", "750 мм"], ["Время автономной работы (c 80% до 20%)", "до 10 часов"]]},
  "Ronavi × Seer CBD16":{"d": "Робот FMR — это современный вилочный робот погрузчик, который автоматизирует горизонтальное перемещение тяжелых грузов на паллетах. Модель CBD16 сочетает компактность и высокую грузоподъемность, заменяя традиционные вилочные погрузчики, управляемые операторами.", "sp": [["Габариты", "1681x880x2462 мм"], ["Вес", "460 кг"], ["Высота подъема вил", "205 мм"], ["Грузоподъемность", "1600 кг"], ["Тип навигации", "SLAM"], ["Максимальная скорость передвижения", "1,8 м/с"], ["Вид беспроводной связи", "4G / 5G / Wi-Fi 802.11 a/b/g/n/ac"], ["Минимальная ширина проезда", "1080 мм"], ["Время автономной работы (c 80% до 20%)", "до 6-10 часов"]]},
- "AMR1500":{"d": "Мобильный робот предназначен для автоматизированной транспортировки грузов в условиях складов, производственных цехов и других промышленных объектов. Робот способен перемещаться по произвольным и заданным маршрутам, останавливаться в заданных точках для выполнения загрузки/разгрузки материалов или грузов.", "sp": [["Габаритные размеры (Д×Ш×В)", "1100 × 600 × 230 мм"], ["Масса", "200 кг"], ["Грузоподъемность", "До 1500 кг"], ["Скорость перемещения", "До 1,5 м/с"], ["Точность позиционирования", "±10 мм"], ["Способы навигации", "QR-метки, SLAM"], ["Время работы", "До 22 часов без подзарядки"], ["Тип привода", "Электрический (колёсный привод)"], ["Способ зарядки", "Автоматическая док-станция / ручная зарядка"]]},
+ "AMR1500":{"d": "Мобильный робот предназначен для автоматизированной транспортировки грузов в условиях складов, производственных цехов и других промышленных объектов. Робот способен перемещаться по произвольным и заданным маршрутам, останавливаться в заданных точках для выполнения загрузки/разгрузки материалов или грузов.", "sp": [["Габаритные размеры (Д×Ш×В)", "1100 × 600 × 230 мм"], ["Масса", "200 кг"], ["Грузоподъемность", "До 1500 кг"], ["Скорость перемещения", "До 1,5 м/с"], ["Точность позиционирования", "±10 мм"], ["Способы навигации", "QR-метки, SLAM"], ["Время работы", "До 22 часов без подзарядки"], ["Тип привода", "Электрический (колесный привод)"], ["Способ зарядки", "Автоматическая док-станция / ручная зарядка"]]},
  "Пиксель":{"d": "Многофункциональная роботизированная платформа для коммунального хозяйства «Пиксель» предназначена для выполнения технологических операций по круглогодичной уборке садово-парковых, тротуарных и прилегающих территорий вне дорожной сети, предназначенной для движения автомобилей. Изделие, оснащенное системой машинного зрения и сенсорики, спроектировано как беспилотная техника на электротяге (не предполагает наличие водителя).", "sp": [["Колесная формула платформы", "4WD"], ["Привод платформы", "электрический"], ["Накопитель энергии", "аккумуляторные батареи Li-Ion"], ["Комплект зарядки", "кабель и зарядное устройство от сети 230/380 В (3Р+РЕ), 32 А"], ["Максимальное время автономной работы", "16 часов в сутки (при 4 циклах зарядки)"], ["Максимальная статическая опрокидывающая нагрузка", "270 кг"], ["Масса эксплуатационная", "670 кг"], ["Полная масса", "1800 кг"], ["Скорость движения", "до 10 км/ч"], ["Габариты платформы без навесного оборудования", "2460 × 1500 × 1680 мм"], ["Максимальный уклон", "20°"], ["Минимальный радиус поворота", "2500 мм"], ["Рабочее давление в шинах", "1,7 бар"]]},
- "MARK 2 SE":{"d": "Конструкция адаптирована к российским условиям эксплуатации: реагенты, песок, высокая влажность и перепады температур. Робот оснащён лидаром, системой датчиков и алгоритмами динамического торможения. Обнаруживает людей и объекты в реальном времени, предугадывает и корректирует траекторию или останавливается. Робот настраивается под конкретные габариты проходов и конфигурацию торгового зала. Карты и маршруты адаптируются так, чтобы он стабильно работал даже в узких зонах между прилавками.", "sp": [["Габариты (Д×Ш×В)", "860 × 610 × 980 мм"], ["Тип АКБ", "LiFePO4"], ["Ёмкость АКБ", "100 А·ч"], ["Ширина водосборной балки", "670 мм"], ["Ширина моющей щётки", "450 мм"], ["Бак для моющего раствора", "40 л"], ["Время работы на одном заряде", "3 часа"], ["Время полной зарядки", "2 часа"]]},
- "Inchbot L1/L1 Edu":{"d": "Профессиональный четвероногий робот с высокой проходимостью: поднимается по ступеням до 16 см, несёт до 8 кг, разгоняется до 3,7 м/с и работает 1–2 часа от батареи. Мощные моторы с пиковым крутящим моментом 48 Н·м не требуют калибровки и выдерживают миллионы ударных циклов. Прочный корпус с защитой IP54, усиленная рама и 360° защита обеспечивают надёжную работу на улице и в промышленных условиях. Открытые интерфейсы (Ethernet, USB, UART, SBUS, питание) и поддержка LiDAR, камер, 4G, RTK и симуляторов Isaac Sim / MuJoCo делают платформу идеальной для R&D, робототехнических проектов и обучения.", "sp": [["Тип", "Робот собака"], ["Материалы", "алюминиевый сплав и высокопрочный инженерный пластик"], ["Габариты в стойке", "63 × 44 × 45,5 см"], ["Масса", "20 кг"], ["Рабочая температура", "от 0°C до 40°C"], ["Степень защиты", "IP54"], ["Время зарядки", "1 час"], ["Время работы", "1–2 часа"], ["Дальность хода на одном заряде", "до 9 км"], ["Базовая вычислительная платформа", "8‑ядерный высокопроизводительный CPU"], ["Максимальная потребляемая мощность", "3500 Вт"], ["Максимальная скорость", "3,7 м/с"], ["Предельная скорость", "5 м/с"], ["Максимальная нагрузка", "10 кг"], ["Максимальный угол подъёма", "30° в стандартных условиях, до 40° в предельном режиме"], ["Стандартные движения", "стойка, приседание, коленопреклонение, наклон вперёд, наклон назад, горизонтальный разворот"], ["Вторичная разработка", "поддерживается"], ["Гарантия производителя", "12 месяцев"], ["Графический процессор (ИИ)", "есть, 100Tops"], ["Комплектация", "робот, зарядное устройство, контроллер, транспортировочный кейс, акб"]]},
+ "MARK 2 SE":{"d": "Конструкция адаптирована к российским условиям эксплуатации: реагенты, песок, высокая влажность и перепады температур. Робот оснащен лидаром, системой датчиков и алгоритмами динамического торможения. Обнаруживает людей и объекты в реальном времени, предугадывает и корректирует траекторию или останавливается. Робот настраивается под конкретные габариты проходов и конфигурацию торгового зала. Карты и маршруты адаптируются так, чтобы он стабильно работал даже в узких зонах между прилавками.", "sp": [["Габариты (Д×Ш×В)", "860 × 610 × 980 мм"], ["Тип АКБ", "LiFePO4"], ["Емкость АКБ", "100 А·ч"], ["Ширина водосборной балки", "670 мм"], ["Ширина моющей щетки", "450 мм"], ["Бак для моющего раствора", "40 л"], ["Время работы на одном заряде", "3 часа"], ["Время полной зарядки", "2 часа"]]},
+ "Inchbot L1/L1 Edu":{"d": "Профессиональный четвероногий робот с высокой проходимостью: поднимается по ступеням до 16 см, несет до 8 кг, разгоняется до 3,7 м/с и работает 1–2 часа от батареи. Мощные моторы с пиковым крутящим моментом 48 Н·м не требуют калибровки и выдерживают миллионы ударных циклов. Прочный корпус с защитой IP54, усиленная рама и 360° защита обеспечивают надежную работу на улице и в промышленных условиях. Открытые интерфейсы (Ethernet, USB, UART, SBUS, питание) и поддержка LiDAR, камер, 4G, RTK и симуляторов Isaac Sim / MuJoCo делают платформу идеальной для R&D, робототехнических проектов и обучения.", "sp": [["Тип", "Робот собака"], ["Материалы", "алюминиевый сплав и высокопрочный инженерный пластик"], ["Габариты в стойке", "63 × 44 × 45,5 см"], ["Масса", "20 кг"], ["Рабочая температура", "от 0°C до 40°C"], ["Степень защиты", "IP54"], ["Время зарядки", "1 час"], ["Время работы", "1–2 часа"], ["Дальность хода на одном заряде", "до 9 км"], ["Базовая вычислительная платформа", "8‑ядерный высокопроизводительный CPU"], ["Максимальная потребляемая мощность", "3500 Вт"], ["Максимальная скорость", "3,7 м/с"], ["Предельная скорость", "5 м/с"], ["Максимальная нагрузка", "10 кг"], ["Максимальный угол подъема", "30° в стандартных условиях, до 40° в предельном режиме"], ["Стандартные движения", "стойка, приседание, коленопреклонение, наклон вперед, наклон назад, горизонтальный разворот"], ["Вторичная разработка", "поддерживается"], ["Гарантия производителя", "12 месяцев"], ["Графический процессор (ИИ)", "есть, 100Tops"], ["Комплектация", "робот, зарядное устройство, контроллер, транспортировочный кейс, акб"]]},
  "Unitree H2":{"d": "Unitree H2 — полноразмерный гуманоидный робот высотой 180 см с 31 степенью свободы, крутящим моментом 360 Н·м и вычислительной мощностью 2070 TOPS, созданный для динамичных промышленных и сервисных задач с постоянно обновляемыми ИИ‑алгоритмами.", "sp": [["Тип", "Робот гуманоид"], ["Степеней свободы", "31"], ["Габариты в стойке", "1820×456×218 мм"], ["Масса", "70 кг"], ["Степеней свободы одной руки", "7"], ["Степеней свободы одной ноги", "6"], ["Степеней свободы таза", "3"], ["Степеней свободы головы", "2"], ["Полезная нагрузка", "15 кг"], ["Бионические кисти", "нет"], ["Подшипники суставов", "Промышленные роликовые подшипники"], ["Двигатели суставов", "Высокоскоростной внутренний ротор PMSM с низкой инерцией"], ["Макс. крутящий момент сустава руки", "120 Н·м"], ["Макс. крутящий момент сустава ноги", "360 Н·м"], ["Длина голени + бедра", "1045 мм"], ["Длина предплечья + плеча", "690 мм"], ["Материалы", "Авиационный алюминий + титановый сплав + высокопрочный инженерный пластик"], ["Система охлаждения", "воздушная"], ["Вычислительный модуль", "PC1: Intel Core i5"], ["Управление голосом", "Массив микрофонов и мощный динамик для голосового взаимодействия"], ["Связь", "WiFi 6, Bluetooth 5.2"], ["Время работы", "3 часа"]]},
- "Birbi S-1 PRO":{"d": "Birbi S-1 PRO — SCARA-робот для быстрых и точных операций с небольшими деталями. Подходит для сборки, сортировки, перекладки изделий, упаковки и работы рядом с конвейером", "sp": [["4–5 осей"], ["Поднимает до 10 кг"], ["Достаёт до 700 мм"], ["Точность по XYZ", "0,01 мм. Размеры и скорости версии PRO производитель подбирает под заказ."]]},
- "Birbi D-1":{"d": "Birbi D-1 — высокоскоростной дельта-робот для работы с лёгкими изделиями. Предназначен прежде всего для сортировки, упаковки, когда требуется очень быстро брать продукцию с конвейера и перекладывать её в нужную позицию.", "sp": [["3 оси"], ["Поднимает до 0,5 кг"], ["Рабочий радиус 260 мм"], ["Точность 0,05 мм"], ["До 250 перемещений в минуту"], ["Габариты 350×380×720 мм"], ["Масса 24 кг."]]},
- "DOKA RC30":{"d": "DOKA RC30 — коллаборативный робот для операций, где обычным коботам не хватает грузоподъёмности. Может применяться для паллетирования, загрузки и разгрузки станков, сварки, нанесения материалов и перемещения тяжёлых деталей.", "sp": [["6 осей; номинально поднимает 30 кг, максимально — до 33 кг;"], ["рабочий радиус 1300 мм; масса около 70 кг. Управление через графический интерфейс «Пульс»."]]},
+ "Birbi S-1 PRO":{"d": "Birbi S-1 PRO — SCARA-робот для быстрых и точных операций с небольшими деталями. Подходит для сборки, сортировки, перекладки изделий, упаковки и работы рядом с конвейером", "sp": [["4–5 осей"], ["Поднимает до 10 кг"], ["Достает до 700 мм"], ["Точность по XYZ", "0,01 мм. Размеры и скорости версии PRO производитель подбирает под заказ."]]},
+ "Birbi D-1":{"d": "Birbi D-1 — высокоскоростной дельта-робот для работы с легкими изделиями. Предназначен прежде всего для сортировки, упаковки, когда требуется очень быстро брать продукцию с конвейера и перекладывать ее в нужную позицию.", "sp": [["3 оси"], ["Поднимает до 0,5 кг"], ["Рабочий радиус 260 мм"], ["Точность 0,05 мм"], ["До 250 перемещений в минуту"], ["Габариты 350×380×720 мм"], ["Масса 24 кг."]]},
+ "DOKA RC30":{"d": "DOKA RC30 — коллаборативный робот для операций, где обычным коботам не хватает грузоподъемности. Может применяться для паллетирования, загрузки и разгрузки станков, сварки, нанесения материалов и перемещения тяжелых деталей.", "sp": [["6 осей; номинально поднимает 30 кг, максимально — до 33 кг;"], ["рабочий радиус 1300 мм; масса около 70 кг. Управление через графический интерфейс «Пульс»."]]},
  "Promobot M13":{"d": "Promobot M13 — коллаборативный робот для автоматизации ручных производственных операций. Может выполнять сборку, упаковку, укладку, загрузку станков, сварку и контроль качества", "sp": [["6 осей; поднимает до 13 кг; рабочий радиус от 150 до 1300 мм;"], ["повторяемость 0,05 мм"]]},
  "A12-1450":{"d": "A12-1450 — коллаборативный робот, используется для сварки, сборки, перемещения изделий и автоматизации технологических операций", "sp": [["6 осей"], ["Поднимает до 12 кг"], ["Рабочий радиус до 1450 мм"], ["Повторяемость 0,05 мм"], ["Максимальная линейная скорость до 3 м/с"], ["Масса 143 кг"]]},
  "ARM-IMR-95":{"d": "ARM-IMR-95 — коллаборативный робот, подходит для сборки, лабораторных и исследовательских задач, обслуживания оборудования и автоматизации операций с небольшими деталями", "sp": [["6 осей"], ["Поднимает 5 кг"], ["Рабочий радиус до 950 мм"], ["Масса 28 кг"]]},
@@ -2073,23 +2080,23 @@ ROBOTS.forEach(function(r){
  r.owner='Робопортал Москвы · данные демонстрационные';
  r.kind=KIND_FIX[r.name]||KIND[r.cat]||'решение';
  /* в реестре пока никто: в таблице этих отметок нет, выдавать за
-    включённые нельзя. Проставьте true тем, кто действительно вошёл */
+    включенные нельзя. Проставьте true тем, кто действительно вошел */
  r.registry=false;
  r.badges=['испытания\u00a0пройдены',r.cat,r.kind];
  r.photos=r.photos||[r.img];
  r.hint=r.hint||''; r.works=r.works||[]; r.sp=r.sp||{};
  r.use=USE[r.name]||r.d;
  var dt=DETAIL[r.name]||{};
- r.dd=dt.d||r.use;          /* развёрнутое описание для карточки модели */
+ r.dd=dt.d||r.use;          /* развернутое описание для карточки модели */
  r.tech=dt.sp||null;        /* подробная таблица характеристик */
 });
 
 /* ---- задачи: лента ---- */
 var TASKS=[
- {key:'cargo',t:'Склад не простаивает',d:'Всё автоматизировано, никто не ждёт свободного погрузчика',img:'images/task-cargo.jpg'},
- {key:'line',t:'Линия держит качество',d:'Результат одинаковый в начале и в конце смены',img:'images/path-03.jpg'},
- {key:'service',t:'Чисто в любое время суток',d:'Убирает ночью и в выходные, не мешая людям',img:'images/path-02.jpg'},
- {key:'patrol',t:'Объект под контролем',d:'Видно, что сделано за день и где отстаёт график',img:'images/task-patrol.jpg'}
+ {key:'cargo',t:'Загруженность склада',d:'Склад не простаивает, никто не ждет свободного погрузчика',img:'images/task-cargo.jpg'},
+ {key:'line',t:'Качество сборки',d:'Результат одинаковый в начале и в конце смены',img:'images/path-03.jpg'},
+ {key:'service',t:'Чистота в любое время',d:'Убирает ночью и в выходные, не мешая людям',img:'images/path-02.jpg'},
+ {key:'patrol',t:'Контроль над объектом',d:'Видно, что сделано за день и где отстает график',img:'images/task-patrol.jpg'}
 ];
 /* карточки продублированы шесть раз, поэтому работу определяем по data-work,
    а не по индексу: дубли в конце ленты открывают то же окно */
@@ -2103,7 +2110,7 @@ document.getElementById('tape').innerHTML=cards+cards;
 /* ---- фильтр по объекту ----
    Вход для тех, кто не формулирует задачу, а знает свой объект: склад,
    цех, торговый зал. Каждый объект — набор задач из TASKS; выбор гасит
-   в ленте всё, что к объекту не относится. Повторный клик снимает выбор. */
+   в ленте все, что к объекту не относится. Повторный клик снимает выбор. */
 var OBJECTS=[
  {t:'Торговый центр',works:['service','patrol']},
  {t:'Склад',        works:['cargo','patrol']},
@@ -2141,20 +2148,20 @@ var OBJECTS=[
 })();
 
 /* ---- окно подбора роботов под работу ----
-   Два уровня в одном <dialog>: экран работы и карточка модели. Всё
+   Два уровня в одном <dialog>: экран работы и карточка модели. Все
    содержимое собирается из ROBOTS и WORKS, в разметке лежит пустой узел. */
 var WORKS=[
- {key:'cargo',title:'Склад не простаивает',
+ {key:'cargo',title:'Загруженность склада',
   now:'два погрузчика и водители в две смены, простои между рейсами, повреждения паллет в узких проходах',
-  specs:['Грузоподъёмность','Скорость','Время работы'],
+  specs:['Грузоподъемность','Скорость','Время работы'],
   models:['Ronavi H1500','Ronavi × Seer CBD16','AMR1500','Evocargo N1','Navio L5'],
   pick:[['До 500 кг и проходы от 1,4 м','Ronavi H1500'],
         ['Открытая территория','Evocargo N1'],
-        ['Подъём паллет с пола','Ronavi × Seer CBD16']],
+        ['Подъем паллет с пола','Ronavi × Seer CBD16']],
   needs:['Ширина проходов от 1,4 м','Ровный пол без порогов и уклонов',
          'Место под зарядную станцию у стены','Оператор смены — кладовщик после инструктажа']},
- {key:'line',title:'Линия держит качество',
-  now:'операцию ведёт человек, точность плавает от смены к смене, на пиковых партиях участок становится узким местом',
+ {key:'line',title:'Качество сборки',
+  now:'операцию ведет человек, точность плавает от смены к смене, на пиковых партиях участок становится узким местом',
   specs:['Степени свободы','Рабочая нагрузка','Рабочая зона'],
   models:['Birbi S-1 PRO','Birbi D-1','DOKA RC30','Promobot M13','A12-1450','ARM-IMR-95','«Берилл» РП25.22ШС'],
   pick:[['Мелкие детали и высокий темп','Birbi S-1 PRO'],
@@ -2162,7 +2169,7 @@ var WORKS=[
         ['Длинный вылет до 2,2 м','«Берилл» РП25.22ШС']],
   needs:['Свободное место у линии под ячейку','Подводка питания и сжатого воздуха',
          'Ограждение или зона совместной работы','Оператор — наладчик участка']},
- {key:'service',title:'Чисто в любое время суток',
+ {key:'service',title:'Чистота в любое время',
   now:'уборка по графику силами подрядчика, ночные смены, качество зависит от людей и площади',
   specs:['Производительность','Автономность','Среда работы'],
   models:['MARK 2 SE','Пиксель','Unitree H2'],
@@ -2171,13 +2178,13 @@ var WORKS=[
         ['Работа рядом с людьми','Unitree H2']],
   needs:['Площадь и график уборки','Точка воды и слива для заправки',
          'Место под зарядную станцию','Оператор — сотрудник службы эксплуатации']},
- {key:'patrol',title:'Объект под контролем',
+ {key:'patrol',title:'Контроль над объектом',
   now:'обходы делает дежурный по маршруту, часть отклонений замечают с опозданием, данные пишут вручную',
-  specs:['Автономность','Подвижность','Грузоподъёмность'],
+  specs:['Автономность','Подвижность','Грузоподъемность'],
   models:['Inchbot L1/L1 Edu','Unitree H2'],
   pick:[['Лестницы и сложный рельеф','Inchbot L1/L1 Edu'],
         ['Маршруты внутри здания','Unitree H2'],
-        ['Съёмное оборудование на борту','По запросу']],
+        ['Съемное оборудование на борту','По запросу']],
   needs:['Маршрут обхода и точки контроля','Проходимость лестниц и порогов',
          'Место под зарядную станцию','Оператор — дежурный службы безопасности']}
 ];
@@ -2205,8 +2212,8 @@ var SHOWN=HOME.map(function(n){
   return ROBOTS.filter(function(r){return r.name===n})[0];
 }).filter(Boolean);
 document.getElementById('robotList').innerHTML=SHOWN.map(function(r){
- /* в строке только категория и описание; имя модели остаётся в alt
-    миниатюры — её читает скринридер и показывает превью за курсором */
+ /* в строке только категория и описание; имя модели остается в alt
+    миниатюры — ее читает скринридер и показывает превью за курсором */
  return '<li><a class="robot-row" href="#band">'+
  '<span class="row-cat">'+r.cat+
  '<img class="row-thumb" src="'+r.img+'" alt="'+r.name+'" loading="lazy"></span>'+
@@ -2379,7 +2386,7 @@ var openWork=null,openModelCard=null;
    '<h2 class="tw-title">'+esc(w.title)+'</h2>'+
    '<p class="tw-now">Как сейчас: '+esc(w.now)+'</p>'+
    box('Роботы под эту работу','<div class="tr-grid">'+cards+'</div>'+
-     (rest>0?'<a class="tr-more" href="#robots" data-x>Ещё '+rest+' '+
+     (rest>0?'<a class="tr-more" href="#robots" data-x>Еще '+rest+' '+
      (rest%10===1&&rest%100!==11?'робот':(rest%10>1&&rest%10<5&&(rest%100<10||rest%100>=20)?'робота':'роботов'))+
      ' →</a>':''))+
    box('Как выбрать','<div class="tpick">'+w.pick.map(function(pp){
@@ -2399,11 +2406,11 @@ var openWork=null,openModelCard=null;
  /* ---------- уровень 2: карточка модели ---------- */
  function renderModel(name){
   var r=byName(name); if(!r) return;
-  /* из каталога модель открывают без контекста работы — тогда берём
-     первую работу самой модели, а если её нет, показываем сырые данные */
+  /* из каталога модель открывают без контекста работы — тогда берем
+     первую работу самой модели, а если ее нет, показываем сырые данные */
   var key=curWork||(r.works&&r.works[0])||null;
   var w=byKey(key), sp=(r.sp&&r.sp[key])||[];
-  /* подробная таблица из выгрузки; если её нет — короткие параметры работы */
+  /* подробная таблица из выгрузки; если ее нет — короткие параметры работы */
   var tech=r.tech||(w?w.specs.map(function(lab,n){ return [lab,sp[n]||'По запросу']; })
                      :[['Ключевые характеристики',(r.s||[]).join(' · ')||'По запросу']]);
   var specs=tech.map(function(pp){
@@ -2468,7 +2475,7 @@ var openWork=null,openModelCard=null;
   opener=from||null; curWork=null; renderModel(name); show();
  };
 
- /* уборка идемпотентна и зовётся напрямую из shut(): полагаться только на
+ /* уборка идемпотентна и зовется напрямую из shut(): полагаться только на
     событие close нельзя — не во всех сборках оно доводится до слушателя */
  function cleanup(){
   document.body.style.overflow=bodyOverflow;
@@ -2505,7 +2512,7 @@ var openWork=null,openModelCard=null;
 })();
 
 /* ---- лента задач: едет без остановок, курсором можно листать ----
-   Ход держит css-анимация (её считает композитор, поэтому она не зависит
+   Ход держит css-анимация (ее считает композитор, поэтому она не зависит
    от загруженности js). На время перетаскивания анимация ставится на паузу,
    а после отпускания возвращается с той же точки — через отрицательную
    задержку, которая перематывает круг на нужную долю. */
@@ -2538,7 +2545,7 @@ var openWork=null,openModelCard=null;
   drag=true; px=e.clientX; x=shift();
   tape.classList.add('is-drag');
   /* css-анимация в каскаде сильнее инлайнового transform, поэтому паузы
-     мало — её надо снять целиком, иначе лента не идёт за курсором и
+     мало — ее надо снять целиком, иначе лента не идет за курсором и
      прыгает в момент отпускания. Позицию перед этим переносим в inline,
      так что снятие анимации ничего не сдвигает */
   x=shift(); paint();
@@ -2558,7 +2565,7 @@ var openWork=null,openModelCard=null;
   try{ tape.releasePointerCapture(e.pointerId); }catch(_){}
   /* возвращаем анимацию с той же точки: отрицательная задержка
      перематывает круг на пройденную долю. Порядок важен — сначала
-     возвращаем анимацию, потом задержку, иначе шорткат её затрёт */
+     возвращаем анимацию, потом задержку, иначе шорткат ее затрет */
   var frac=half>0?(x%half)/half:0;
   tape.style.animation='';
   tape.style.animationDelay=(-frac*DUR)+'s';
@@ -2591,7 +2598,7 @@ var openWork=null,openModelCard=null;
     площадка, а не иллюстрация */
  var caps=['ИЦ «Сколково», улично-дорожная сеть',
            'ИЦ «Сколково», пруд',
-           'ИЦ «Сколково», сетка для полётов',
+           'ИЦ «Сколково», сетка для полетов',
            'Торговый центр, роботы-уборщики'];
  var cap=document.getElementById('testCap');
  function pick(i){
@@ -2734,7 +2741,7 @@ var openWork=null,openModelCard=null;
   var colN=pool.filter(function(r){return r.collab}).length;
   side.innerHTML=
    /* подписи фильтров — обычными словами: «кинематика» и «задача»
-      понятны инженеру, а не тому, кто впервые зашёл на портал */
+      понятны инженеру, а не тому, кто впервые зашел на портал */
    group('kin','Вид робота',values('kin'),state.kin)+
    group('ind','Где работает',values('industry'),state.ind)+
    group('maker','Производитель',values('maker'),state.maker)+
@@ -2810,7 +2817,7 @@ var openWork=null,openModelCard=null;
 
  /* маршрут по хешу: #robots — каталог, #finance — витрина мер,
     #analytics — исследования, #trials — центр испытаний,
-    всё остальное — лендинг с прокруткой к якорю */
+    все остальное — лендинг с прокруткой к якорю */
  function route(){
   var h=location.hash;
   var cat=h==='#robots', fin=h==='#finance',
@@ -2828,8 +2835,8 @@ var openWork=null,openModelCard=null;
 
 /* ---- «для чего нужен такой робот»: карточки приезжают справа ----
    Дорожка длиной в экран на карточку; сцена внутри приколота. Долю
-   пройденного пути скрипт раздаёт карточкам: своя доля — карточка стоит
-   на месте, следующая ждёт справа. Последняя треть каждой доли — переезд.
+   пройденного пути скрипт раздает карточкам: своя доля — карточка стоит
+   на месте, следующая ждет справа. Последняя треть каждой доли — переезд.
    Клик по карточке открывает карточку решения. */
 (function(){
  var runway=document.getElementById('whyRunway');
@@ -2892,7 +2899,7 @@ var openWork=null,openModelCard=null;
    } else if(d>-1){                      /* въезжает справа вслед за прошлой */
     var e=d+1, k2=e<.5?0:(e-.5)/.5;
     x=1-ease(k2);
-   } else x=1;                           /* ещё ждёт за правым краем */
+   } else x=1;                           /* еще ждет за правым краем */
    c.style.setProperty('--x',x.toFixed(3));
    c.style.setProperty('--o',(1-Math.min(1,Math.abs(x)*1.9)).toFixed(3));
   });
@@ -2925,9 +2932,9 @@ var openWork=null,openModelCard=null;
    задача, что сделал робот и с каким результатом. Раньше ссылка вела
    на форму контактов — обещала историю и отдавала телефон. */
 var CASES=[
- {id:'betonolom',fn:'Демонтажный робот',model:'',photo:'images/cases/case-01-betonolom.jpg',maker:'ООО «Роботехникс»',where:'Строительство метро, атомная отрасль',task:'Убрать людей из опасной зоны и заменить тяжёлый ручной труд техникой',how:'Работает там, где раньше был только отбойный молоток: мощность крупной техники, оператор управляет со стороны, на безопасном расстоянии',res:'На стройках метро и объектах атомной отрасли демонтаж идёт без людей в опасной зоне — оператор управляет со стороны'},
- {id:'ronavi',fn:'Транспортёр паллет',model:'Ronavi H1500',photo:'images/cases/case-02-ronavi.webp',maker:'ООО «Ронави Роботикс»',where:'Склады и производственные площадки',task:'Автоматизировать длинный участок транспортировки из зоны отбора в зоны отгрузки, пополнения и доработки',how:'Робот возит грузы по складу без человека, связан с WMS и RMS. Окупаемость модернизации — 9 месяцев',res:'На складе «Восток-Сервис» себестоимость операции снизилась вдвое'},
- {id:'rubi',fn:'Робот-уборщик',model:'RUBI-M',photo:'images/cases/case-03-rubi.jpg',maker:'ООО «Робо»',where:'Школы № 281 и № 1514 в Москве, школа «Самолётум» в Красногорске',task:'Автоматизировать регулярную уборку школы и снять нагрузку с клининговой службы',how:'Убирает по автоматическим заданиям и сохранённым картам, маршруты и отчёты — удалённо',res:'В школах Москвы и Красногорска убрано 1 368 107 м² за учебный год'}
+ {id:'betonolom',fn:'Демонтажный робот',model:'',photo:'images/cases/case-01-betonolom.jpg',maker:'ООО «Роботехникс»',where:'Строительство метро, атомная отрасль',task:'Убрать людей из опасной зоны и заменить тяжелый ручной труд техникой',how:'Работает там, где раньше был только отбойный молоток: мощность крупной техники, оператор управляет со стороны, на безопасном расстоянии',res:'На стройках метро и объектах атомной отрасли демонтаж идет без людей в опасной зоне — оператор управляет со стороны'},
+ {id:'ronavi',fn:'Транспортер паллет',model:'Ronavi H1500',photo:'images/cases/case-02-ronavi.webp',maker:'ООО «Ронави Роботикс»',where:'Склады и производственные площадки',task:'Автоматизировать длинный участок транспортировки из зоны отбора в зоны отгрузки, пополнения и доработки',how:'Робот возит грузы по складу без человека, связан с WMS и RMS. Окупаемость модернизации — 9 месяцев',res:'На складе «Восток-Сервис» себестоимость операции снизилась вдвое'},
+ {id:'rubi',fn:'Робот-уборщик',model:'RUBI-M',photo:'images/cases/case-03-rubi.jpg',maker:'ООО «Робо»',where:'Школы № 281 и № 1514 в Москве, школа «Самолетум» в Красногорске',task:'Автоматизировать регулярную уборку школы и снять нагрузку с клининговой службы',how:'Убирает по автоматическим заданиям и сохраненным картам, маршруты и отчеты — удаленно',res:'В школах Москвы и Красногорска убрано 1 368 107 м² за учебный год'}
 ];
 (function(){
  var dlg=document.getElementById('caseDlg');
@@ -2988,10 +2995,10 @@ document.querySelectorAll('.rev').forEach(function(el){io.observe(el)});
 
 /* ---- финансирование: данные мер ----
    Восемь мер городской поддержки: суммы, операторы, условия, сроки
-   приёма. «Сегодня» прототипа — 05.08.2026, от него считается
-   состояние приёма заявок. */
+   приема. «Сегодня» прототипа — 05.08.2026, от него считается
+   состояние приема заявок. */
 var MEASURES=[
- {id:1,role:'producer',kind:'Льготный заём',
+ {id:1,role:'producer',kind:'Льготный заем',
   name:'Льготные займы на разработку новых роботов',
   operator:'Московский венчурный фонд',
   benefit:'До 50 млн ₽ на разработку нового робота',
@@ -2999,7 +3006,7 @@ var MEASURES=[
   spend:'Разработку решения, создание прототипа и подготовку производства',
   terms:'Ставка 10%, срок до 5 лет, нужны соинвестиции частного инвестора',
   params:'До 50 млн ₽, ставка 10%, срок до 5 лет, наличие соинвестиций от частного инвестора',
-  about:'Заём на разработку новых робототехнических решений. Ставка 10%, срок до 5 лет. Обязательное условие — соинвестиции от частного инвестора не менее суммы займа.',
+  about:'Заем на разработку новых робототехнических решений. Ставка 10%, срок до 5 лет. Обязательное условие — соинвестиции от частного инвестора не менее суммы займа.',
   amount:'До 50 млн ₽',amountMax:50e6,stages:['Разработка'],tasks:['Разработка'],
   period:null,popular:true,
   steps:['Включить решение в Реестр робототехнического оборудования города Москвы','Подать заявку с описанием разрабатываемого робота и подтверждением соинвестиций','Пройти экспертизу проекта в Московском венчурном фонде','Заключить договор займа и подтверждать целевое использование'],
@@ -3019,18 +3026,18 @@ var MEASURES=[
   steps:['Включить решение в Реестр','Получить кредит в банке на создание или модернизацию производства','Подать заявку в Московский Фонд поддержки промышленности на компенсацию ставки'],
   syn:'Хочу запустить производство открыть цех купить станки модернизировать линию серийный выпуск масштабировать'},
 
- {id:3,role:'producer',kind:'Льготный заём',
+ {id:3,role:'producer',kind:'Льготный заем',
   name:'Льготные займы на исполнение контракта',
   operator:'Московский венчурный фонд',
   benefit:'До 100 млн ₽ на исполнение контракта на поставку роботов',
-  who:'Для производителей из реестра, у которых есть заключённый контракт на поставку',
-  spend:'Исполнение уже заключённого контракта: закупку комплектующих и выпуск партии',
+  who:'Для производителей из реестра, у которых есть заключенный контракт на поставку',
+  spend:'Исполнение уже заключенного контракта: закупку комплектующих и выпуск партии',
   terms:'Ставка 10%, срок до 24 месяцев',
   params:'До 100 млн ₽, ставка 10%, срок до 24 мес., наличие контракта на поставку роботов',
-  about:'Заём на исполнение уже заключённого контракта на поставку роботов. Ставка 10%, срок до 24 месяцев.',
+  about:'Заем на исполнение уже заключенного контракта на поставку роботов. Ставка 10%, срок до 24 месяцев.',
   amount:'До 100 млн ₽',amountMax:100e6,stages:['Производство'],tasks:['Производство'],
   period:null,
-  steps:['Включить решение в Реестр','Подать заявку с контрактом на поставку роботов','Получить заём на исполнение контракта','Вернуть заём из оплаты по контракту'],
+  steps:['Включить решение в Реестр','Подать заявку с контрактом на поставку роботов','Получить заем на исполнение контракта','Вернуть заем из оплаты по контракту'],
   syn:'Оборотные средства выполнить контракт факторинг кассовый разрыв выпустить партию поставка'},
 
  {id:4,role:'producer',kind:'Грант',
@@ -3052,15 +3059,15 @@ var MEASURES=[
   name:'Субсидирование внедрения сервисных роботов',
   operator:'Департамент предпринимательства и инновационного развития города Москвы',
   benefit:'До 100 млн ₽ на закупку сервисных роботов',
-  who:'Для компаний, зарегистрированных в Москве. Робот — произведённый в РФ и из реестра',
+  who:'Для компаний, зарегистрированных в Москве. Робот — произведенный в РФ и из реестра',
   spend:'До 50% затрат на закупку сервисных роботов',
   terms:null,
-  params:'Субсидия до 100 млн ₽ на компенсацию до 50% затрат на закупку сервисных роботов, произведённых в РФ',
-  about:'Субсидия компенсирует до 50% затрат на закупку сервисных роботов, произведённых в РФ и включённых в Реестр робототехнического оборудования города Москвы.',
+  params:'Субсидия до 100 млн ₽ на компенсацию до 50% затрат на закупку сервисных роботов, произведенных в РФ',
+  about:'Субсидия компенсирует до 50% затрат на закупку сервисных роботов, произведенных в РФ и включенных в Реестр робототехнического оборудования города Москвы.',
   example:'При затратах 40 млн ₽ размер субсидии составит 20 млн ₽; при затратах 300 млн ₽ — 100 млн ₽, предельная величина.',
   amount:'До 100 млн ₽',amountMax:100e6,stages:['Внедрение'],tasks:['Внедрение'],
   period:{from:'01.03.2026',to:'30.09.2026'},popular:true,
-  steps:['Выбрать робота из реестра на портале','Закупить сервисного робота, произведённого в РФ','Подать заявку в ДПиИР с подтверждением затрат'],
+  steps:['Выбрать робота из реестра на портале','Закупить сервисного робота, произведенного в РФ','Подать заявку в ДПиИР с подтверждением затрат'],
   syn:'Купить робота компенсировать закупку внедрить сервисного робота вернуть часть затрат уборка доставка'},
 
  {id:6,role:'consumer',kind:'Компенсация ставки',
@@ -3069,9 +3076,9 @@ var MEASURES=[
   benefit:'Ставка 3–7% по кредиту на покупку и интеграцию робота',
   who:'Для промышленных предприятий Москвы',
   spend:'Покупку робота и его интеграцию в производственный процесс',
-  terms:'Итоговая ставка зависит от уровня роботизации и объёма инвестиций',
-  params:'Ставка от 3 до 7% в зависимости от уровня роботизации и объёма инвестиций',
-  about:'Компенсация процентной ставки по кредиту на покупку и интеграцию робота. Итоговая ставка для предприятия — от 3 до 7% в зависимости от уровня роботизации и объёма инвестиций.',
+  terms:'Итоговая ставка зависит от уровня роботизации и объема инвестиций',
+  params:'Ставка от 3 до 7% в зависимости от уровня роботизации и объема инвестиций',
+  about:'Компенсация процентной ставки по кредиту на покупку и интеграцию робота. Итоговая ставка для предприятия — от 3 до 7% в зависимости от уровня роботизации и объема инвестиций.',
   amount:'Ставка 3–7%',amountMax:null,stages:['Внедрение'],tasks:['Внедрение'],
   period:null,
   steps:['Выбрать робота из Реестра','Получить кредит на покупку и интеграцию робота','Подать заявку в Московский Фонд поддержки промышленности'],
@@ -3082,10 +3089,10 @@ var MEASURES=[
   operator:'Департамент инвестиционной и промышленной политики Москвы',
   benefit:'До 100 млн ₽ на внедрение роботов в производство',
   who:'Для промышленных предприятий Москвы',
-  spend:'До 80% подтверждённых затрат на внедрение роботов',
+  spend:'До 80% подтвержденных затрат на внедрение роботов',
   terms:null,
   params:'Субсидия до 100 млн ₽, процент субсидирования до 80%',
-  about:'Субсидия на внедрение роботов в производственный процесс: до 80% подтверждённых затрат, но не более 100 млн ₽.',
+  about:'Субсидия на внедрение роботов в производственный процесс: до 80% подтвержденных затрат, но не более 100 млн ₽.',
   example:'При затратах 50 млн ₽ размер субсидии составит 40 млн ₽; при затратах 200 млн ₽ — 100 млн ₽, предельная величина.',
   amount:'До 100 млн ₽',amountMax:100e6,stages:['Внедрение'],tasks:['Внедрение'],
   period:{from:'01.09.2026',to:'30.11.2026'},
@@ -3097,10 +3104,10 @@ var MEASURES=[
   operator:'Московский Фонд поддержки промышленности и предпринимательства',
   benefit:'До 12 млн ₽ на робота по сервисной модели (RaaS)',
   who:'Для операторов сервисной модели: покупают робота и дают предприятию по подписке',
-  spend:'До 70% ежемесячного платежа за роботов из Москвы и до 50% — произведённых в РФ',
+  spend:'До 70% ежемесячного платежа за роботов из Москвы и до 50% — произведенных в РФ',
   terms:null,
-  params:'До 70% (роботы, произведённые в Москве) и до 50% (произведённые в РФ), но не более 12 млн ₽ на 1 робота',
-  about:'Компенсация ежемесячного платежа за услугу роботизации: до 70% для роботов, произведённых в Москве, и до 50% — произведённых в РФ.',
+  params:'До 70% (роботы, произведенные в Москве) и до 50% (произведенные в РФ), но не более 12 млн ₽ на 1 робота',
+  about:'Компенсация ежемесячного платежа за услугу роботизации: до 70% для роботов, произведенных в Москве, и до 50% — произведенных в РФ.',
   amount:'До 12 млн ₽ на робота',amountMax:12e6,stages:['Внедрение'],tasks:['Внедрение'],
   period:{from:'15.04.2026',to:'31.08.2026'},
   steps:['Приобрести робота из Реестра как оператор сервисной модели','Предоставить робота предприятию по подписке','Подать заявку в Московский Фонд поддержки промышленности'],
@@ -3130,11 +3137,11 @@ var MEASURES=[
   {id:'prod', t:'Запустить производство', tasks:['Производство']},
   {id:'use',  t:'Внедрить у себя', tasks:['Внедрение']}
  ];
- var STATES=[{v:'now',t:'Приём идёт'},{v:'soon',t:'Откроется'},{v:'always',t:'Не ограничен'}];
- /* направление свёрнуто в две группы: деньги возвратные и безвозвратные.
+ var STATES=[{v:'now',t:'Прием идет'},{v:'soon',t:'Откроется'},{v:'always',t:'Не ограничен'}];
+ /* направление свернуто в две группы: деньги возвратные и безвозвратные.
     Грант и субсидия по сути одно и то же, компенсации — тоже выплаты */
  var KINDS=[
-  {v:'credit',t:'Льготные кредиты',has:['Льготный заём','Льготный кредит']},
+  {v:'credit',t:'Льготные кредиты',has:['Льготный заем','Льготный кредит']},
   {v:'grant', t:'Субсидии',        has:['Грант','Субсидия','Компенсация ставки','Компенсация платежа']}
  ];
  function kindOf(m){
@@ -3147,29 +3154,29 @@ var MEASURES=[
  function low(s){ return s?s.charAt(0).toLowerCase()+s.slice(1):s; }
  function byId(id){ for(var i=0;i<MEASURES.length;i++) if(MEASURES[i].id===+id) return MEASURES[i]; return null; }
 
- /* состояние приёма заявок */
+ /* состояние приема заявок */
  function avail(m){
   if(!m.period) return 'always';
   if(dnum(m.period.from)>dnum(TODAY)) return 'soon';
   if(dnum(m.period.to)<dnum(TODAY)) return 'closed';
   return 'now';
  }
- /* предложный падеж: фраза «приём откроется в сентябре» */
+ /* предложный падеж: фраза «прием откроется в сентябре» */
  var MONTHS=['январе','феврале','марте','апреле','мае','июне',
              'июле','августе','сентябре','октябре','ноябре','декабре'];
  function whenText(m){
   var a=avail(m);
-  if(a==='always') return 'Период приёма заявок не ограничен';
+  if(a==='always') return 'Период приема заявок не ограничен';
   if(a==='soon'){
    var p=m.period.from.split('.');
-   return 'Приём откроется в '+MONTHS[+p[1]-1]+' '+p[2];
+   return 'Прием откроется в '+MONTHS[+p[1]-1]+' '+p[2];
   }
-  if(a==='closed') return 'Приём заявок закрыт '+m.period.to;
-  return 'Приём заявок до '+m.period.to;
+  if(a==='closed') return 'Прием заявок закрыт '+m.period.to;
+  return 'Прием заявок до '+m.period.to;
  }
  function isOpen(m){ var a=avail(m); return a==='now'||a==='always'; }
 
- /* черновик фильтров и применённый отбор */
+ /* черновик фильтров и примененный отбор */
  function blank(){ return {state:[],kind:[],task:[]}; }
  var draft=blank(), applied=blank(), role='producer', search='';
  var shown={};                     /* сколько карточек показано в группе */
@@ -3208,7 +3215,7 @@ var MEASURES=[
      '<span>'+esc(txt)+'</span></label>';
    }).join('')+'</div>';
  }
- /* состояние приёма — одно значение: «идёт» и «откроется» вместе
+ /* состояние приема — одно значение: «идет» и «откроется» вместе
     не бывают, мультивыбор здесь только путал */
  function radios(label,name,vals){
   return '<div class="fn-group"><div class="fn-glabel">'+esc(label)+'</div>'+
@@ -3223,7 +3230,7 @@ var MEASURES=[
  }
  function drawSide(){
   side.innerHTML=
-   radios('Состояние приёма заявок','state',STATES)+
+   radios('Состояние приема заявок','state',STATES)+
    group('Направление','kind',KINDS)+
    group('Цель','task',tasksAll())+
    '<div class="ms-act">'+
@@ -3255,7 +3262,7 @@ var MEASURES=[
    html+='<section class="ms-sec"><h2 class="ms-sec-h">'+esc(g.t)+'</h2>'+
     '<div class="ms-grid">'+inG.slice(0,n).map(card).join('')+'</div>'+
     (inG.length>n?'<button type="button" class="ms-more" data-more="'+g.id+'">'+
-      'Показать ещё по этому разделу</button>':'')+
+      'Показать еще по этому разделу</button>':'')+
     '</section>';
   });
   list.innerHTML=html||'<p class="fn-empty">По этим условиям ничего не нашлось — снимите часть фильтров</p>';
@@ -3273,7 +3280,7 @@ var MEASURES=[
  function secHTML(m,id){
   if(id==='about'){
    return '<h4>Описание</h4><p>'+esc(m.about)+'</p>'+
-    (m.example?'<p>Пример расчёта: '+esc(m.example)+'</p>':'')+
+    (m.example?'<p>Пример расчета: '+esc(m.example)+'</p>':'')+
     (m.spend?'<p>На что можно потратить: '+esc(m.spend)+'</p>':'')+
     '<p>Оператор программы — '+esc(m.operator)+'.</p>';
   }
@@ -3396,41 +3403,41 @@ var MEASURES=[
 })();
 
 /* ---- аналитика: каталог исследований ----
-   Двадцать восемь исследований, перенесённых с прототипа robot-mos.ru
+   Двадцать восемь исследований, перенесенных с прототипа robot-mos.ru
    (раздел #/analytics). Поля ind (отрасль — где и у кого работает робот)
    и scen (сценарий — что именно он делает) проставлены по названию,
    описанию, тегам и оглавлению каждого документа: это разметка того,
    что уже написано внутри. У каталога разработчиков (id 23) сценария нет —
    это перечень вузов и научных площадок, а не разбор применения. */
 var RESEARCH=[
-  {id:1,slug:'bespilotnaya-vspashka',title:'Беспилотная вспашка',dir:'Сценарии применения',desc:'Какая техника пашет без тракториста и во сколько обходится гектар',author:'ФЦ БАС',date:'Июнь 2026',ts:202606,year:2026,pages:16,rt:10,tags:['Сельское хозяйство'],structure:['Ключевые участники','Мировые показатели 2025','Мировые кейсы (США, Австралия)','Описание сценария и условия','Каталог техники: РФ полуавтономные, РФ автономные, иностранные','Эффекты внедрения','Объём перспективного рынка','Заказчики','Производители и эксплуатанты'],findings:['Рынок РФ 8,74 → 60,27 млрд руб. (2025→2030)','Потенциал 2,3 → 15,86 млн га (3% → 20%)','3 200 единиц техники к 2030','9 моделей, 9 производителей','10 агрохолдингов-заказчиков с земельным банком 134–1 380 тыс. га','Экономия 7,3% затрат, рост суточной производительности ×2'],cover:'images/research/01-bespilotnaya-vspashka.jpg',srcCited:null,partner:false,variants:[],rtypes:['Промышленные'],ind:['Сельское хозяйство'],scen:['Полевые работы и сбор урожая'],env:['На улице'],branch:['Сельское хозяйство']},
+  {id:1,slug:'bespilotnaya-vspashka',title:'Беспилотная вспашка',dir:'Сценарии применения',desc:'Какая техника пашет без тракториста и во сколько обходится гектар',author:'ФЦ БАС',date:'Июнь 2026',ts:202606,year:2026,pages:16,rt:10,tags:['Сельское хозяйство'],structure:['Ключевые участники','Мировые показатели 2025','Мировые кейсы (США, Австралия)','Описание сценария и условия','Каталог техники: РФ полуавтономные, РФ автономные, иностранные','Эффекты внедрения','Объем перспективного рынка','Заказчики','Производители и эксплуатанты'],findings:['Рынок РФ 8,74 → 60,27 млрд руб. (2025→2030)','Потенциал 2,3 → 15,86 млн га (3% → 20%)','3 200 единиц техники к 2030','9 моделей, 9 производителей','10 агрохолдингов-заказчиков с земельным банком 134–1 380 тыс. га','Экономия 7,3% затрат, рост суточной производительности ×2'],cover:'images/research/01-bespilotnaya-vspashka.jpg',srcCited:null,partner:false,variants:[],rtypes:['Промышленные'],ind:['Сельское хозяйство'],scen:['Полевые работы и сбор урожая'],env:['На улице'],branch:['Сельское хозяйство']},
   {id:2,slug:'robotizirovannaya-teplica',title:'Роботизированная теплица',dir:'Сценарии применения',desc:'Кто собирает томаты и клубнику вместо людей и сколько может стоить такой робот',author:'ФЦ БАС',date:'Март 2025',ts:202503,year:2025,pages:20,rt:15,tags:['Сельское хозяйство'],structure:['Ключевые участники','Мировые показатели','Каталог моделей: томаты, огурцы, клубника, косточковые','Техплан теплицы','Типы БРС и БАС','Требуемая себестоимость робота','Пример эффектов роботизации','Потенциальные заказчики','Эксплуатанты БРС','Поддержка производства'],findings:['Мировой рынок роботов для сбора урожая 211,8 млн $ (2023) → 3,7 млрд $ (2030), рост ~16%/год','11 моделей от 11 производителей (РФ, США, Нидерланды, Германия, Израиль, Австралия)','Расходы на 1 сборщика томатов 1,79 млн руб./год как потолок цены робота','4 заказчика, 5 эксплуатантов'],cover:'images/research/02-robotizirovannaya-teplica.jpg',srcCited:null,partner:false,variants:[],rtypes:['Промышленные'],ind:['Сельское хозяйство'],scen:['Полевые работы и сбор урожая'],env:['Внутри помещений'],branch:['Сельское хозяйство']},
-  {id:3,slug:'bespilotnyy-tramvay',title:'Беспилотный трамвай',dir:'Сценарии применения',desc:'Автономный вагон против обычного: что меняется в работе и в расходах',author:'ФЦ БАС',date:'Март 2026',ts:202603,year:2026,pages:12,rt:10,tags:['Транспорт','Город'],structure:['Ключевые участники','Мировые показатели','Описание сценария и условия','Каталог вагонов и программного обеспечения','Преимущества и недостатки методов','Сравнительная экономика','Объём перспективного рынка','Поддержка производства'],findings:['Мировой рынок трамваев 1,8 млрд $ (2024) → 2,5 млрд $ (2032), рост 4,5% в год','Парк РФ >7 тыс. вагонов, ~6 тыс. нуждается в модернизации','До 2030 планируется ~300 вагонов только в Москве','2 модели («Львенок-Москва», «Богатырь М») и 2 разработчика ПО','Эксплуатация 122,7 vs 143,7 млн руб./год'],cover:'images/research/03-bespilotnyy-tramvay.jpg',srcCited:null,partner:false,variants:[],rtypes:['Транспортные'],ind:['Транспорт','Городское хозяйство'],scen:['Перевозка пассажиров'],env:['На улице'],branch:['Транспорт и логистика']},
-  {id:4,slug:'bespilotnoe-taksi',title:'Беспилотное такси',dir:'Сценарии применения',desc:'Из чего складывается цена поездки без водителя и когда это станет массовым',author:'ФЦ БАС',date:'Март 2026',ts:202603,year:2026,pages:12,rt:10,tags:['Транспорт','Город'],structure:['Ключевые участники','Мировые показатели','Описание сценария и условия','Каталог техники: Яндекс, Baidu Apollo Go, Waymo','Преимущества и недостатки методов','Структура себестоимости беспилотного автомобиля','Объём перспективного рынка','Вендоры БРС','Поддержка производства'],findings:['Мировой рынок 3,5 млрд $ (2024) → 25 млрд $ (2033), рост ~30%/год','Четвёртый уровень автономности по классификации SAE','Себестоимость 13,21 руб./км против 18 руб./км у такси','РФ к 2030: 360/3 200 единиц и 1,005/8,934 млрд руб. по двум сценариям','Комплект автономности 3,15 млн руб.'],cover:'images/research/04-bespilotnoe-taksi.jpg',srcCited:null,partner:false,variants:[],rtypes:['Транспортные'],ind:['Транспорт','Городское хозяйство'],scen:['Перевозка пассажиров'],env:['На улице'],branch:['Транспорт и логистика']},
-  {id:5,slug:'dostavka-vnutri-gostinichnyh-kompleksov',title:'Доставка внутри гостиничных комплексов',dir:'Сценарии применения',desc:'Робот возит заказы по этажам: каким должен быть отель и сколько стоит смена',author:'ФЦ БАС',date:'Март 2026',ts:202603,year:2026,pages:16,rt:10,tags:['Гостиницы'],structure:['Ключевые участники','Мировые показатели','Мировые кейсы (Marriott, Huazhu, Radisson)','Описание сценария и условия','Каталог оборудования','Каталог программного обеспечения','Преимущества и недостатки методов','Объём перспективного рынка','Потенциальные пользователи','Меры поддержки'],findings:['Мировой рынок сервисных роботов для гостиниц 0,3–0,5 млрд $ (2024), рост 25,5% в год до 2030','В РФ 8 313 гостиниц 3+ звезды, целевых с числом номеров >100 — 3 491','Рынок РФ 382 млн руб. (2026, 191 робот) → 1,39 млрд руб. (2030, 693 робота)','4 модели, 4 продукта ПО, 11 потенциальных пользователей'],cover:'images/research/05-dostavka-vnutri-gostinichnyh-kompleksov.jpg',srcCited:null,partner:false,variants:[],rtypes:['Сервисные'],ind:['Гостиницы'],scen:['Доставка грузов'],env:['Внутри помещений'],branch:['Гостиницы и офисы']},
-  {id:6,slug:'dostavka-posledney-mili-roverami',title:'Доставка «последней мили» роверами',dir:'Сценарии применения',desc:'Роверы вместо курьеров: наши и зарубежные машины и цена одного заказа',author:'ФЦ БАС',date:'Март 2026',ts:202603,year:2026,pages:16,rt:10,tags:['Доставка','Город'],structure:['Ключевые участники','Цитата зампреда Правительства РФ','Мировые показатели','Описание сценария и условия','Каталог российских и зарубежных БРС','Преимущества и недостатки методов','Структура себестоимости','Объём перспективного рынка','Потенциальные заказчики','Эксплуатанты БРС','Поддержка производства'],findings:['Мировой рынок роботизации доставки 3,6 млрд $ (2024) → 184,5 млрд $ (2037), рост ~×51','Себестоимость доставки 204 руб. против 250 руб. у курьера (−18,4%)','Проникновение БРС 0,11% → 0,19% к 2030','4 модели (Яндекс-ровер, Белка, Starship, JD.com)','Кейс «Почты России» — 36 роверов, >18 тыс. посылок, 99% в срок'],cover:'images/research/06-dostavka-posledney-mili-roverami.jpg',srcCited:null,partner:false,variants:[],rtypes:['Транспортные','Сервисные'],ind:['Торговля','Городское хозяйство'],scen:['Доставка грузов'],env:['На улице'],branch:['Транспорт и логистика']},
-  {id:7,slug:'robotizirovannyy-punkt-vydachi-zakazov-robo-pvz',title:'Роботизированный пункт выдачи заказов (робо-ПВЗ)',dir:'Сценарии применения',desc:'Пункт выдачи без сотрудника: какие бывают и во что обходится точка',author:'ФЦ БАС',date:'Март 2026',ts:202603,year:2026,pages:12,rt:10,tags:['Торговля','Доставка'],structure:['Ключевые участники','Мировые показатели','Продуктовая матрица: встроенный и уличный тип, 150/200/300 ячеек','Описание сценария и условия','Преимущества и недостатки методов','Стоимость владения за 5 лет','Объём потенциального рынка','Вендоры БРС','Поддержка производства'],findings:['Мировой рынок 1,13 млрд $ (2025) → 2,9 млрд $ (2033), рост 11,9% в год','Стоимость владения за пять лет: 22,29 млн руб. у классического ПВЗ против 15,11 млн руб. у робо-ПВЗ','Цена изделия 5–30 млн руб. в зависимости от типа и ёмкости','В Москве 16,5 тыс. ПВЗ, потенциал замещения 7,9 тыс. чел.','Фактически внедрено 0 штук на ноябрь 2025'],cover:'images/research/07-robotizirovannyy-punkt-vydachi-zakazov-robo-pvz.jpg',srcCited:null,partner:false,variants:[],rtypes:['Сервисные'],ind:['Торговля'],scen:['Работа на складе'],env:['Внутри помещений'],branch:['Торговля и общепит']},
-  {id:8,slug:'skladskie-mobilnye-roboty',title:'Складские мобильные роботы',dir:'Сценарии применения',desc:'Сколько роботов нужно складам страны и что меняется на грузовой линии',author:'ФЦ БАС',date:'Март 2026',ts:202603,year:2026,pages:20,rt:15,tags:['Склад'],structure:['Ключевые участники','Цитата М.С. Орешкина','Описание сценария и условия','Мировые показатели','Кейсы Amazon и Alibaba','Каталог российской техники (3 слайда)','Каталог иностранной техники','7 способов применения','Себестоимость и эффективность','Объём перспективного рынка','Заказчики','Эксплуатанты'],findings:['Мировой рынок мобильных складских роботов 3,6 млрд $ (2025), 25% складов с автоматизацией','Склады РФ 58,4 → 80 млн кв.м (2025→2030)','Достижимый рынок роботизации 16 млн кв.м, потребность 14 800 роботов, 44 млрд руб.','14 моделей от 8 производителей','10 заказчиков с долей >48% качественных складов РФ'],cover:'images/research/08-skladskie-mobilnye-roboty.jpg',srcCited:null,partner:false,variants:[],rtypes:['Транспортные','Промышленные'],ind:['Склады и логистика'],scen:['Работа на складе'],env:['Внутри помещений'],branch:['Складское хозяйство']},
-  {id:9,slug:'manipulyatory-na-skladah',title:'Манипуляторы на складах',dir:'Сценарии применения',desc:'Роборуки на складе: что поднимают и сколько стоит готовое решение',author:'ФЦ БАС',date:'Апрель 2026',ts:202604,year:2026,pages:16,rt:10,tags:['Склад'],structure:['Ключевые участники','Мировые показатели','Мировые кейсы (Gap, Radial, Yinlong)','Описание сценария и условия','Каталог оборудования до 15 кг','Каталог оборудования до 150 кг','Каталог программного обеспечения','Преимущества и недостатки','Объём рынка и график прогноза','Потенциальные пользователи','Поддержка производства'],findings:['Мировой рынок складской робототехники 7,1 млрд $ (2023) → 19–20 млрд $ (2030), рост 15–16% в год','Доля манипуляторов 30–35%','РФ к 2030: 2 150/4 200 штук и 9,25/16,78 млрд руб./год','10 моделей (BID, CRP, Han\'s, Eidos, Universal Robots, RusRobot, KUKA, ABB, FANUC)','Себестоимость операции ниже в 10 и 30 раз'],cover:'images/research/09-manipulyatory-na-skladah.jpg',srcCited:null,partner:false,variants:[],rtypes:['Промышленные'],ind:['Склады и логистика'],scen:['Работа на складе'],env:['Внутри помещений'],branch:['Складское хозяйство']},
-  {id:10,slug:'inventarizaciya-skladov',title:'Инвентаризация складов',dir:'Сценарии применения',desc:'Как робот пересчитывает товар на полках и чем это лучше ручного пересчёта',author:'ФЦ БАС',date:'Март 2026',ts:202603,year:2026,pages:16,rt:10,tags:['Склад'],structure:['Ключевые участники','Мировые показатели','Мировые кейсы (STA Cargo, DECATHLON, GEODIS)','Описание сценария и условия','Каталог оборудования','Каталог программного обеспечения','Преимущества и недостатки методов','Объём перспективного рынка','Потенциальные пользователи','Поддержка производства'],findings:['Мировой рынок роботов-инвентаризаторов 4,8 млрд $ (2024), рост 13–15% в год','Рынок складской роботизации РФ 9,6 млрд руб. (2024) → 19 млрд руб. (2030), доля инвентаризаторов 11%','4 модели, из них одна отечественная (Spectro, Яндекс Роботикс)','Точность учёта 89–90% → 96–99,5%','Окупаемость ~2,5 года'],cover:'images/research/10-inventarizaciya-skladov.jpg',srcCited:null,partner:false,variants:[],rtypes:['Промышленные'],ind:['Склады и логистика'],scen:['Контроль и мониторинг'],env:['Внутри помещений'],branch:['Складское хозяйство']},
-  {id:11,slug:'klining-uborka-pomescheniy',title:'Клининг: уборка помещений',dir:'Сценарии применения',desc:'Машина-поломойка против бригады уборщиков и весь рынок клининга',author:'ФЦ БАС',date:'Апрель 2026',ts:202604,year:2026,pages:16,rt:10,tags:['Уборка'],structure:['Ключевые участники','Рынок клининга РФ','Описание сценария и условия','Каталог машин','Каталог программного обеспечения','Преимущества и недостатки методов','Сравнительная экономика','Объём перспективного рынка','Вендоры БРС','Поддержка производства'],findings:['Рынок клининговых услуг РФ >500 млрд руб. (2024, СРО АКФО), рынок тендеров 170 млрд руб.','Парк поломоечных машин >100 тыс. штук при импорте 90%','Прогноз к 2030: 15 000/47 000 роботов и 33/102–105 млрд руб./год','5 моделей (4 российские), TRL 6–7','Снижение затрат от 32%'],cover:'images/research/11-klining-uborka-pomescheniy.jpg',srcCited:null,partner:false,variants:[],rtypes:['Сервисные'],ind:['ЖКХ','Городское хозяйство'],scen:['Уборка'],env:['Внутри помещений'],branch:['Гостиницы и офисы']},
-  {id:12,slug:'prigotovlenie-napitkov-robokafe',title:'Приготовление напитков (робокафе)',dir:'Сценарии применения',desc:'Робот-бариста, вендинг или обычная кофейня: что дешевле на одну чашку',author:'ФЦ БАС',date:'Апрель 2026',ts:202604,year:2026,pages:12,rt:10,tags:['Общепит'],structure:['Ключевые участники','Мировые показатели','Описание сценария и условия','Каталог моделей робокафе','Сравнение форматов: робокафе, вендинг, кафе','Сравнительная экономика применения','Объём перспективного рынка','Вендоры БРС','Поддержка производства'],findings:['Мировой рынок 22,6 → 42,5 млрд $','РФ к 2030: 486/672 штук и 730/1 008 млн руб., рост +5%/+12% в год','5 моделей от 3 российских производителей (СОЛО КОФЕ, ФУДТРОНИКС, РОБИН ГУД РОБОТИКС), цена 1,5–23 млн руб.','Себестоимость 64,8–87,66 руб./чашка против бенчмарка 65 руб.','Производительность 36–100 чашек/час'],cover:'images/research/12-prigotovlenie-napitkov-robokafe.jpg',srcCited:null,partner:false,variants:[],rtypes:['Сервисные'],ind:['Общепит'],scen:['Обслуживание посетителей'],env:['Внутри помещений'],branch:['Торговля и общепит']},
-  {id:13,slug:'obsluzhivanie-posetiteley-v-obschepite',title:'Обслуживание посетителей в общепите',dir:'Сценарии применения',desc:'Робот-официант в зале: что придётся переделать и как меняется штат',author:'ФЦ БАС',date:'Апрель 2026',ts:202604,year:2026,pages:12,rt:10,tags:['Общепит'],structure:['Ключевые участники','Мировые показатели','Описание сценария, условия применения и требования к залу','Каталог моделей','Преимущества и недостатки методов','Концепция внедрения','Структура себестоимости роботизированного официанта','Объём перспективного рынка','Поддержка производства'],findings:['Мировой рынок 14,9 млрд $ (2024) → 72,9 млрд $ (2032), рост ~22%/год','РФ к 2030: 2 136/3 138 штук и 2,1/3,1 млрд руб., рост +25%/+35% в год','3 модели (Pudu KettyBot, Pudu BellaBot, Keenon DinerBot T10), 820–990 тыс. руб.','Себестоимость смены 1 484 руб. против 3 500 руб. у официанта','Замещение до 33% официантов'],cover:'images/research/13-obsluzhivanie-posetiteley-v-obschepite.jpg',srcCited:null,partner:false,variants:[],rtypes:['Сервисные'],ind:['Общепит'],scen:['Обслуживание посетителей'],env:['Внутри помещений'],branch:['Торговля и общепит']},
-  {id:14,slug:'robot-administrator',title:'Робот-администратор',dir:'Сценарии применения',desc:'Робот на ресепшене: какие модели есть и во что обходится смена',author:'ФЦ БАС',date:'Март 2026',ts:202603,year:2026,pages:12,rt:10,tags:['Сервис'],structure:['Ключевые участники','Мировые показатели','Описание сценария и условия','Каталог БРС','Преимущества и недостатки','Сравнение себестоимости','Объём перспективного рынка'],findings:['Мировой рынок сервисных роботов для отелей 1,3 млрд $ (2024) → 8,9 млрд $ (2033), рост 23,1% в год','В РФ 55 040 → 59 440 учреждений и 137,6 → 148,6 тыс. занятых (2025→2035)','Проникновение 0,1% → 2%, парк 80 → 1 200 роботов','4 модели (Promobot V4, Арди, Айдол, Amy Plus)','Себестоимость смены 5 173 против 5 525 руб.'],cover:'images/research/14-robot-administrator.jpg',srcCited:null,partner:false,variants:[],rtypes:['Сервисные'],ind:['Гостиницы','Городское хозяйство'],scen:['Обслуживание посетителей'],env:['Внутри помещений'],branch:['Гостиницы и офисы']},
-  {id:15,slug:'robot-konserzh',title:'Робот-консьерж',dir:'Сценарии применения',desc:'Кто следит за проходной вместо охранника и сколько это стоит',author:'ФЦ БАС',date:'Март 2026',ts:202603,year:2026,pages:12,rt:10,tags:['Безопасность'],structure:['Ключевые участники','Мировые показатели','Описание сценария и условия','Каталог БРС','Преимущества и недостатки','Сравнение себестоимости','Объём перспективного рынка и география внедрения'],findings:['Мировой рынок 1,2 млрд $ (2024) → 4,5 млрд $ (2033), рост 16,5% в год','В РФ 18 440 → 20 014 МФЦ и бизнес-центров, 46 → 50 тыс. занятых (2025→2035)','Проникновение 0,1% → 1,5%, парк 50 → 750 роботов','3 модели (Promobot V4, Арди, Zapan Timo AI)','Себестоимость смены 4 341 против 4 875 руб.','Внедрения в 5 субъектах РФ'],cover:'images/research/15-robot-konserzh.jpg',srcCited:null,partner:false,variants:[],rtypes:['Сервисные'],ind:['Городское хозяйство'],scen:['Контроль и мониторинг'],env:['Внутри помещений'],branch:['Гостиницы и офисы']},
-  {id:16,slug:'vnutritrubnaya-diagnostika',title:'Внутритрубная диагностика',dir:'Сценарии применения',desc:'Робот внутри трубы вместо раскопок: что находит и сколько стоит километр',author:'ФЦ БАС',date:'Апрель 2026',ts:202604,year:2026,pages:12,rt:10,tags:['ЖКХ'],structure:['Ключевые участники','Мировые показатели','Описание сценария, условия и типы выявляемых дефектов','Каталог техники','Преимущества и недостатки методов','Сравнительная экономика на 1 км','Объём перспективного рынка','Поддержка производства'],findings:['Мировой рынок 3,2 млрд $ (2024), рост 15,6% в год до 2037','Протяжённость трубопроводов РФ >2,35 млн км (2,1 млн инженерных коммуникаций + 250 тыс. магистральных)','Обследовать нужно 10% (≈235 тыс. км) в год, фактически 3%','Потребность ≈950 роботов-диагностов','4 российские модели','Стоимость диагностики 0,2–0,3 против 5–8 млн руб./км'],cover:'images/research/16-vnutritrubnaya-diagnostika.jpg',srcCited:null,partner:false,variants:[],rtypes:['Промышленные'],ind:['ЖКХ'],scen:['Контроль и мониторинг'],env:['Внутри помещений','На улице'],branch:['ЖКХ и строительство']},
-  {id:17,slug:'uborka-ulic-robotom',title:'Уборка улиц роботом',dir:'Сценарии применения',desc:'Робот метёт улицу вместо бригады: во сколько обходится час работы',author:'ФЦ БАС',date:'Апрель 2026',ts:202604,year:2026,pages:12,rt:10,tags:['Уборка','Город'],structure:['Ключевые участники','Мировые показатели','Описание сценария и условия','Каталог моделей техники','Преимущества и недостатки методов','Структура себестоимости робота-уборщика','Объём перспективного рынка','Поддержка производства'],findings:['Мировой рынок автономных уличных машин 1,47 млрд $ (2024) → 3,7 млрд $ (2030), рост ~16% в год','Себестоимость 1 202 руб. за рабочий час против 5 958 руб. у бригады из 10 человек','РФ к 2030: 11/21 единиц и 165/309 млн руб., рост +13%/+28% в год','4 модели от 3 российских производителей («Автономика», «168 роботикс», «Когнитив»)','Пилоты — Москва, СПб, Казань, Екатеринбург'],cover:'images/research/17-uborka-ulic-robotom.jpg',srcCited:null,partner:false,variants:[],rtypes:['Сервисные'],ind:['Городское хозяйство'],scen:['Уборка'],env:['На улице'],branch:['Городское хозяйство']},
+  {id:3,slug:'bespilotnyy-tramvay',title:'Беспилотный трамвай',dir:'Сценарии применения',desc:'Автономный вагон против обычного: что меняется в работе и в расходах',author:'ФЦ БАС',date:'Март 2026',ts:202603,year:2026,pages:12,rt:10,tags:['Транспорт','Город'],structure:['Ключевые участники','Мировые показатели','Описание сценария и условия','Каталог вагонов и программного обеспечения','Преимущества и недостатки методов','Сравнительная экономика','Объем перспективного рынка','Поддержка производства'],findings:['Мировой рынок трамваев 1,8 млрд $ (2024) → 2,5 млрд $ (2032), рост 4,5% в год','Парк РФ >7 тыс. вагонов, ~6 тыс. нуждается в модернизации','До 2030 планируется ~300 вагонов только в Москве','2 модели («Львенок-Москва», «Богатырь М») и 2 разработчика ПО','Эксплуатация 122,7 vs 143,7 млн руб./год'],cover:'images/research/03-bespilotnyy-tramvay.jpg',srcCited:null,partner:false,variants:[],rtypes:['Транспортные'],ind:['Транспорт','Городское хозяйство'],scen:['Перевозка пассажиров'],env:['На улице'],branch:['Транспорт и логистика']},
+  {id:4,slug:'bespilotnoe-taksi',title:'Беспилотное такси',dir:'Сценарии применения',desc:'Из чего складывается цена поездки без водителя и когда это станет массовым',author:'ФЦ БАС',date:'Март 2026',ts:202603,year:2026,pages:12,rt:10,tags:['Транспорт','Город'],structure:['Ключевые участники','Мировые показатели','Описание сценария и условия','Каталог техники: Яндекс, Baidu Apollo Go, Waymo','Преимущества и недостатки методов','Структура себестоимости беспилотного автомобиля','Объем перспективного рынка','Вендоры БРС','Поддержка производства'],findings:['Мировой рынок 3,5 млрд $ (2024) → 25 млрд $ (2033), рост ~30%/год','Четвертый уровень автономности по классификации SAE','Себестоимость 13,21 руб./км против 18 руб./км у такси','РФ к 2030: 360/3 200 единиц и 1,005/8,934 млрд руб. по двум сценариям','Комплект автономности 3,15 млн руб.'],cover:'images/research/04-bespilotnoe-taksi.jpg',srcCited:null,partner:false,variants:[],rtypes:['Транспортные'],ind:['Транспорт','Городское хозяйство'],scen:['Перевозка пассажиров'],env:['На улице'],branch:['Транспорт и логистика']},
+  {id:5,slug:'dostavka-vnutri-gostinichnyh-kompleksov',title:'Доставка внутри гостиничных комплексов',dir:'Сценарии применения',desc:'Робот возит заказы по этажам: каким должен быть отель и сколько стоит смена',author:'ФЦ БАС',date:'Март 2026',ts:202603,year:2026,pages:16,rt:10,tags:['Гостиницы'],structure:['Ключевые участники','Мировые показатели','Мировые кейсы (Marriott, Huazhu, Radisson)','Описание сценария и условия','Каталог оборудования','Каталог программного обеспечения','Преимущества и недостатки методов','Объем перспективного рынка','Потенциальные пользователи','Меры поддержки'],findings:['Мировой рынок сервисных роботов для гостиниц 0,3–0,5 млрд $ (2024), рост 25,5% в год до 2030','В РФ 8 313 гостиниц 3+ звезды, целевых с числом номеров >100 — 3 491','Рынок РФ 382 млн руб. (2026, 191 робот) → 1,39 млрд руб. (2030, 693 робота)','4 модели, 4 продукта ПО, 11 потенциальных пользователей'],cover:'images/research/05-dostavka-vnutri-gostinichnyh-kompleksov.jpg',srcCited:null,partner:false,variants:[],rtypes:['Сервисные'],ind:['Гостиницы'],scen:['Доставка грузов'],env:['Внутри помещений'],branch:['Гостиницы и офисы']},
+  {id:6,slug:'dostavka-posledney-mili-roverami',title:'Доставка «последней мили» роверами',dir:'Сценарии применения',desc:'Роверы вместо курьеров: наши и зарубежные машины и цена одного заказа',author:'ФЦ БАС',date:'Март 2026',ts:202603,year:2026,pages:16,rt:10,tags:['Доставка','Город'],structure:['Ключевые участники','Цитата зампреда Правительства РФ','Мировые показатели','Описание сценария и условия','Каталог российских и зарубежных БРС','Преимущества и недостатки методов','Структура себестоимости','Объем перспективного рынка','Потенциальные заказчики','Эксплуатанты БРС','Поддержка производства'],findings:['Мировой рынок роботизации доставки 3,6 млрд $ (2024) → 184,5 млрд $ (2037), рост ~×51','Себестоимость доставки 204 руб. против 250 руб. у курьера (−18,4%)','Проникновение БРС 0,11% → 0,19% к 2030','4 модели (Яндекс-ровер, Белка, Starship, JD.com)','Кейс «Почты России» — 36 роверов, >18 тыс. посылок, 99% в срок'],cover:'images/research/06-dostavka-posledney-mili-roverami.jpg',srcCited:null,partner:false,variants:[],rtypes:['Транспортные','Сервисные'],ind:['Торговля','Городское хозяйство'],scen:['Доставка грузов'],env:['На улице'],branch:['Транспорт и логистика']},
+  {id:7,slug:'robotizirovannyy-punkt-vydachi-zakazov-robo-pvz',title:'Роботизированный пункт выдачи заказов (робо-ПВЗ)',dir:'Сценарии применения',desc:'Пункт выдачи без сотрудника: какие бывают и во что обходится точка',author:'ФЦ БАС',date:'Март 2026',ts:202603,year:2026,pages:12,rt:10,tags:['Торговля','Доставка'],structure:['Ключевые участники','Мировые показатели','Продуктовая матрица: встроенный и уличный тип, 150/200/300 ячеек','Описание сценария и условия','Преимущества и недостатки методов','Стоимость владения за 5 лет','Объем потенциального рынка','Вендоры БРС','Поддержка производства'],findings:['Мировой рынок 1,13 млрд $ (2025) → 2,9 млрд $ (2033), рост 11,9% в год','Стоимость владения за пять лет: 22,29 млн руб. у классического ПВЗ против 15,11 млн руб. у робо-ПВЗ','Цена изделия 5–30 млн руб. в зависимости от типа и емкости','В Москве 16,5 тыс. ПВЗ, потенциал замещения 7,9 тыс. чел.','Фактически внедрено 0 штук на ноябрь 2025'],cover:'images/research/07-robotizirovannyy-punkt-vydachi-zakazov-robo-pvz.jpg',srcCited:null,partner:false,variants:[],rtypes:['Сервисные'],ind:['Торговля'],scen:['Работа на складе'],env:['Внутри помещений'],branch:['Торговля и общепит']},
+  {id:8,slug:'skladskie-mobilnye-roboty',title:'Складские мобильные роботы',dir:'Сценарии применения',desc:'Сколько роботов нужно складам страны и что меняется на грузовой линии',author:'ФЦ БАС',date:'Март 2026',ts:202603,year:2026,pages:20,rt:15,tags:['Склад'],structure:['Ключевые участники','Цитата М.С. Орешкина','Описание сценария и условия','Мировые показатели','Кейсы Amazon и Alibaba','Каталог российской техники (3 слайда)','Каталог иностранной техники','7 способов применения','Себестоимость и эффективность','Объем перспективного рынка','Заказчики','Эксплуатанты'],findings:['Мировой рынок мобильных складских роботов 3,6 млрд $ (2025), 25% складов с автоматизацией','Склады РФ 58,4 → 80 млн кв.м (2025→2030)','Достижимый рынок роботизации 16 млн кв.м, потребность 14 800 роботов, 44 млрд руб.','14 моделей от 8 производителей','10 заказчиков с долей >48% качественных складов РФ'],cover:'images/research/08-skladskie-mobilnye-roboty.jpg',srcCited:null,partner:false,variants:[],rtypes:['Транспортные','Промышленные'],ind:['Склады и логистика'],scen:['Работа на складе'],env:['Внутри помещений'],branch:['Складское хозяйство']},
+  {id:9,slug:'manipulyatory-na-skladah',title:'Манипуляторы на складах',dir:'Сценарии применения',desc:'Роборуки на складе: что поднимают и сколько стоит готовое решение',author:'ФЦ БАС',date:'Апрель 2026',ts:202604,year:2026,pages:16,rt:10,tags:['Склад'],structure:['Ключевые участники','Мировые показатели','Мировые кейсы (Gap, Radial, Yinlong)','Описание сценария и условия','Каталог оборудования до 15 кг','Каталог оборудования до 150 кг','Каталог программного обеспечения','Преимущества и недостатки','Объем рынка и график прогноза','Потенциальные пользователи','Поддержка производства'],findings:['Мировой рынок складской робототехники 7,1 млрд $ (2023) → 19–20 млрд $ (2030), рост 15–16% в год','Доля манипуляторов 30–35%','РФ к 2030: 2 150/4 200 штук и 9,25/16,78 млрд руб./год','10 моделей (BID, CRP, Han\'s, Eidos, Universal Robots, RusRobot, KUKA, ABB, FANUC)','Себестоимость операции ниже в 10 и 30 раз'],cover:'images/research/09-manipulyatory-na-skladah.jpg',srcCited:null,partner:false,variants:[],rtypes:['Промышленные'],ind:['Склады и логистика'],scen:['Работа на складе'],env:['Внутри помещений'],branch:['Складское хозяйство']},
+  {id:10,slug:'inventarizaciya-skladov',title:'Инвентаризация складов',dir:'Сценарии применения',desc:'Как робот пересчитывает товар на полках и чем это лучше ручного пересчета',author:'ФЦ БАС',date:'Март 2026',ts:202603,year:2026,pages:16,rt:10,tags:['Склад'],structure:['Ключевые участники','Мировые показатели','Мировые кейсы (STA Cargo, DECATHLON, GEODIS)','Описание сценария и условия','Каталог оборудования','Каталог программного обеспечения','Преимущества и недостатки методов','Объем перспективного рынка','Потенциальные пользователи','Поддержка производства'],findings:['Мировой рынок роботов-инвентаризаторов 4,8 млрд $ (2024), рост 13–15% в год','Рынок складской роботизации РФ 9,6 млрд руб. (2024) → 19 млрд руб. (2030), доля инвентаризаторов 11%','4 модели, из них одна отечественная (Spectro, Яндекс Роботикс)','Точность учета 89–90% → 96–99,5%','Окупаемость ~2,5 года'],cover:'images/research/10-inventarizaciya-skladov.jpg',srcCited:null,partner:false,variants:[],rtypes:['Промышленные'],ind:['Склады и логистика'],scen:['Контроль и мониторинг'],env:['Внутри помещений'],branch:['Складское хозяйство']},
+  {id:11,slug:'klining-uborka-pomescheniy',title:'Клининг: уборка помещений',dir:'Сценарии применения',desc:'Машина-поломойка против бригады уборщиков и весь рынок клининга',author:'ФЦ БАС',date:'Апрель 2026',ts:202604,year:2026,pages:16,rt:10,tags:['Уборка'],structure:['Ключевые участники','Рынок клининга РФ','Описание сценария и условия','Каталог машин','Каталог программного обеспечения','Преимущества и недостатки методов','Сравнительная экономика','Объем перспективного рынка','Вендоры БРС','Поддержка производства'],findings:['Рынок клининговых услуг РФ >500 млрд руб. (2024, СРО АКФО), рынок тендеров 170 млрд руб.','Парк поломоечных машин >100 тыс. штук при импорте 90%','Прогноз к 2030: 15 000/47 000 роботов и 33/102–105 млрд руб./год','5 моделей (4 российские), TRL 6–7','Снижение затрат от 32%'],cover:'images/research/11-klining-uborka-pomescheniy.jpg',srcCited:null,partner:false,variants:[],rtypes:['Сервисные'],ind:['ЖКХ','Городское хозяйство'],scen:['Уборка'],env:['Внутри помещений'],branch:['Гостиницы и офисы']},
+  {id:12,slug:'prigotovlenie-napitkov-robokafe',title:'Приготовление напитков (робокафе)',dir:'Сценарии применения',desc:'Робот-бариста, вендинг или обычная кофейня: что дешевле на одну чашку',author:'ФЦ БАС',date:'Апрель 2026',ts:202604,year:2026,pages:12,rt:10,tags:['Общепит'],structure:['Ключевые участники','Мировые показатели','Описание сценария и условия','Каталог моделей робокафе','Сравнение форматов: робокафе, вендинг, кафе','Сравнительная экономика применения','Объем перспективного рынка','Вендоры БРС','Поддержка производства'],findings:['Мировой рынок 22,6 → 42,5 млрд $','РФ к 2030: 486/672 штук и 730/1 008 млн руб., рост +5%/+12% в год','5 моделей от 3 российских производителей (СОЛО КОФЕ, ФУДТРОНИКС, РОБИН ГУД РОБОТИКС), цена 1,5–23 млн руб.','Себестоимость 64,8–87,66 руб./чашка против бенчмарка 65 руб.','Производительность 36–100 чашек/час'],cover:'images/research/12-prigotovlenie-napitkov-robokafe.jpg',srcCited:null,partner:false,variants:[],rtypes:['Сервисные'],ind:['Общепит'],scen:['Обслуживание посетителей'],env:['Внутри помещений'],branch:['Торговля и общепит']},
+  {id:13,slug:'obsluzhivanie-posetiteley-v-obschepite',title:'Обслуживание посетителей в общепите',dir:'Сценарии применения',desc:'Робот-официант в зале: что придется переделать и как меняется штат',author:'ФЦ БАС',date:'Апрель 2026',ts:202604,year:2026,pages:12,rt:10,tags:['Общепит'],structure:['Ключевые участники','Мировые показатели','Описание сценария, условия применения и требования к залу','Каталог моделей','Преимущества и недостатки методов','Концепция внедрения','Структура себестоимости роботизированного официанта','Объем перспективного рынка','Поддержка производства'],findings:['Мировой рынок 14,9 млрд $ (2024) → 72,9 млрд $ (2032), рост ~22%/год','РФ к 2030: 2 136/3 138 штук и 2,1/3,1 млрд руб., рост +25%/+35% в год','3 модели (Pudu KettyBot, Pudu BellaBot, Keenon DinerBot T10), 820–990 тыс. руб.','Себестоимость смены 1 484 руб. против 3 500 руб. у официанта','Замещение до 33% официантов'],cover:'images/research/13-obsluzhivanie-posetiteley-v-obschepite.jpg',srcCited:null,partner:false,variants:[],rtypes:['Сервисные'],ind:['Общепит'],scen:['Обслуживание посетителей'],env:['Внутри помещений'],branch:['Торговля и общепит']},
+  {id:14,slug:'robot-administrator',title:'Робот-администратор',dir:'Сценарии применения',desc:'Робот на ресепшене: какие модели есть и во что обходится смена',author:'ФЦ БАС',date:'Март 2026',ts:202603,year:2026,pages:12,rt:10,tags:['Сервис'],structure:['Ключевые участники','Мировые показатели','Описание сценария и условия','Каталог БРС','Преимущества и недостатки','Сравнение себестоимости','Объем перспективного рынка'],findings:['Мировой рынок сервисных роботов для отелей 1,3 млрд $ (2024) → 8,9 млрд $ (2033), рост 23,1% в год','В РФ 55 040 → 59 440 учреждений и 137,6 → 148,6 тыс. занятых (2025→2035)','Проникновение 0,1% → 2%, парк 80 → 1 200 роботов','4 модели (Promobot V4, Арди, Айдол, Amy Plus)','Себестоимость смены 5 173 против 5 525 руб.'],cover:'images/research/14-robot-administrator.jpg',srcCited:null,partner:false,variants:[],rtypes:['Сервисные'],ind:['Гостиницы','Городское хозяйство'],scen:['Обслуживание посетителей'],env:['Внутри помещений'],branch:['Гостиницы и офисы']},
+  {id:15,slug:'robot-konserzh',title:'Робот-консьерж',dir:'Сценарии применения',desc:'Кто следит за проходной вместо охранника и сколько это стоит',author:'ФЦ БАС',date:'Март 2026',ts:202603,year:2026,pages:12,rt:10,tags:['Безопасность'],structure:['Ключевые участники','Мировые показатели','Описание сценария и условия','Каталог БРС','Преимущества и недостатки','Сравнение себестоимости','Объем перспективного рынка и география внедрения'],findings:['Мировой рынок 1,2 млрд $ (2024) → 4,5 млрд $ (2033), рост 16,5% в год','В РФ 18 440 → 20 014 МФЦ и бизнес-центров, 46 → 50 тыс. занятых (2025→2035)','Проникновение 0,1% → 1,5%, парк 50 → 750 роботов','3 модели (Promobot V4, Арди, Zapan Timo AI)','Себестоимость смены 4 341 против 4 875 руб.','Внедрения в 5 субъектах РФ'],cover:'images/research/15-robot-konserzh.jpg',srcCited:null,partner:false,variants:[],rtypes:['Сервисные'],ind:['Городское хозяйство'],scen:['Контроль и мониторинг'],env:['Внутри помещений'],branch:['Гостиницы и офисы']},
+  {id:16,slug:'vnutritrubnaya-diagnostika',title:'Внутритрубная диагностика',dir:'Сценарии применения',desc:'Робот внутри трубы вместо раскопок: что находит и сколько стоит километр',author:'ФЦ БАС',date:'Апрель 2026',ts:202604,year:2026,pages:12,rt:10,tags:['ЖКХ'],structure:['Ключевые участники','Мировые показатели','Описание сценария, условия и типы выявляемых дефектов','Каталог техники','Преимущества и недостатки методов','Сравнительная экономика на 1 км','Объем перспективного рынка','Поддержка производства'],findings:['Мировой рынок 3,2 млрд $ (2024), рост 15,6% в год до 2037','Протяженность трубопроводов РФ >2,35 млн км (2,1 млн инженерных коммуникаций + 250 тыс. магистральных)','Обследовать нужно 10% (≈235 тыс. км) в год, фактически 3%','Потребность ≈950 роботов-диагностов','4 российские модели','Стоимость диагностики 0,2–0,3 против 5–8 млн руб./км'],cover:'images/research/16-vnutritrubnaya-diagnostika.jpg',srcCited:null,partner:false,variants:[],rtypes:['Промышленные'],ind:['ЖКХ'],scen:['Контроль и мониторинг'],env:['Внутри помещений','На улице'],branch:['ЖКХ и строительство']},
+  {id:17,slug:'uborka-ulic-robotom',title:'Уборка улиц роботом',dir:'Сценарии применения',desc:'Робот метет улицу вместо бригады: во сколько обходится час работы',author:'ФЦ БАС',date:'Апрель 2026',ts:202604,year:2026,pages:12,rt:10,tags:['Уборка','Город'],structure:['Ключевые участники','Мировые показатели','Описание сценария и условия','Каталог моделей техники','Преимущества и недостатки методов','Структура себестоимости робота-уборщика','Объем перспективного рынка','Поддержка производства'],findings:['Мировой рынок автономных уличных машин 1,47 млрд $ (2024) → 3,7 млрд $ (2030), рост ~16% в год','Себестоимость 1 202 руб. за рабочий час против 5 958 руб. у бригады из 10 человек','РФ к 2030: 11/21 единиц и 165/309 млн руб., рост +13%/+28% в год','4 модели от 3 российских производителей («Автономика», «168 роботикс», «Когнитив»)','Пилоты — Москва, СПб, Казань, Екатеринбург'],cover:'images/research/17-uborka-ulic-robotom.jpg',srcCited:null,partner:false,variants:[],rtypes:['Сервисные'],ind:['Городское хозяйство'],scen:['Уборка'],env:['На улице'],branch:['Городское хозяйство']},
   {id:18,slug:'transport-i-logistika-bespilotnye-tehnologii-v-gruzoperevozk',title:'Транспорт и логистика: беспилотные технологии в грузоперевозках',dir:'Отраслевые обзоры',desc:'Вся цепочка от склада до двери: где нужны беспилотники и что это даст',author:'ФЦ БАС',date:'Февраль 2026',ts:202602,year:2026,pages:68,rt:50,tags:['Транспорт'],structure:['Периметр отрасли и уровни автономности I–V','Карта решений: 20 позиций','Выбор приоритетных решений','8 сценариев с описанием, рынком, каталогом и кейсами','Оценка эффектов по каждому сценарию','Сводка по цепи поставок и 3 варианта развития','Косвенные эффекты','Регулирование и барьеры','Каталог 42 сценариев БАС в 7 отраслях'],findings:['Выручка отрасли к 2035 — 48 млрд руб., инвестиции в парк — 45 млрд руб. при проникновении ~0,1%','Мировой рынок автономных грузовиков 41 → 94 млрд $ (2024→2030)','24 модели техники и ~30 кейсов внедрения','Интегральный эффект к 2035: скорость −20%, стоимость −30%','9 НПА и ГОСТов'],cover:'images/research/18-transport-i-logistika-bespilotnye-tehnologii-v-gruzoperevozk.jpg',srcCited:null,partner:false,variants:[],rtypes:['Транспортные'],ind:['Транспорт','Склады и логистика'],scen:['Доставка грузов','Работа на складе'],env:['Внутри помещений','На улице'],branch:['Транспорт и логистика']},
   {id:19,slug:'selskoe-hozyaystvo-rastenievodstvo',title:'Сельское хозяйство: растениеводство',dir:'Отраслевые обзоры',desc:'Четыре полевые задачи и техника, которая их уже закрывает',author:'ФЦ БАС',date:'Март 2026',ts:202603,year:2026,pages:20,rt:15,tags:['Сельское хозяйство'],structure:['Ключевые участники','Цитата М.В. Мишустина','Глоссарий','Интегральные эффекты','Применение БАС и БРС в отрасли','Матрица задач и решений','Задача 1: вспашка и обработка поля + каталог','Задача 2: мониторинг + каталог','Задача 3: внесение семян и химикатов, БАС и БРС + каталоги','Задача 4: уборка урожая + каталог'],findings:['22 решения от 19 производителей, из них 18 в серийном производстве и 4 в пилотировании','Эффекты: 250 тыс. руб. за сезон на 100 га, экономия >40% при мониторинге, >10% при внесении, +20% производительности при уборке','Кейсы — 6 000 га цифровой карты полей (Новосибирская обл., 2024), ~60 комбайнов TORUM 785 на полях РФ'],cover:'images/research/19-selskoe-hozyaystvo-rastenievodstvo.jpg',srcCited:null,partner:false,variants:[],rtypes:['Промышленные'],ind:['Сельское хозяйство'],scen:['Полевые работы и сбор урожая','Контроль и мониторинг'],env:['На улице'],branch:['Сельское хозяйство']},
   {id:20,slug:'stroitelstvo-i-zhkh',title:'Строительство и ЖКХ',dir:'Отраслевые обзоры',desc:'13 направлений на стройке и в сетях: что роботы делают и с каким эффектом',author:'ФЦ БАС',date:'Апрель 2026',ts:202604,year:2026,pages:24,rt:20,tags:['Стройка','ЖКХ'],structure:['Глоссарий','Ключевые участники','13 направлений применения','Матрица задач и решений','Цитата М.Ш. Хуснуллина','Интегральные эффекты','12 карточек сценариев: задачи, преимущества, УГТ, оборудование, кейсы'],findings:['6 интегральных эффектов: снижение затрат на персонал 20–50%, рисков из-за ошибок до 50%, травматизма 50–70%, сроков 15–50%, рост производительности 35–50%, покрытие данными 100%','~38 моделей техники','Кейсы Росреестра (86 га мониторинга), ГУП «ТЭК СПб» (3 019 км тепловых сетей), «Главстрой» (150 000 кв.м фасада), РОИН Р-100 (демонтаж 12-этажного здания за неделю)'],cover:'images/research/20-stroitelstvo-i-zhkh.jpg',srcCited:null,partner:false,variants:[],rtypes:['Промышленные'],ind:['Стройка','ЖКХ'],scen:['Строительные работы','Контроль и мониторинг','Обслуживание зданий и сетей'],env:['Внутри помещений','На улице'],branch:['ЖКХ и строительство']},
-  {id:21,slug:'lesnaya-otrasl',title:'Лесная отрасль',dir:'Отраслевые обзоры',desc:'Как считают лес и ловят пожары с воздуха',author:'ФЦ БАС',date:'Март 2026',ts:202603,year:2026,pages:16,rt:10,tags:['Лес'],structure:['Глоссарий с нормативными определениями','Ключевые участники','Матрица задач и БАС-решений в лесном хозяйстве','7 карточек сценариев с эффектом, зрелостью и кейсами в России','Матрица задач и БРС-решений в ЛПК','Примеры роботов в лесопромышленном комплексе'],findings:['7 сценариев: борьба с незаконными рубками, мониторинг пожарной опасности, информационная поддержка наземных сил, таксация лесосек и лесов, контроль лесопатологий, учёт животных в ООПТ','Эффекты — экономия в 2–5 раз, снижение затрат на 20–40%, 245 → 49 тыс. руб./смена','16 моделей БВС и 5 ИИ-продуктов','Кейсы в Якутии, Марий Эл, Сахалине, Красноярском крае'],cover:'images/research/21-lesnaya-otrasl.jpg',srcCited:null,partner:false,variants:[],rtypes:['Промышленные'],ind:['Лес'],scen:['Контроль и мониторинг'],env:['На улице'],branch:['Сельское хозяйство']},
+  {id:21,slug:'lesnaya-otrasl',title:'Лесная отрасль',dir:'Отраслевые обзоры',desc:'Как считают лес и ловят пожары с воздуха',author:'ФЦ БАС',date:'Март 2026',ts:202603,year:2026,pages:16,rt:10,tags:['Лес'],structure:['Глоссарий с нормативными определениями','Ключевые участники','Матрица задач и БАС-решений в лесном хозяйстве','7 карточек сценариев с эффектом, зрелостью и кейсами в России','Матрица задач и БРС-решений в ЛПК','Примеры роботов в лесопромышленном комплексе'],findings:['7 сценариев: борьба с незаконными рубками, мониторинг пожарной опасности, информационная поддержка наземных сил, таксация лесосек и лесов, контроль лесопатологий, учет животных в ООПТ','Эффекты — экономия в 2–5 раз, снижение затрат на 20–40%, 245 → 49 тыс. руб./смена','16 моделей БВС и 5 ИИ-продуктов','Кейсы в Якутии, Марий Эл, Сахалине, Красноярском крае'],cover:'images/research/21-lesnaya-otrasl.jpg',srcCited:null,partner:false,variants:[],rtypes:['Промышленные'],ind:['Лес'],scen:['Контроль и мониторинг'],env:['На улице'],branch:['Сельское хозяйство']},
   {id:22,slug:'katalog-produktovyh-resheniy-robototehniki-dlya-gorodskogo-h',title:'Каталог продуктовых решений робототехники для городского хозяйства',dir:'Рынок и технологии',desc:'48 российских роботов для города: кто их делает и что они умеют',author:'ЦСР',date:'3 кв. 2025',ts:202500,year:2025,pages:55,rt:40,tags:['Каталог','Город'],structure:['Подходы к формированию каталога','Медицинские роботы: 12 решений','Строительные роботы: 10 решений','ЖКХ роботы: 12 решений','Транспортные роботы: 5 решений','Приложение: расширенный ассортимент, 9 решений'],findings:['48 карточек продуктов от 38 производителей, ИНН указан у всех 48','11 сфер применения','Города — Москва (36 из 45), СПб, Казань, Пермь, Томск, Екатеринбург, Петрозаводск, Дубна, Набережные Челны','Цена указана числом только у 7 позиций, у 41 — «по запросу»','Полный перечень вынесен в отдельный Excel-реестр'],cover:'images/research/22-katalog-produktovyh-resheniy-robototehniki-dlya-gorodskogo-h.jpg',srcCited:null,partner:false,variants:[],rtypes:['Промышленные','Сервисные','Транспортные'],ind:['Городское хозяйство','ЖКХ','Стройка','Транспорт','Здравоохранение'],scen:['Строительные работы','Обслуживание зданий и сетей'],env:['Внутри помещений','На улице'],branch:['Городское хозяйство']},
-  {id:23,slug:'katalog-razrabotchikov-produktovyh-resheniy-v-oblasti-roboto',title:'Каталог разработчиков продуктовых решений в области робототехники',dir:'Рынок и технологии',desc:'Кто в стране занимается роботами: 50 вузов и научных площадок',author:'ЦСР',date:'2026',ts:202600,year:2026,pages:21,rt:15,tags:['Каталог','Наука'],structure:['Структура каталога и источники отбора','Организации высшего образования: 35 записей','Научные площадки: 15 записей','Выводы по географии'],findings:['50 организаций: 35 вузов и 15 научных площадок, 13 из них в Москве','Отобраны по трём источникам — НАУРР, Консорциум Центра технологий компонентов робототехники Иннополиса, Научный совет по робототехнике и мехатронике РАН','Исключены организации без собственных разработок','Типология продуктовых решений — 3 класса и ~20 подтипов'],cover:'images/research/23-katalog-razrabotchikov-produktovyh-resheniy-v-oblasti-roboto.jpg',srcCited:null,partner:false,variants:[],rtypes:['Промышленные','Сервисные','Транспортные'],ind:['Наука и образование'],scen:[],env:['Внутри помещений','На улице'],branch:[]},
-  {id:24,slug:'uspeshnye-mezhdunarodnye-keysy-primeneniya-robototehniki',title:'Успешные международные кейсы применения робототехники',dir:'Международный опыт',desc:'15 зарубежных проектов: что внедрили, что получили и есть ли у нас аналог',author:'ЦСР',date:'2026',ts:202600,year:2026,pages:20,rt:15,tags:['Мировой опыт'],structure:['Строительство: 5 кейсов','ЖКХ: 3 кейса','Здравоохранение: 4 кейса','Транспорт: 3 кейса','У каждого кейса: описание, страна, оператор, технологические партнёры, вехи по годам, модель робота, эффекты, экспертный вывод по России'],findings:['15 кейсов из 9 стран (США 6, Финляндия 2, Китай 2, Австралия, Израиль, Канада, Южная Корея, Норвегия, Германия)','22 временные вехи за 2015–2025','19 моделей роботов (Hadrian X, TyBot, IronBot, ZenRobotics, Trombia Free, ROSA, Moxi, Parkie и др.)','В 6 кейсах из 15 указано, что аналога в России нет, в 9 назван российский аналог'],cover:'images/research/24-uspeshnye-mezhdunarodnye-keysy-primeneniya-robototehniki.jpg',srcCited:null,partner:false,variants:[],rtypes:['Промышленные','Сервисные','Транспортные'],ind:['Стройка','ЖКХ','Здравоохранение','Транспорт'],scen:['Строительные работы','Уборка','Доставка грузов'],env:['Внутри помещений','На улице'],branch:[]},
+  {id:23,slug:'katalog-razrabotchikov-produktovyh-resheniy-v-oblasti-roboto',title:'Каталог разработчиков продуктовых решений в области робототехники',dir:'Рынок и технологии',desc:'Кто в стране занимается роботами: 50 вузов и научных площадок',author:'ЦСР',date:'2026',ts:202600,year:2026,pages:21,rt:15,tags:['Каталог','Наука'],structure:['Структура каталога и источники отбора','Организации высшего образования: 35 записей','Научные площадки: 15 записей','Выводы по географии'],findings:['50 организаций: 35 вузов и 15 научных площадок, 13 из них в Москве','Отобраны по трем источникам — НАУРР, Консорциум Центра технологий компонентов робототехники Иннополиса, Научный совет по робототехнике и мехатронике РАН','Исключены организации без собственных разработок','Типология продуктовых решений — 3 класса и ~20 подтипов'],cover:'images/research/23-katalog-razrabotchikov-produktovyh-resheniy-v-oblasti-roboto.jpg',srcCited:null,partner:false,variants:[],rtypes:['Промышленные','Сервисные','Транспортные'],ind:['Наука и образование'],scen:[],env:['Внутри помещений','На улице'],branch:[]},
+  {id:24,slug:'uspeshnye-mezhdunarodnye-keysy-primeneniya-robototehniki',title:'Успешные международные кейсы применения робототехники',dir:'Международный опыт',desc:'15 зарубежных проектов: что внедрили, что получили и есть ли у нас аналог',author:'ЦСР',date:'2026',ts:202600,year:2026,pages:20,rt:15,tags:['Мировой опыт'],structure:['Строительство: 5 кейсов','ЖКХ: 3 кейса','Здравоохранение: 4 кейса','Транспорт: 3 кейса','У каждого кейса: описание, страна, оператор, технологические партнеры, вехи по годам, модель робота, эффекты, экспертный вывод по России'],findings:['15 кейсов из 9 стран (США 6, Финляндия 2, Китай 2, Австралия, Израиль, Канада, Южная Корея, Норвегия, Германия)','22 временные вехи за 2015–2025','19 моделей роботов (Hadrian X, TyBot, IronBot, ZenRobotics, Trombia Free, ROSA, Moxi, Parkie и др.)','В 6 кейсах из 15 указано, что аналога в России нет, в 9 назван российский аналог'],cover:'images/research/24-uspeshnye-mezhdunarodnye-keysy-primeneniya-robototehniki.jpg',srcCited:null,partner:false,variants:[],rtypes:['Промышленные','Сервисные','Транспортные'],ind:['Стройка','ЖКХ','Здравоохранение','Транспорт'],scen:['Строительные работы','Уборка','Доставка грузов'],env:['Внутри помещений','На улице'],branch:[]},
   {id:25,slug:'robototehnicheskie-resheniya-v-sfere-zhkh-i-kapitalnogo-remo',title:'Робототехнические решения в сфере ЖКХ и капитального ремонта',dir:'Международный опыт',desc:'24 зарубежных решения для домов и сетей и чем их заменить у нас',author:'Фонд «Московский инновационный кластер»',date:'Август 2026',ts:202608,year:2026,pages:27,rt:20,tags:['ЖКХ','Мировой опыт'],structure:['Подход к исследованию','7 направлений применения роботов в ЖКХ','Реестр 33 функций с отметкой реализованных в Москве','24 карточки решений: модель, страна, статус в РФ, амплуа, год разработки, масштаб внедрения, производитель, эффекты внедрения, источники'],findings:['24 решения из 12 стран (США 7, Япония 3, Швеция 2, Израиль 2, Великобритания 2 и др.)','7 направлений и 33 функции','У 16 решений из 24 аналоги в РФ отсутствуют, у 3 аналог используется, у 2 разрабатывается','Годы разработки 1981–2025','Выручка производителей от 34 млн до 1,4 трлн руб.'],cover:'images/research/25-robototehnicheskie-resheniya-v-sfere-zhkh-i-kapitalnogo-remo.jpg',srcCited:null,partner:false,variants:[],rtypes:['Промышленные','Сервисные','Транспортные'],ind:['ЖКХ','Стройка','Городское хозяйство'],scen:['Обслуживание зданий и сетей'],env:['Внутри помещений','На улице'],branch:['ЖКХ и строительство']},
-  {id:26,slug:'bespilotnye-sistemy-v-moskve-analitika-k-forumu',title:'Беспилотные системы в Москве: аналитика к форуму',dir:'Рынок и технологии',desc:'Кто делает беспилотники в Москве и сколько их может понадобиться городу',author:'Фонд «Московский инновационный кластер»',date:'Август 2025',ts:202508,year:2025,pages:29,rt:20,tags:['Москва','Рынок'],structure:['Таксономия БС: БАС, БТС, БЭС','Мировой рынок и мировой венчур','Технологические тренды','Применение БС в городах мира','Разработка БС в Москве','Венчурные инвестиции в Москве','ЖКХ и благоустройство','Такси и легковые автомобили','Общественный транспорт','Строительство','Безопасность','Ритейл и логистика','Приложение: методика расчёта потенциала внедрения'],findings:['Мировой рынок БС 253 млрд $ (2024) → 1 333 млрд $ (2030), рост +35% в год','Мировой венчур 98,1 млрд $ и 3,6 тыс. сделок за 2018–1п.2025','В Москве 123 разработчика и 16 НТЦ, выручка 36,8 млрд руб., занятость 9,8 тыс. чел.','Венчур Москвы 2,8 млрд руб. и 23 сделки','Потенциал внедрения — 80 тыс. беспилотных такси, 102 тыс. роверов доставки еды, 45 тыс. складских роботов'],cover:'images/research/26-bespilotnye-sistemy-v-moskve-analitika-k-forumu.jpg',srcCited:null,partner:false,variants:[],rtypes:['Промышленные','Сервисные','Транспортные'],ind:['Городское хозяйство','ЖКХ','Транспорт','Стройка','Торговля','Склады и логистика'],scen:['Перевозка пассажиров','Доставка грузов','Работа на складе','Строительные работы','Обслуживание зданий и сетей','Уборка','Контроль и мониторинг'],env:['Внутри помещений','На улице'],branch:[]},
-  {id:27,slug:'razvitie-gorodskoy-robototehniki-v-stranah-briks',title:'Развитие городской робототехники в странах БРИКС',dir:'Международный опыт',desc:'Роботы в городах БРИКС и сколько их может вместить Москва',author:'Фонд «Московский инновационный кластер»',date:'2025',ts:202500,year:2025,pages:36,rt:25,tags:['Мировой опыт','Город'],structure:['День в жизни города роботов','Промышленная и сервисная робототехника','Мировой рынок','Ключевые тренды','Карта потенциала 5 городов БРИКС','Страновые профили: Китай, Индия, Россия, Бразилия, ЮАР','Драйверы спроса','8 городских сфер применения','Ёмкость внедрения роботов в Москве','16 кейсов по сферам'],findings:['Мировой рынок робототехники 80,3 млрд $ к 2030, рост +9,6% в год','Сервисная робототехника 36,2 → 68,5 млрд $ (2024→2030), ~85% рынка','Дефицит кадров в мире >80 млн работников к 2030','16 кейсов: Россия 7, Китай 5, Индия 2, Бразилия 1','8 городских сфер и ~30 типов роботов'],cover:'images/research/27-razvitie-gorodskoy-robototehniki-v-stranah-briks.jpg',srcCited:null,partner:false,variants:[],rtypes:['Сервисные'],ind:['Городское хозяйство'],scen:['Уборка','Обслуживание посетителей'],env:['Внутри помещений','На улице'],branch:['Городское хозяйство']},
-  {id:28,slug:'obzor-rynka-tehnologii-robototehniki-v-rossii-i-mire',title:'Обзор рынка: технологии робототехники в России и мире',dir:'Рынок и технологии',desc:'Как устроен рынок роботов в России и мире и по каким сегментам он растёт',author:'Не указан',date:'2026',ts:202600,year:2026,pages:48,rt:35,tags:['Рынок'],structure:['Определение робототехники и БРС','Классификация по ISO 8373:2021','Этапы и уровень развития','Развитие робототехники в мире','Оценка ёмкости рынка в России','Промышленные роботы: применения','Сервисная робототехника: применения','Медицинские роботы: рынок, применения, ключевые сегменты и 10 карточек компаний','Строительные роботы: рынок и 5 карточек','ЖКХ роботы: 4 подрынка и 6 карточек','Транспортные роботы: рынок и 5 карточек'],findings:['Мировой рынок робототехники 46–51 млрд $ (2023) → 169,8–214,6 млрд $ (2030), рост 15–22% в год','Рынок РФ ≈7,6 млрд руб. (2020)','Плотность роботизации РФ 19 роботов на 10 тыс. занятых против 1 012 в Ю. Корее','Парк промышленных роботов РФ 2 376 → 8 815 единиц (2013→2023)','86 строк «компания × продукт», из них 24 российские','20 сегментов 2-го уровня'],cover:'images/research/28-obzor-rynka-tehnologii-robototehniki-v-rossii-i-mire.jpg',srcCited:null,partner:false,variants:[],rtypes:['Промышленные','Сервисные','Транспортные'],ind:['Стройка','ЖКХ','Транспорт','Здравоохранение'],scen:['Строительные работы','Обслуживание зданий и сетей'],env:['Внутри помещений','На улице'],branch:[]}
+  {id:26,slug:'bespilotnye-sistemy-v-moskve-analitika-k-forumu',title:'Беспилотные системы в Москве: аналитика к форуму',dir:'Рынок и технологии',desc:'Кто делает беспилотники в Москве и сколько их может понадобиться городу',author:'Фонд «Московский инновационный кластер»',date:'Август 2025',ts:202508,year:2025,pages:29,rt:20,tags:['Москва','Рынок'],structure:['Таксономия БС: БАС, БТС, БЭС','Мировой рынок и мировой венчур','Технологические тренды','Применение БС в городах мира','Разработка БС в Москве','Венчурные инвестиции в Москве','ЖКХ и благоустройство','Такси и легковые автомобили','Общественный транспорт','Строительство','Безопасность','Ритейл и логистика','Приложение: методика расчета потенциала внедрения'],findings:['Мировой рынок БС 253 млрд $ (2024) → 1 333 млрд $ (2030), рост +35% в год','Мировой венчур 98,1 млрд $ и 3,6 тыс. сделок за 2018–1п.2025','В Москве 123 разработчика и 16 НТЦ, выручка 36,8 млрд руб., занятость 9,8 тыс. чел.','Венчур Москвы 2,8 млрд руб. и 23 сделки','Потенциал внедрения — 80 тыс. беспилотных такси, 102 тыс. роверов доставки еды, 45 тыс. складских роботов'],cover:'images/research/26-bespilotnye-sistemy-v-moskve-analitika-k-forumu.jpg',srcCited:null,partner:false,variants:[],rtypes:['Промышленные','Сервисные','Транспортные'],ind:['Городское хозяйство','ЖКХ','Транспорт','Стройка','Торговля','Склады и логистика'],scen:['Перевозка пассажиров','Доставка грузов','Работа на складе','Строительные работы','Обслуживание зданий и сетей','Уборка','Контроль и мониторинг'],env:['Внутри помещений','На улице'],branch:[]},
+  {id:27,slug:'razvitie-gorodskoy-robototehniki-v-stranah-briks',title:'Развитие городской робототехники в странах БРИКС',dir:'Международный опыт',desc:'Роботы в городах БРИКС и сколько их может вместить Москва',author:'Фонд «Московский инновационный кластер»',date:'2025',ts:202500,year:2025,pages:36,rt:25,tags:['Мировой опыт','Город'],structure:['День в жизни города роботов','Промышленная и сервисная робототехника','Мировой рынок','Ключевые тренды','Карта потенциала 5 городов БРИКС','Страновые профили: Китай, Индия, Россия, Бразилия, ЮАР','Драйверы спроса','8 городских сфер применения','Емкость внедрения роботов в Москве','16 кейсов по сферам'],findings:['Мировой рынок робототехники 80,3 млрд $ к 2030, рост +9,6% в год','Сервисная робототехника 36,2 → 68,5 млрд $ (2024→2030), ~85% рынка','Дефицит кадров в мире >80 млн работников к 2030','16 кейсов: Россия 7, Китай 5, Индия 2, Бразилия 1','8 городских сфер и ~30 типов роботов'],cover:'images/research/27-razvitie-gorodskoy-robototehniki-v-stranah-briks.jpg',srcCited:null,partner:false,variants:[],rtypes:['Сервисные'],ind:['Городское хозяйство'],scen:['Уборка','Обслуживание посетителей'],env:['Внутри помещений','На улице'],branch:['Городское хозяйство']},
+  {id:28,slug:'obzor-rynka-tehnologii-robototehniki-v-rossii-i-mire',title:'Обзор рынка: технологии робототехники в России и мире',dir:'Рынок и технологии',desc:'Как устроен рынок роботов в России и мире и по каким сегментам он растет',author:'Не указан',date:'2026',ts:202600,year:2026,pages:48,rt:35,tags:['Рынок'],structure:['Определение робототехники и БРС','Классификация по ISO 8373:2021','Этапы и уровень развития','Развитие робототехники в мире','Оценка емкости рынка в России','Промышленные роботы: применения','Сервисная робототехника: применения','Медицинские роботы: рынок, применения, ключевые сегменты и 10 карточек компаний','Строительные роботы: рынок и 5 карточек','ЖКХ роботы: 4 подрынка и 6 карточек','Транспортные роботы: рынок и 5 карточек'],findings:['Мировой рынок робототехники 46–51 млрд $ (2023) → 169,8–214,6 млрд $ (2030), рост 15–22% в год','Рынок РФ ≈7,6 млрд руб. (2020)','Плотность роботизации РФ 19 роботов на 10 тыс. занятых против 1 012 в Ю. Корее','Парк промышленных роботов РФ 2 376 → 8 815 единиц (2013→2023)','86 строк «компания × продукт», из них 24 российские','20 сегментов 2-го уровня'],cover:'images/research/28-obzor-rynka-tehnologii-robototehniki-v-rossii-i-mire.jpg',srcCited:null,partner:false,variants:[],rtypes:['Промышленные','Сервисные','Транспортные'],ind:['Стройка','ЖКХ','Транспорт','Здравоохранение'],scen:['Строительные работы','Обслуживание зданий и сетей'],env:['Внутри помещений','На улице'],branch:[]}
 ];
 (function(){
  var side=document.getElementById('anSide');
@@ -3454,7 +3461,7 @@ var RESEARCH=[
    vals:['Гостиницы и офисы','Сельское хозяйство','Транспорт и логистика',
     'Городское хозяйство','ЖКХ и строительство','Складское хозяйство',
     'Торговля и общепит']},
-  /* тип берётся из dir — того же поля, что стоит подписью на карточке,
+  /* тип берется из dir — того же поля, что стоит подписью на карточке,
      так что выбранное в панели и написанное на карточке — одно и то же */
   {key:'type',field:'dir',label:'Тип исследования',
    vals:['Сценарии применения','Отраслевые обзоры','Рынок и технологии',
@@ -3476,7 +3483,7 @@ var RESEARCH=[
   ['клининг','уборка помещений'],
   ['робокафе','приготовление напитков','робот-бариста'],
   ['последняя миля','ровер','робот-доставщик'],
-  ['склад','перемещение грузов на складах','инвентаризация и учёт'],
+  ['склад','перемещение грузов на складах','инвентаризация и учет'],
   ['жкх','обслуживание зданий и сетей','капитальный ремонт']
  ];
  function expand(s){
@@ -3525,8 +3532,8 @@ var RESEARCH=[
   return l.sort(by[F.sort]||by.new);
  }
 
- /* счётчик у значения — сколько исследований останется, если его выбрать:
-    считаем с учётом других групп и поиска, поэтому пустых комбинаций нет */
+ /* счетчик у значения — сколько исследований останется, если его выбрать:
+    считаем с учетом других групп и поиска, поэтому пустых комбинаций нет */
  function tally(g,v){
   var t=terms();
   return RESEARCH.filter(function(r){
@@ -3543,7 +3550,7 @@ var RESEARCH=[
    (F.panel?'true':'false')+'">Фильтры'+(picked?'<b>'+picked+'</b>':'')+'</button>'+
    '<div class="fn-body">'+
    /* все значения показываются сразу: по раскрытому списку видно, что вообще
-      есть внутри оси. Счётчик справа — сколько останется, если отметить */
+      есть внутри оси. Счетчик справа — сколько останется, если отметить */
    GROUPS.map(function(g){
     return '<div class="fn-group"><div class="fn-glabel">'+esc(g.label)+'</div>'+
      '<div class="an-opts" role="group" aria-label="'+esc(g.label)+'">'+g.vals.map(function(v){
@@ -3561,7 +3568,7 @@ var RESEARCH=[
  }
 
  /* карточка списка: обложка документа, подпись, крупное название, строка
-    о чём материал, метки для навигации и выходные данные.
+    о чем материал, метки для навигации и выходные данные.
     Выводы длинные — они в окне */
  function card(r){
   var ind=r.ind||[], more=ind.length>3?ind.length-3:0;
@@ -3592,7 +3599,7 @@ var RESEARCH=[
    (all.length
     ? '<div class="an-grid">'+shown.map(card).join('')+'</div>'+
       (all.length>shown.length
-       ? '<p class="an-mo"><button type="button" class="btn btn-ghost" data-more>Показать ещё ('+
+       ? '<p class="an-mo"><button type="button" class="btn btn-ghost" data-more>Показать еще ('+
          (all.length-shown.length)+')</button></p>' : '')
     : '<p class="fn-empty">Ничего не найдено — снимите часть фильтров или измените запрос</p>');
  }
@@ -3622,7 +3629,7 @@ var RESEARCH=[
      ['Сценарий применения',(r.scen||[]).join(', ')],
      ['Автор',r.author&&r.author!=='Не указан'?r.author:'По запросу'],
      ['Дата',r.date],
-     ['Объём',r.pages+' стр.'],
+     ['Объем',r.pages+' стр.'],
      /* в темах оставляем только то, чего нет в отрасли и сценарии */
      ['Темы',r.tags.filter(function(t){
        return (r.ind||[]).indexOf(t)<0&&(r.scen||[]).indexOf(t)<0; }).join(', ')]
@@ -3658,13 +3665,13 @@ var RESEARCH=[
  side.addEventListener('click',function(e){
   if(e.target.closest('[data-toggle]')){ F.panel=!F.panel; return drawSide(); }
   if(e.target.closest('[data-reset]')){
-   /* сброс идёт по самому списку групп: добавится ось — чистить не забудем */
+   /* сброс идет по самому списку групп: добавится ось — чистить не забудем */
    F.q=''; GROUPS.forEach(function(g){ F[g.key]=[]; });
    F.shown=STEP; q.value=''; return redraw();
   }
  });
  /* отметка ловится по change, а не по клику: щелчок по подписи браузер сам
-    переводит в переключение флажка, и click пришёл бы дважды */
+    переводит в переключение флажка, и click пришел бы дважды */
  side.addEventListener('change',function(e){
   var box=e.target.closest('input[data-g]'); if(!box) return;
   var g=box.getAttribute('data-g'), v=box.getAttribute('data-v');
@@ -3698,11 +3705,11 @@ var ENVIRONMENTS=[
     lead:'Улицы, дороги, тротуары и парковки — как в реальной городской среде',
     sites:[
       { id:'city-1', photo:'images/testing/site-01.jpg', loc:'skolkovo', name:'Улично-дорожная сеть', place:'ИЦ «Сколково», Большой бульвар', size:'10 км, 4 полосы',
-        desc:'Полноценная городская среда для отработки маршрутов, манёвров, сенсоров и навигации.',
-        parts:['Светофоры, перекрёстки, шлагбаумы','Уклоны, подъёмы, искусственные препятствия','Дорожная разметка, бордюры','Станция электрозарядки','Тротуары (асфальт, плитка), тактильная плитка'],
+        desc:'Полноценная городская среда для отработки маршрутов, маневров, сенсоров и навигации.',
+        parts:['Светофоры, перекрестки, шлагбаумы','Уклоны, подъемы, искусственные препятствия','Дорожная разметка, бордюры','Станция электрозарядки','Тротуары (асфальт, плитка), тактильная плитка'],
         who:'Беспилотный транспорт; коммунальные, логистические и мониторинговые роботы' },
       { id:'city-2', photo:'images/testing/site-02.png', loc:'skolkovo', name:'Трасса вокруг пруда', place:'ИЦ «Сколково»', size:'3,5 га',
-        desc:'Сжатая модель городской среды: смена ритма, перепады рельефа, разные фактуры под колёсами.',
+        desc:'Сжатая модель городской среды: смена ритма, перепады рельефа, разные фактуры под колесами.',
         parts:['Прямые и петлеобразные участки, уклоны до 20°','Плиточное, асфальтовое, деревянное покрытие','Ступеньки, газон 1 га, насаждения 3 га','Песок, урны, малые архитектурные формы'],
         who:'Наземные уличные и биоморфные роботы' },
       { id:'city-3', photo:'images/testing/site-05.jpg', loc:'skolkovo', name:'Парковка у БЦ «Куб»', place:'ИЦ «Сколково»', size:'0,25 га',
@@ -3711,9 +3718,9 @@ var ENVIRONMENTS=[
         who:'Беспилотный транспорт, биоморфные, коммунальные и логистические роботы' },
       { id:'city-4', photo:'images/testing/site-08.jpg', loc:'skolkovo', name:'Бетонная площадка у ангара ЦЭХ', place:'ИЦ «Сколково»', size:'260 м²',
         desc:'Открытая площадка для проверки устойчивости движения.',
-        parts:['Искусственные неровности','Смена покрытий','Разметка и препятствия для манёвров'],
+        parts:['Искусственные неровности','Смена покрытий','Разметка и препятствия для маневров'],
         who:'Наземные уличные роботы' },
-      { id:'city-5', photo:'images/testing/site-14.jpg', loc:'kalibr', name:'Трасса мини-город, Технопарк «Калибр»', place:'Партнёрская площадка', size:'400 м',
+      { id:'city-5', photo:'images/testing/site-14.jpg', loc:'kalibr', name:'Трасса мини-город, Технопарк «Калибр»', place:'Партнерская площадка', size:'400 м',
         desc:'Городская среда по ГОСТу: остановки, переходы, знаки, круговое движение.',
         parts:['Остановки, переходы, знаки','Разметка по ГОСТу','Круговое движение'],
         who:'Сервисные роботы' }
@@ -3745,7 +3752,7 @@ var ENVIRONMENTS=[
         who:'Внутриобъектные, складские, антропоморфные роботы' },
       { id:'in-2', photo:'images/testing/site-04.jpg', loc:'skolkovo', name:'БЦ «Амальтея»', place:'ИЦ «Сколково»', size:'500 м²',
         desc:'Фрагмент настоящей рабочей среды: переходы между этажами, стеклянные плоскости, узкие проходы.',
-        parts:['Реальные офисные и МОП-условия','Уличные и внутренние лестницы, эскалатор','Вращающаяся дверь, дверные проёмы','Стеклянный фасад'],
+        parts:['Реальные офисные и МОП-условия','Уличные и внутренние лестницы, эскалатор','Вращающаяся дверь, дверные проемы','Стеклянный фасад'],
         who:'Внутриобъектные и биоморфные роботы' },
       { id:'in-3', photo:'images/testing/site-09.png', loc:'skolkovo', name:'Зона коворкинга', place:'ИЦ «Сколково», ЦЭХ', size:'Амфитеатр, переговорная',
         desc:'Пространство для команд и демонстраций внутри экспериментального хаба.',
@@ -3754,21 +3761,21 @@ var ENVIRONMENTS=[
     ] },
 
   { id:'air', title:'В воздухе', photo:'images/testing/setka-skolkovo.jpg',
-    lead:'Контролируемый воздушный объём, ангар, взлётно-посадочная полоса и аэродромы',
+    lead:'Контролируемый воздушный объем, ангар, взлетно-посадочная полоса и аэродромы',
     sites:[
-      { id:'air-1', photo:'images/testing/site-06.png', loc:'skolkovo', name:'Сетка — контролируемый воздушный объём', place:'ИЦ «Сколково»', size:'707 м², высота 15 м',
-        desc:'Полёт в предсказуемой среде с чёткими границами: устойчивость к помехам и резким сменам траектории.',
-        parts:['Контролируемый воздушный объём','Естественные погодные условия (ветер, осадки)'],
+      { id:'air-1', photo:'images/testing/site-06.png', loc:'skolkovo', name:'Сетка — контролируемый воздушный объем', place:'ИЦ «Сколково»', size:'707 м², высота 15 м',
+        desc:'Полет в предсказуемой среде с четкими границами: устойчивость к помехам и резким сменам траектории.',
+        parts:['Контролируемый воздушный объем','Естественные погодные условия (ветер, осадки)'],
         who:'Малые мультироторные БАС' },
-      { id:'air-2', photo:'images/testing/site-10.jpg', loc:'rudnevo', name:'Полётный ангар', place:'Индустриальный парк «Руднево», ФЦ БАС', size:'7 665 м²',
-        desc:'Демонстрационные полёты, испытания, соревнования и профильные мероприятия.',
-        parts:['Закрытый полётный объём','Демонстрационная и соревновательная зоны'],
-        who:'Вертолётные и мультироторные БПЛА' },
-      { id:'air-3', photo:'images/testing/site-12.jpg', loc:'rudnevo', name:'Взлётно-посадочная полоса', place:'Индустриальный парк «Руднево», ФЦ БАС', size:'120×50 м',
-        desc:'Испытания всех типов БПЛА на открытой полосе: взлёт, посадка, маршруты, демонстрации.',
-        parts:['Полоса 120×50 м','Вертолётная площадка 20×20 м','Маршрутные и демонстрационные сценарии'],
+      { id:'air-2', photo:'images/testing/site-10.jpg', loc:'rudnevo', name:'Полетный ангар', place:'Индустриальный парк «Руднево», ФЦ БАС', size:'7 665 м²',
+        desc:'Демонстрационные полеты, испытания, соревнования и профильные мероприятия.',
+        parts:['Закрытый полетный объем','Демонстрационная и соревновательная зоны'],
+        who:'Вертолетные и мультироторные БПЛА' },
+      { id:'air-3', photo:'images/testing/site-12.jpg', loc:'rudnevo', name:'Взлетно-посадочная полоса', place:'Индустриальный парк «Руднево», ФЦ БАС', size:'120×50 м',
+        desc:'Испытания всех типов БПЛА на открытой полосе: взлет, посадка, маршруты, демонстрации.',
+        parts:['Полоса 120×50 м','Вертолетная площадка 20×20 м','Маршрутные и демонстрационные сценарии'],
         who:'Все типы БПЛА' },
-      { id:'air-4', loc:'outside', name:'Аэродромы', place:'«Конаково», «Орловка», «Волосово»', size:'До 55 км трассы полёта',
+      { id:'air-4', loc:'outside', name:'Аэродромы', place:'«Конаково», «Орловка», «Волосово»', size:'До 55 км трассы полета',
         desc:'Дальние маршруты и предельные высоты за пределами городской черты.',
         parts:['«Конаково» — 55 км трассы, до 1000 м AMSL','«Орловка» — 50 км трассы, до 2200 м AMSL','«Волосово» — радиус 5 км, до 1200 м AGL'],
         who:'Средние и крупные беспилотные авиационные системы' }
@@ -3781,14 +3788,14 @@ var ENVIRONMENTS=[
         desc:'Живая среда: тихая гладь, водоросли, узкий мост, два типа спуска в воду.',
         parts:['Мост 1 м над водой','Водоросли на дне','Деревянный причал и естественный берег'],
         who:'Надводные и подводные роботы' },
-      { id:'wat-2', photo:'images/testing/site-15.png', loc:'kanal', name:'Гребной канал «Москва»', place:'Партнёрская площадка', size:'2 300×125 м, глубина до 3,5 м',
+      { id:'wat-2', photo:'images/testing/site-15.png', loc:'kanal', name:'Гребной канал «Москва»', place:'Партнерская площадка', size:'2 300×125 м, глубина до 3,5 м',
         desc:'Большая открытая вода для водных роборешений.',
         parts:['Прямая акватория 2 300 м','Ширина 125 м','Глубина до 3,5 м'],
         who:'Надводные и подводные роботы средних размерностей' }
     ] },
 
   { id:'lab', title:'В лаборатории', photo:'images/testing/03_tehnopolis-robocentr_1.jpg',
-    lead:'Испытательные стенды центра и партнёрская лаборатория материалов',
+    lead:'Испытательные стенды центра и партнерская лаборатория материалов',
     sites:[
       { id:'lab-1', loc:'skolkovo', name:'Стенд климатических испытаний', place:'Центр испытаний робототехники', size:'От −60 до +85 °C',
         desc:'Работа робота при экстремальных температурах, влажности и перепадах климата.',
@@ -3814,14 +3821,14 @@ var ENVIRONMENTS=[
         desc:'Виртуальная модель среды для отработки сценариев до выхода робота на реальную площадку.',
         parts:['Симуляция маршрутов','Проверка алгоритмов','Сопоставление с натурными данными'],
         who:'Любые роботы на стадии алгоритмов' },
-      { id:'lab-7', loc:'partner', name:'Лаборатория материалов АНО «ЦИСИС»', place:'Партнёрская лаборатория', size:'Сертификация',
+      { id:'lab-7', loc:'partner', name:'Лаборатория материалов АНО «ЦИСИС»', place:'Партнерская лаборатория', size:'Сертификация',
         desc:'Сертификация и стандартизация материалов и компонентов робота для допуска к применению.',
         parts:['Испытания материалов','Стандартизация','Подготовка документов'],
         who:'Производители компонентов и материалов' }
     ] }
 ];
-/* значение, единица измерения и подпись — раздельно: единица встаёт
-   плашкой у числа, а подпись остаётся чистой строкой */
+/* значение, единица измерения и подпись — раздельно: единица встает
+   плашкой у числа, а подпись остается чистой строкой */
 var RTC_NUMBERS=[
  {n:'12',     t:'испытательных зон'},
  {n:'97 500', u:'м²', t:'общая площадь зон'},
@@ -3841,27 +3848,23 @@ var RTC_TRUST=[
    с robot-mos.ru и из того, что описано на самой странице — среды,
    площадки и сроки. Слово «консультация» здесь под запретом */
 var RTC_FAQ=[
- {q:'А если робот не пройдёт испытания?',
-  a:'Так бывает, и это нормальный результат. Гарантируем другое: проверим по согласованной с вами программе, зафиксируем всё телеметрией и видео и выдадим заключение. Даже отрицательный результат — это понятный список того, что дорабатывать.'},
- {q:'Сколько это стоит?',
-  a:'В 2026 году испытания могут проводиться бесплатно. Точные условия под ваш сценарий назовём после заявки.'},
- {q:'А если робот не ездит по земле — дрон или катер?',
-  a:'Сред шесть, не только улица. Для воздуха — контролируемый объём под сеткой, полётный ангар и взлётно-посадочная полоса в индустриальном парке «Руднево», аэродромы. Для воды — пруд на границе суши и воды и гребной канал «Москва».'},
- {q:'Чей робот и чьи данные после испытаний?',
-  a:'Робот, технологии и данные испытаний остаются вашими. Работаем по NDA, в закрытом контуре. Идею можно дополнительно защитить в Центре интеллектуальной собственности Фонда МИК.'},
+ {q:'Сколько это стоит?',
+  a:'В 2026 году испытания могут проводиться бесплатно. Точные условия назовем на консультации.'},
+ {q:'Это безопасно?',
+  a:'Да. Работаем по NDA в закрытом контуре. Робот, технологии и данные испытаний остаются вашими. Результаты не публикуем и никому не передаем без вашего согласия. Идею можно защитить в Центре интеллектуальной собственности Фонда МИК.'},
  {q:'Кто может подать заявку?',
-  a:'Производители, стартапы, корпорации и вузы — юрлица и ИП России, без ликвидации, банкротства и записей в реестрах иностранных агентов и недобросовестных поставщиков. Приоритет — у участников инновационного кластера Москвы.'},
- {q:'Сколько времени проходит от заявки до протокола?',
-  a:'Заявку проверяем за 5 рабочих дней, программу и методику испытаний согласуем за 5 и подписываем за 3. Сроки самих испытаний закладываем в программу, протокол и заключение оформляем за 5 рабочих дней после финиша.'},
- {q:'Что приложить к заявке?',
-  a:'Контакты, модель и тип робота, цель испытаний, требования к площадке. Из документов: паспорт изделия, техническое описание, инструкция по безопасной эксплуатации, руководство пользователя — PDF, JPG, MP4/MOV/AVI, до 500 МБ, на русском.'}
+  a:'Юрлица и ИП России: производители, стартапы, корпорации, вузы. Без ликвидации, банкротства и записей в реестрах иностранных агентов и недобросовестных поставщиков. Приоритет у участников инновационного кластера Москвы.'},
+ {q:'Сколько это займет?',
+  a:'Проверка заявки 5 рабочих дней. Программа и методика испытаний: 5 дней на согласование, 3 на подписание. Сроки самих испытаний задает ПМИ. Протокол и заключение 5 рабочих дней после финиша.'},
+ {q:'Что приложить к заявке?',
+  a:'Контакты, модель и тип робота, цель испытаний, требования к площадке. Документы: паспорт изделия, техническое описание, инструкция по безопасной эксплуатации, руководство пользователя. Тексты в PDF, фото в JPG, видео в MP4, MOV или AVI. До 500 МБ, на русском.'}
 ];
 var RTC_STEPS=[
  {t:'Заявка',d:'Вы оставляете заявку с описанием вашего робота и целей тестирования'},
  {t:'Техническое интервью',d:'Разбираем задачу: особенности робота и требования к испытаниям'},
  {t:'Программа и методика',d:'Разрабатываем индивидуальную программу и методику испытаний робота'},
  {t:'Проведение испытаний',d:'Тестируем робота на полигоне при участии ваших специалистов и наших инженеров'},
- {t:'Выдача протокола',d:'Вы получаете подробный отчёт с результатами, выводами и практическими рекомендациями'}
+ {t:'Выдача протокола',d:'Вы получаете подробный отчет с результатами, выводами и практическими рекомендациями'}
 ];
 
 (function(){
@@ -4064,8 +4067,8 @@ var RTC_STEPS=[
  function shut(){ if(dlg.open) dlg.close(); cleanup(); }
  dlg.addEventListener('click',function(e){
   /* заявка открывается поверх: два showModal() подряд дают ошибку,
-     поэтому сначала закрываем окно среды и только потом зовём форму.
-     Фокус после закрытия формы вернётся на ту же карточку среды */
+     поэтому сначала закрываем окно среды и только потом зовем форму.
+     Фокус после закрытия формы вернется на ту же карточку среды */
   var ask=e.target.closest('[data-ask-env]');
   if(ask){
    var back=opener;
@@ -4092,7 +4095,7 @@ var RTC_STEPS=[
    из шапки раздела — пустая, из окна среды — со средой, с карточки
    площадки — со средой и площадкой. Бэкенда на странице нет, поэтому
    собранная заявка уходит письмом: вся сборка лежит в sendApplication,
-   её и надо заменить на реальную отправку — остального это не коснётся */
+   ее и надо заменить на реальную отправку — остального это не коснется */
 (function(){
  var dlg=document.getElementById('trFormDlg');
  if(!dlg||!dlg.showModal||typeof ENVIRONMENTS==='undefined') return;
@@ -4120,13 +4123,13 @@ var RTC_STEPS=[
  }
 
  function envOptions(ei){
-  return '<option value="">Ещё не выбрал</option>'+
+  return '<option value="">Еще не выбрал</option>'+
    ENVIRONMENTS.map(function(e,i){
     return '<option value="'+i+'"'+(i===ei?' selected':'')+'>'+esc(e.title)+'</option>';
    }).join('');
  }
  /* список площадок всегда пересобирается под выбранную среду —
-    так в поле не остаётся площадка от предыдущей */
+    так в поле не остается площадка от предыдущей */
  function siteOptions(ei,si){
   var e=ENVIRONMENTS[ei], out='<option value="">Любая площадка</option>';
   if(!e) return out;
@@ -4145,9 +4148,9 @@ var RTC_STEPS=[
 
  /* состав полей совпадает с ответом «Что приложить к заявке» в RTC_FAQ:
     робот, цель испытаний, требования к площадке и материалы. Материалы —
-    ссылка, а не загрузка: бэкенда нет, принимать файлы негде, обещать приём
+    ссылка, а не загрузка: бэкенда нет, принимать файлы негде, обещать прием
     нельзя. Требования и материалы необязательны: на этом шаге их могут
-    ещё не знать, отказывать из-за этого в заявке не за что */
+    еще не знать, отказывать из-за этого в заявке не за что */
  function form(ei,si){
   return '<p class="ar-desc">Опишите, что и где нужно испытать</p>'+
    '<form class="trf" id="trfForm" novalidate>'+
@@ -4163,7 +4166,7 @@ var RTC_STEPS=[
       'placeholder="Что нужно подтвердить"></textarea></div>'+
     '<div class="trf-row"><label class="trf-lab" for="trfNeed">Требования к площадке</label>'+
      '<textarea class="trf-in" id="trfNeed" name="needs" rows="2" '+
-      'placeholder="Питание, зона, доступ, что ещё понадобится"></textarea></div>'+
+      'placeholder="Питание, зона, доступ, что еще понадобится"></textarea></div>'+
     '<div class="trf-row"><label class="trf-lab" for="trfDocs">Материалы</label>'+
      '<input class="trf-in" id="trfDocs" name="docs" type="text" '+
       'placeholder="Ссылка на паспорт, описание, видео"></div>'+
@@ -4174,7 +4177,7 @@ var RTC_STEPS=[
      '<input class="trf-in" id="trfMail" name="contact" type="email" required '+
       'placeholder="почта для ответа"></div>'+
     '<div class="trf-foot"><button type="submit" class="btn btn-green">Отправить заявку →</button>'+
-     '<p class="trf-note">Заявка уйдёт письмом на <span class="nolow">'+esc(MAIL)+'</span></p></div>'+
+     '<p class="trf-note">Заявка уйдет письмом на <span class="nolow">'+esc(MAIL)+'</span></p></div>'+
    '</form>';
  }
 

@@ -1594,8 +1594,8 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
     </div>
     <div class="pocket pocket-3">
       <div>
-        <h3 class="h2">Получите финансирование на разработку</h3>
-        <p>Льготные займы и гранты от города</p>
+        <h3 class="h2">Получите финансирование</h3>
+        <p>Льготные займы и гранты на разработку и внедрение</p>
       </div>
       <a href="#finance" class="btn">Смотреть меры →</a>
     </div>
@@ -3163,7 +3163,6 @@ var MEASURES=[
   {id:'prod', t:'Запустить производство', tasks:['Производство']},
   {id:'use',  t:'Внедрить у себя', tasks:['Внедрение']}
  ];
- var STATES=[{v:'now',t:'Прием идет'},{v:'soon',t:'Откроется'},{v:'always',t:'Не ограничен'}];
  /* направление свернуто в две группы: деньги возвратные и безвозвратные.
     Грант и субсидия по сути одно и то же, компенсации — тоже выплаты */
  var KINDS=[
@@ -3202,8 +3201,11 @@ var MEASURES=[
  }
  function isOpen(m){ var a=avail(m); return a==='now'||a==='always'; }
 
- /* черновик фильтров и примененный отбор */
- function blank(){ return {state:[],kind:[],task:[]}; }
+ /* черновик фильтров и примененный отбор.
+    open — один переключатель вместо прежних четырех состояний приема:
+    человеку важно «можно подать сейчас или нет», а не в каком именно
+    из состояний находится мера */
+ function blank(){ return {open:false,kind:[],task:[]}; }
  var draft=blank(), applied=blank(), role='producer', search='';
  var shown={};                     /* сколько карточек показано в группе */
 
@@ -3219,7 +3221,7 @@ var MEASURES=[
  function passing(){
   return MEASURES.filter(function(m){
    if(m.role!==role) return false;
-   if(applied.state.length&&applied.state.indexOf(avail(m))<0) return false;
+   if(applied.open&&!isOpen(m)) return false;
    if(applied.kind.length&&applied.kind.indexOf(kindOf(m))<0) return false;
    if(applied.task.length&&!(m.tasks||[]).some(function(t){ return applied.task.indexOf(t)>=0; })) return false;
    if(search){
@@ -3241,22 +3243,15 @@ var MEASURES=[
      '<span>'+esc(txt)+'</span></label>';
    }).join('')+'</div>';
  }
- /* состояние приема — одно значение: «идет» и «откроется» вместе
-    не бывают, мультивыбор здесь только путал */
- function radios(label,name,vals){
-  return '<div class="fn-group"><div class="fn-glabel">'+esc(label)+'</div>'+
-   '<label class="fn-check"><input type="radio" name="fn-'+name+'" data-g="'+name+
-    '" data-v=""'+(draft[name].length?'':' checked')+'><span>Не важно</span></label>'+
-   vals.map(function(v){
-    var val=v.v||v, txt=v.t||v;
-    return '<label class="fn-check"><input type="radio" name="fn-'+name+'" data-g="'+name+
-     '" data-v="'+esc(val)+'"'+(draft[name].indexOf(val)>=0?' checked':'')+'>'+
-     '<span>'+esc(txt)+'</span></label>';
-   }).join('')+'</div>';
+ /* приём заявок — один переключатель: снят, значит показываем все меры */
+ function openBox(){
+  return '<div class="fn-group">'+
+   '<label class="fn-check"><input type="checkbox" data-g="open"'+
+    (draft.open?' checked':'')+'><span>Открыт отбор</span></label></div>';
  }
  function drawSide(){
   side.innerHTML=
-   radios('Состояние приема заявок','state',STATES)+
+   openBox()+
    group('Направление','kind',KINDS)+
    group('Цель','task',tasksAll())+
    '<div class="ms-act">'+
@@ -3388,14 +3383,14 @@ var MEASURES=[
  /* ---------- события ---------- */
  side.addEventListener('change',function(e){
   var g=e.target.getAttribute('data-g'); if(!g) return;
+  if(g==='open'){ draft.open=e.target.checked; return; }
   var v=e.target.getAttribute('data-v');
-  if(e.target.type==='radio'){ draft[g]=v?[v]:[]; return; }
   var arr=draft[g], i=arr.indexOf(v);
   if(e.target.checked){ if(i<0) arr.push(v); } else if(i>=0) arr.splice(i,1);
  });
  side.addEventListener('click',function(e){
   if(e.target.closest('[data-apply]')){
-   applied={state:draft.state.slice(),kind:draft.kind.slice(),task:draft.task.slice()};
+   applied={open:draft.open,kind:draft.kind.slice(),task:draft.task.slice()};
    shown={}; draw(); return;
   }
   if(e.target.closest('[data-reset]')){

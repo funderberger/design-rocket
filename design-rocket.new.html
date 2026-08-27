@@ -555,15 +555,10 @@ body.is-catalog > section:not(#robots){display:none}
 .ms-tab.is-on{background:var(--green);color:#06110B}
 .ms-tab:focus-visible{outline:2px solid var(--green);outline-offset:2px}
 
-/* группа фильтров: заголовок + флажки, снизу «Применить» и «Сбросить» */
-.ms-act{display:grid;gap:8px;margin-top:4px}
-.ms-apply{padding:12px 18px;border-radius:999px;background:var(--green);
-  color:#06110B;font-size:15px;transition:.25s}
-.ms-apply:hover{background:var(--mint)}
-.ms-apply:focus-visible,.ms-reset:focus-visible{outline:2px solid var(--green);outline-offset:2px}
-.ms-reset{padding:11px 18px;border-radius:999px;border:1px solid var(--w-16);
-  color:var(--w-70);font-size:15px;transition:.25s}
-.ms-reset:hover{border-color:var(--green);color:var(--green)}
+/* сколько мер осталось после отбора: фильтр часто не меняет состав выдачи,
+   и без числа непонятно, сработал он или нет */
+.ms-count{margin:0 0 clamp(16px,1.8vw,24px);font-size:15px;color:var(--w-45)}
+.ms-count b{font-weight:500;color:var(--white)}
 
 /* мера сгруппирована по цели; у каждой цели свой заголовок и своя сетка */
 .ms-sec{margin:0 0 clamp(26px,3vw,44px)}
@@ -3206,13 +3201,20 @@ var MEASURES=[
     человеку важно «можно подать сейчас или нет», а не в каком именно
     из состояний находится мера */
  function blank(){ return {open:false,kind:[],task:[]}; }
- var draft=blank(), applied=blank(), role='producer', search='';
+ /* одно состояние вместо пары «черновик — примененный отбор»: галочка
+    сразу меняет выдачу, кнопки «Применить» больше нет */
+ var sel=blank(), role='producer', search='';
+ function picked(){ return (sel.open?1:0)+sel.kind.length+sel.task.length; }
  var shown={};                     /* сколько карточек показано в группе */
 
  function tasksAll(){ var o=[],seen={};
   MEASURES.forEach(function(m){ (m.tasks||[]).forEach(function(t){ if(!seen[t]){seen[t]=1;o.push(t);} }); });
   return o; }
 
+ function plural(n,a,b,c){
+  var d=n%100, e=n%10;
+  return d>4&&d<20?c:e===1?a:e>1&&e<5?b:c;
+ }
  function hit(hay,w){
   return hay.indexOf(w)>=0 ||
    (w.length>=5&&hay.indexOf(w.slice(0,-1))>=0) ||
@@ -3221,9 +3223,9 @@ var MEASURES=[
  function passing(){
   return MEASURES.filter(function(m){
    if(m.role!==role) return false;
-   if(applied.open&&!isOpen(m)) return false;
-   if(applied.kind.length&&applied.kind.indexOf(kindOf(m))<0) return false;
-   if(applied.task.length&&!(m.tasks||[]).some(function(t){ return applied.task.indexOf(t)>=0; })) return false;
+   if(sel.open&&!isOpen(m)) return false;
+   if(sel.kind.length&&sel.kind.indexOf(kindOf(m))<0) return false;
+   if(sel.task.length&&!(m.tasks||[]).some(function(t){ return sel.task.indexOf(t)>=0; })) return false;
    if(search){
     var hay=[m.name,m.benefit,m.kind,m.who,m.spend,m.operator,m.params,m.about,m.syn,
              (m.tasks||[]).join(' '),m.stages.join(' ')].join(' ').toLowerCase();
@@ -3239,7 +3241,7 @@ var MEASURES=[
    vals.map(function(v){
     var val=v.v||v, txt=v.t||v;
     return '<label class="fn-check"><input type="checkbox" data-g="'+name+'"'+
-     ' data-v="'+esc(val)+'"'+(draft[name].indexOf(val)>=0?' checked':'')+'>'+
+     ' data-v="'+esc(val)+'"'+(sel[name].indexOf(val)>=0?' checked':'')+'>'+
      '<span>'+esc(txt)+'</span></label>';
    }).join('')+'</div>';
  }
@@ -3247,17 +3249,16 @@ var MEASURES=[
  function openBox(){
   return '<div class="fn-group">'+
    '<label class="fn-check"><input type="checkbox" data-g="open"'+
-    (draft.open?' checked':'')+'><span>Открыт отбор</span></label></div>';
+    (sel.open?' checked':'')+'><span>Открыт отбор</span></label></div>';
  }
  function drawSide(){
   side.innerHTML=
+   /* сброс показываем только когда есть что сбрасывать: пустая строка
+      над фильтрами ничего не сообщает и занимает место */
+   (picked()?'<button type="button" class="fn-clear" data-reset>Сбросить фильтры</button>':'')+
    openBox()+
    group('Направление','kind',KINDS)+
-   group('Цель','task',tasksAll())+
-   '<div class="ms-act">'+
-    '<button type="button" class="ms-apply" data-apply>Применить</button>'+
-    '<button type="button" class="ms-reset" data-reset>Сбросить</button>'+
-   '</div>';
+   group('Цель','task',tasksAll());
  }
 
  /* ---------- список ---------- */
@@ -3286,7 +3287,11 @@ var MEASURES=[
       'Показать еще по этому разделу</button>':'')+
     '</section>';
   });
-  list.innerHTML=html||'<p class="fn-empty">По этим условиям ничего не нашлось — снимите часть фильтров</p>';
+  /* счетчик нужен потому, что фильтр часто не меняет состав выдачи —
+     почти у всех мер прием открыт, и без числа непонятно, сработал ли он */
+  list.innerHTML='<p class="ms-count"><b>Найдено '+all.length+'</b> '+
+    plural(all.length,'мера','меры','мер')+'</p>'+
+   (html||'<p class="fn-empty">По этим условиям ничего не нашлось — снимите часть фильтров</p>');
  }
  function redraw(){ drawSide(); draw(); }
 
@@ -3383,18 +3388,25 @@ var MEASURES=[
  /* ---------- события ---------- */
  side.addEventListener('change',function(e){
   var g=e.target.getAttribute('data-g'); if(!g) return;
-  if(g==='open'){ draft.open=e.target.checked; return; }
   var v=e.target.getAttribute('data-v');
-  var arr=draft[g], i=arr.indexOf(v);
-  if(e.target.checked){ if(i<0) arr.push(v); } else if(i>=0) arr.splice(i,1);
+  if(g==='open') sel.open=e.target.checked;
+  else{
+   var arr=sel[g], i=arr.indexOf(v);
+   if(e.target.checked){ if(i<0) arr.push(v); } else if(i>=0) arr.splice(i,1);
+  }
+  shown={}; redraw();
+  /* панель перерисовывается целиком, поэтому фокус возвращаем на ту же
+     строку: иначе после переключения с клавиатуры он улетает в начало */
+  var inputs=side.querySelectorAll('input[data-g]');
+  for(var k=0;k<inputs.length;k++){
+   if(inputs[k].getAttribute('data-g')===g&&inputs[k].getAttribute('data-v')===v){
+    inputs[k].focus(); break;
+   }
+  }
  });
  side.addEventListener('click',function(e){
-  if(e.target.closest('[data-apply]')){
-   applied={open:draft.open,kind:draft.kind.slice(),task:draft.task.slice()};
-   shown={}; draw(); return;
-  }
   if(e.target.closest('[data-reset]')){
-   draft=blank(); applied=blank(); search=''; q.value=''; shown={}; redraw();
+   sel=blank(); search=''; q.value=''; shown={}; redraw();
   }
  });
  if(tabs) tabs.addEventListener('click',function(e){

@@ -2569,16 +2569,18 @@ var openWork=null,openModelCard=null;
  }
 
  /* второй уровень — задачи внутри выбранной категории. Первым чипом
-    «все», дальше задачи по убыванию числа решений */
+    «все», дальше задачи по убыванию числа решений. Для «всех роботов»
+    ряд не рисуем: одиннадцать чипов в две строки только шумят */
  function labelOf(k){ return SUBS[k]?SUBS[k][0]:k; }
  function drawSubs(){
+  if(state.cat==='Все'){ subs.innerHTML=''; return; }
   var pool=inCat(), keys=[];
   pool.forEach(function(r){ (r.sub||[]).forEach(function(k){
    if(keys.indexOf(k)<0) keys.push(k); }); });
   var n=function(k){ return pool.filter(function(r){
    return (r.sub||[]).indexOf(k)>=0; }).length; };
   keys.sort(function(a,b){ return n(b)-n(a)||labelOf(a).localeCompare(labelOf(b),'ru'); });
-  var all=[['Все',state.cat==='Все'?'Все роботы':'Все '+state.cat.toLowerCase(),pool.length]]
+  var all=[['Все','Все '+state.cat.toLowerCase(),pool.length]]
    .concat(keys.map(function(k){ return [k,labelOf(k),n(k)]; }));
   subs.innerHTML=all.map(function(a){
    return '<button type="button" class="cp-sub'+(state.sub===a[0]?' is-on':'')+

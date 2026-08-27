@@ -3849,6 +3849,12 @@ var RTC_STEPS=[
     if(d>n/2) d-=n;
     if(d<-n/2) d+=n;
     var a=Math.abs(d);
+    /* карточка, перескочившая с одного края колоды на другой, не должна
+       ехать через центр на глазах у зрителя: ей отключаем переход,
+       ставим новое место и включаем обратно */
+    var prev=parseFloat(c.getAttribute('data-d'));
+    var jump=!isNaN(prev)&&Math.abs(d-prev)>1;
+    if(jump) c.style.transition='none';
     c.style.transform='translateX('+(d*44)+'%) scale('+(1-a*0.1).toFixed(2)+
      ') rotate('+(d*2.4)+'deg)';
     c.style.opacity=a>2?0:a===0?1:a===1?.55:.25;
@@ -3856,6 +3862,8 @@ var RTC_STEPS=[
     c.style.pointerEvents=a>2?'none':'auto';
     c.classList.toggle('is-on',a===0);
     c.setAttribute('aria-hidden',a>2?'true':'false');
+    c.setAttribute('data-d',d);
+    if(jump){ void c.offsetWidth; c.style.transition=''; }
    });
    pips.forEach(function(b,i){ b.classList.toggle('on',i===cur); });
   }

@@ -290,7 +290,12 @@ section{position:relative}
    touch-action:pan-y оставляет вертикальную прокрутку странице */
 /* фильтр по объекту: подсказывает, с чего начать, если задача еще не
    сформулирована. Выбранный объект гасит в ленте задачи не из его набора */
-.tasks-objs{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:26px}
+/* подписи ступеней: обе видны сразу, чтобы подбор читался как путь,
+   а не как две независимые полосы */
+.tasks-step{margin:26px 0 12px;font-size:12px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--w-45)}
+.tasks-step-2{padding:0 var(--gut);margin-top:clamp(26px,3vw,40px)}
+.tasks-objs{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:0}
 .obj-chip{padding:11px 22px;border-radius:999px;border:1px solid var(--w-16);
   font-size:15px;letter-spacing:-.015em;color:var(--w-70);transition:.22s}
 .obj-chip:hover{border-color:var(--green);color:var(--green)}
@@ -1601,9 +1606,11 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
 <section class="tasks rev" id="tasks">
   <img class="tasks-robot" src="images/robot-courier.png" alt="" loading="lazy">
   <div class="tasks-head">
-    <h2 class="h1">Выберите, что<br>хотели бы улучшить</h2>
-    <div class="tasks-objs" id="taskObjs" role="group" aria-label="фильтр по объекту"></div>
+    <h2 class="h1">Подберите робота<br>под свою задачу</h2>
+    <p class="tasks-step">Шаг 1. Где внедряете</p>
+    <div class="tasks-objs" id="taskObjs" role="group" aria-label="объект внедрения"></div>
   </div>
+  <p class="tasks-step tasks-step-2">Шаг 2. Что нужно автоматизировать</p>
   <div class="tape" id="tape"></div>
 </section>
 
@@ -1661,11 +1668,13 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
 <!-- ============ каталог ============ -->
 <section class="catalog rev rev-l" id="catalog">
   <div class="cat-head">
-    <h2 class="h1">Найдите<br>своего робота</h2>
+    <h2 class="h1">Партнеры портала<br>и их роботы</h2>
+    <p class="lead">Решения компаний, которые работают с городом</p>
   </div>
   <ul class="robot-list" id="robotList"></ul>
   <div class="cat-actions">
     <a href="#robots" class="btn btn-green btn-lg">Все роботы →</a>
+    <a href="mailto:roboty@cluster.mos.ru?subject=%D0%97%D0%B0%D1%8F%D0%B2%D0%BA%D0%B0%20%D0%BD%D0%B0%20%D0%B2%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D0%B5%20%D1%80%D0%BE%D0%B1%D0%BE%D1%82%D0%B0%20%D0%B2%20%D1%80%D0%B5%D0%B5%D1%81%D1%82%D1%80" class="btn btn-ghost btn-lg">Добавить робота в реестр →</a>
     <p class="lead">17 решений: промышленные, сервисные и транспортные</p>
   </div>
 </section>
@@ -1940,6 +1949,7 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
       <a href="mailto:roboty@cluster.mos.ru" class="nolow">roboty@cluster.mos.ru <span>→</span></a>
       <a href="tel:+74958704555" class="nolow">+7 (495) 870-45-55 <span>→</span></a>
       <a href="#robots">Все роботы <span>→</span></a>
+      <a href="mailto:roboty@cluster.mos.ru?subject=%D0%97%D0%B0%D1%8F%D0%B2%D0%BA%D0%B0%20%D0%BD%D0%B0%20%D0%B2%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D0%B5%20%D1%80%D0%BE%D0%B1%D0%BE%D1%82%D0%B0%20%D0%B2%20%D1%80%D0%B5%D0%B5%D1%81%D1%82%D1%80">Добавить робота в реестр <span>→</span></a>
     </div>
   </div>
 </section>
@@ -2103,10 +2113,10 @@ ROBOTS.forEach(function(r){
 
 /* ---- задачи: лента ---- */
 var TASKS=[
- {key:'cargo',t:'Загруженность склада',d:'Склад не простаивает, никто не ждет свободного погрузчика',img:'images/task-cargo.jpg'},
- {key:'line',t:'Качество сборки',d:'Результат одинаковый в начале и в конце смены',img:'images/path-03.jpg'},
- {key:'service',t:'Чистота в любое время',d:'Убирает ночью и в выходные, не мешая людям',img:'images/path-02.jpg'},
- {key:'patrol',t:'Контроль над объектом',d:'Видно, что сделано за день и где отстает график',img:'images/task-patrol.jpg'}
+ {key:'cargo',t:'Перемещение грузов',d:'Паллеты и коробки едут по складу без погрузчика',img:'images/task-cargo.jpg'},
+ {key:'line',t:'Сборка и сварка',d:'Повторяющиеся операции на производственной линии',img:'images/path-03.jpg'},
+ {key:'service',t:'Уборка помещений',d:'Залы, коридоры и склады, в том числе ночью и в выходные',img:'images/path-02.jpg'},
+ {key:'patrol',t:'Обход территории',d:'Съемка и показания там, где нужен постоянный контроль',img:'images/task-patrol.jpg'}
 ];
 /* карточки продублированы шесть раз, поэтому работу определяем по data-work,
    а не по индексу: дубли в конце ленты открывают то же окно */
@@ -2117,11 +2127,14 @@ var cards=TASKS.concat(TASKS,TASKS).map(function(x){
 }).join('');
 document.getElementById('tape').innerHTML=cards+cards;
 
-/* ---- фильтр по объекту ----
+/* ---- шаг 1: где внедряете ----
    Вход для тех, кто не формулирует задачу, а знает свой объект: склад,
    цех, торговый зал. Каждый объект — набор задач из TASKS; выбор гасит
-   в ленте все, что к объекту не относится. Повторный клик снимает выбор. */
+   в ленте все, что к объекту не относится. Первый чип «любой объект»
+   выбран по умолчанию и ничего не гасит: шаг виден как шаг, а лента
+   при этом сразу показывает все задачи. */
 var OBJECTS=[
+ {t:'Любой объект',  works:null},
  {t:'Торговый центр',works:['service','patrol']},
  {t:'Склад',        works:['cargo','patrol']},
  {t:'Завод',        works:['line','cargo','patrol']},
@@ -2133,13 +2146,13 @@ var OBJECTS=[
  var tape=document.getElementById('tape');
  if(!box||!tape) return;
  box.insertAdjacentHTML('beforeend',OBJECTS.map(function(o,i){
-  return '<button type="button" class="obj-chip" data-i="'+i+'"'+
-   ' aria-pressed="false">'+o.t+'</button>';
+  return '<button type="button" class="obj-chip'+(i===0?' on':'')+'" data-i="'+i+'"'+
+   ' aria-pressed="'+(i===0?'true':'false')+'">'+o.t+'</button>';
  }).join(''));
  var chips=[].slice.call(box.querySelectorAll('.obj-chip'));
- var active=-1;
+ var active=0;                      /* «любой объект» */
  function apply(){
-  var set=active<0?null:OBJECTS[active].works;
+  var set=OBJECTS[active]&&OBJECTS[active].works;
   chips.forEach(function(c,i){
    c.classList.toggle('on',i===active);
    c.setAttribute('aria-pressed',i===active?'true':'false');
@@ -2151,8 +2164,8 @@ var OBJECTS=[
  }
  box.addEventListener('click',function(e){
   var c=e.target.closest('.obj-chip'); if(!c) return;
-  var i=+c.getAttribute('data-i');
-  active=(active===i?-1:i);
+  /* снимать выбор некуда: «любой объект» и есть пустой фильтр */
+  active=+c.getAttribute('data-i');
   apply();
  });
 })();
@@ -2161,7 +2174,7 @@ var OBJECTS=[
    Два уровня в одном <dialog>: экран работы и карточка модели. Все
    содержимое собирается из ROBOTS и WORKS, в разметке лежит пустой узел. */
 var WORKS=[
- {key:'cargo',title:'Загруженность склада',
+ {key:'cargo',title:'Перемещение грузов',
   now:'два погрузчика и водители в две смены, простои между рейсами, повреждения паллет в узких проходах',
   specs:['Грузоподъемность','Скорость','Время работы'],
   models:['Ronavi H1500','Ronavi × Seer CBD16','AMR1500','Evocargo N1','Navio L5'],
@@ -2170,7 +2183,7 @@ var WORKS=[
         ['Подъем паллет с пола','Ronavi × Seer CBD16']],
   needs:['Ширина проходов от 1,4 м','Ровный пол без порогов и уклонов',
          'Место под зарядную станцию у стены','Оператор смены — кладовщик после инструктажа']},
- {key:'line',title:'Качество сборки',
+ {key:'line',title:'Сборка и сварка',
   now:'операцию ведет человек, точность плавает от смены к смене, на пиковых партиях участок становится узким местом',
   specs:['Степени свободы','Рабочая нагрузка','Рабочая зона'],
   models:['Birbi S-1 PRO','Birbi D-1','DOKA RC30','Promobot M13','A12-1450','ARM-IMR-95','«Берилл» РП25.22ШС'],
@@ -2179,7 +2192,7 @@ var WORKS=[
         ['Длинный вылет до 2,2 м','«Берилл» РП25.22ШС']],
   needs:['Свободное место у линии под ячейку','Подводка питания и сжатого воздуха',
          'Ограждение или зона совместной работы','Оператор — наладчик участка']},
- {key:'service',title:'Чистота в любое время',
+ {key:'service',title:'Уборка помещений',
   now:'уборка по графику силами подрядчика, ночные смены, качество зависит от людей и площади',
   specs:['Производительность','Автономность','Среда работы'],
   models:['MARK 2 SE','Пиксель','Unitree H2'],
@@ -2188,7 +2201,7 @@ var WORKS=[
         ['Работа рядом с людьми','Unitree H2']],
   needs:['Площадь и график уборки','Точка воды и слива для заправки',
          'Место под зарядную станцию','Оператор — сотрудник службы эксплуатации']},
- {key:'patrol',title:'Контроль над объектом',
+ {key:'patrol',title:'Обход территории',
   now:'обходы делает дежурный по маршруту, часть отклонений замечают с опозданием, данные пишут вручную',
   specs:['Автономность','Подвижность','Грузоподъемность'],
   models:['Inchbot L1/L1 Edu','Unitree H2'],
@@ -2409,7 +2422,7 @@ var openWork=null,openModelCard=null;
     '<a class="btn btn-ghost" href="#robots" data-x>Все роботы этой категории</a>'+
    '</div>';
 
-  shell('<span class="tbox-h" style="margin:0">Подбор под работу</span>',body);
+  shell('<span class="tbox-h" style="margin:0">Шаг 3. Подходящие роботы</span>',body);
   var first=dlg.querySelector('.tr'); if(first) first.focus();
  }
 

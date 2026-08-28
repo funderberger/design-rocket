@@ -181,73 +181,6 @@ section{position:relative}
 .pocket p{margin:14px 0 0;font-size:clamp(16px,1.25vw,20px);line-height:1.35;opacity:.75;max-width:36ch}
 .pocket .btn{background:#06110B;color:#fff;align-self:flex-start;margin-top:clamp(22px,2vw,32px)}
 
-/* ---------- каталог: горизонтальная лента ---------- */
-.catalog{padding:clamp(50px,7vw,110px) 0}
-.cat-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding:0 var(--gut);margin-bottom:30px;flex-wrap:wrap}
-.rail{display:flex;gap:14px;overflow-x:auto;padding:4px var(--gut) 22px;scroll-snap-type:x mandatory;
-  scrollbar-width:none}
-.rail::-webkit-scrollbar{display:none}
-.robot{flex:none;width:min(360px,78vw);scroll-snap-align:start;background:var(--coal);border-radius:var(--r-s);
-  overflow:hidden;transition:.35s cubic-bezier(.2,.7,.3,1);border:1px solid var(--w-08)}
-.robot:hover{transform:translateY(-8px);border-color:var(--green)}
-.robot-pic{aspect-ratio:4/3;background:radial-gradient(90% 90% at 50% 20%,#1F2A25,#0E1211);display:grid;place-items:center;position:relative}
-.robot-pic img{width:100%;height:100%;object-fit:cover}
-.robot-cat{position:absolute;left:14px;top:14px;background:rgba(6,17,11,.7);border:1px solid var(--w-16);
-  border-radius:999px;padding:6px 13px;font-size:12px;letter-spacing:.04em;backdrop-filter:blur(8px)}
-.robot-b{padding:20px 22px 24px}
-.robot-b h4{margin:0;font-size:21px;letter-spacing:-.03em;font-weight:500}
-.robot-b .d{margin:8px 0 16px;color:var(--w-45);font-size:15px;line-height:1.3;min-height:40px}
-.specs{display:flex;gap:8px;flex-wrap:wrap}
-.spec{border:1px solid var(--w-16);border-radius:999px;padding:6px 12px;font-size:12.5px;color:var(--w-70)}
-.rail-more{flex:none;width:min(300px,72vw);border-radius:var(--r-s);background:var(--green);color:#06110B;
-  display:flex;flex-direction:column;justify-content:space-between;padding:26px;scroll-snap-align:start;transition:.35s}
-.rail-more:hover{transform:translateY(-8px);background:var(--mint)}
-.rail-more .h3{max-width:9ch}
-.arrow-c{width:52px;height:52px;border-radius:999px;background:#06110B;color:#fff;display:grid;place-items:center;font-size:20px}
-
-/* ---------- каталог: строки с превью за курсором (формат index.html) ---------- */
-.robot-list{margin:34px 0 0;padding:0 var(--gut);list-style:none}
-.robot-row{display:grid;grid-template-columns:clamp(90px,9vw,140px) 1fr;align-items:center;gap:24px;
-  min-height:clamp(110px,15vw,190px);padding:18px 0;border-top:1px solid var(--w-16);
-  transition:opacity .35s,color .35s}
-.robot-list li:last-child .robot-row{border-bottom:1px solid var(--w-16)}
-.robot-list:hover .robot-row:not(:hover){opacity:.42}
-.row-cat{color:var(--w-45);font-size:12px;line-height:1.3;letter-spacing:.14em;text-transform:uppercase}
-.row-main{min-width:0;transition:transform .35s}
-.robot-name{display:block;font-size:clamp(28px,5vw,84px);font-weight:500;line-height:1;
-  letter-spacing:-.035em;color:var(--white);transition:color .35s}
-.row-desc{display:block;margin-top:10px;color:var(--w-45);font-size:clamp(13px,1.1vw,16px);letter-spacing:-.02em}
-.row-specs{display:grid;gap:4px;justify-items:end;text-align:right;color:var(--w-45);
-  font-size:13px;letter-spacing:-.02em}
-.robot-row:hover .robot-name,.robot-row:focus-visible .robot-name{color:var(--green)}
-.robot-row:hover .row-main,.robot-row:focus-visible .row-main{transform:translateX(clamp(10px,1.2vw,26px))}
-.robot-row:focus-visible{outline:2px solid var(--green);outline-offset:4px}
-.row-thumb{display:block;width:64px;height:48px;margin-top:12px;border-radius:8px;object-fit:cover}
-.robot-list.has-preview .row-thumb{display:none}
-.robot-preview{position:fixed;z-index:45;left:0;top:0;width:clamp(240px,24vw,380px);
-  padding:14px;border:1px solid var(--w-16);border-radius:20px;background:rgba(14,18,16,.88);
-  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 30px 70px rgba(0,0,0,.55);
-  pointer-events:none;opacity:0;transition:opacity .4s ease}
-.rp-shots{position:relative;aspect-ratio:4/3;border-radius:12px;overflow:hidden;background:var(--w-08)}
-.robot-preview img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;
-  transition:opacity .4s ease}
-.robot-preview img.is-on{opacity:1}
-.rp-name{margin-top:12px;font-size:15px;letter-spacing:-.02em;color:var(--white);text-transform:none}
-/* подпись стоит рядом с кнопкой; на узком экране переносится под нее */
-.cat-actions{display:flex;align-items:center;gap:clamp(16px,2.4vw,36px);flex-wrap:wrap;
-  padding:36px var(--gut) 0}
-.cat-actions .lead{margin:0;max-width:38ch}
-@media (max-width:900px){
-  .robot-row{gap:16px;grid-template-columns:clamp(80px,12vw,120px) 1fr}
-  .row-specs{grid-column:2;justify-items:start;text-align:left}
-}
-@media (max-width:560px){
-  .robot-list{margin-top:22px}
-  .robot-row{grid-template-columns:84px 1fr;gap:14px;min-height:0}
-}
-@media (prefers-reduced-motion:reduce){
-  .robot-row:hover .row-main,.robot-row:focus-visible .row-main{transform:none}
-}
 
 /* ---------- испытания: темный «остров» с медиа ---------- */
 .testing{padding:0 var(--gut) clamp(50px,7vw,110px)}
@@ -1545,8 +1478,8 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
     <nav class="nav">
       <a href="#top">Главная</a>
       <a href="#robots">Роботы</a>
-      <a href="#finance">Финансирование</a>
       <a href="#trials">Испытания</a>
+      <a href="#finance">Поддержка</a>
       <a href="#analytics">Аналитика</a>
     </nav>
     <button class="burger" aria-label="меню">☰</button>
@@ -1594,24 +1527,12 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
     </div>
     <div class="pocket pocket-3">
       <div>
-        <h3 class="h2">Получите деньги на разработку</h3>
-        <p>Льготные займы и гранты на разработку и внедрение</p>
+        <h3 class="h2">Получите льготный заем или грант</h3>
+        <p>На разработку, производство и внедрение робота</p>
       </div>
       <a href="#finance" class="btn">Смотреть меры →</a>
     </div>
   </div>
-</section>
-
-<!-- ============ задачи предприятия ============ -->
-<section class="tasks rev" id="tasks">
-  <img class="tasks-robot" src="images/robot-courier.png" alt="" loading="lazy">
-  <div class="tasks-head">
-    <h2 class="h1">Подберите робота<br>под свою задачу</h2>
-    <p class="tasks-step">Шаг 1. Где внедряете</p>
-    <div class="tasks-objs" id="taskObjs" role="group" aria-label="объект внедрения"></div>
-  </div>
-  <p class="tasks-step tasks-step-2">Шаг 2. Что нужно автоматизировать</p>
-  <div class="tape" id="tape"></div>
 </section>
 
 <!-- ============ зачем здесь робот: стопка кейсов ============ -->
@@ -1665,17 +1586,42 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
   </div>
 </section>
 
-<!-- ============ каталог ============ -->
-<section class="catalog rev rev-l" id="catalog">
-  <div class="cat-head">
-    <h2 class="h1">Партнеры портала<br>и их роботы</h2>
-    <p class="lead">Решения компаний, которые работают с городом</p>
+<!-- ============ задачи предприятия ============ -->
+<section class="tasks rev" id="tasks">
+  <img class="tasks-robot" src="images/robot-courier.png" alt="" loading="lazy">
+  <div class="tasks-head">
+    <h2 class="h1">Подберите робота<br>под свою задачу</h2>
+    <p class="lead">Роботы умеют многое — теперь найдите того, кто решит вашу задачу</p>
+    <p class="tasks-step">Шаг 1. Где внедряете</p>
+    <div class="tasks-objs" id="taskObjs" role="group" aria-label="объект внедрения"></div>
   </div>
-  <ul class="robot-list" id="robotList"></ul>
-  <div class="cat-actions">
-    <a href="#robots" class="btn btn-green btn-lg">Все роботы →</a>
-    <a href="mailto:roboty@cluster.mos.ru?subject=%D0%97%D0%B0%D1%8F%D0%B2%D0%BA%D0%B0%20%D0%BD%D0%B0%20%D0%B2%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D0%B5%20%D1%80%D0%BE%D0%B1%D0%BE%D1%82%D0%B0%20%D0%B2%20%D1%80%D0%B5%D0%B5%D1%81%D1%82%D1%80" class="btn btn-ghost btn-lg">Добавить робота в реестр →</a>
-    <p class="lead">17 решений: промышленные, сервисные и транспортные</p>
+  <p class="tasks-step tasks-step-2">Шаг 2. Что нужно автоматизировать</p>
+  <div class="tape" id="tape"></div>
+</section>
+
+<!-- ============ испытания ============ -->
+<section class="testing rev" id="testing">
+  <div class="test-box">
+    <div class="test-l">
+      <div>
+        <h2 class="h2" style="margin:0 0 16px">Инфраструктура<br>для испытаний</h2>
+        <p class="lead">Испытаем робота до того, как он выйдет в город</p>
+      </div>
+      <div class="env">
+        <button type="button" class="env-i is-on"><span class="n">01</span><span class="t">Улицы</span><span class="s">Дороги, тротуары, перекрестки и парковки</span></button>
+        <button type="button" class="env-i"><span class="n">02</span><span class="t">Вода</span><span class="s">Открытые водоемы и акватория пруда</span></button>
+        <button type="button" class="env-i"><span class="n">03</span><span class="t">Воздух</span><span class="s">Открытые площадки и ангар с сеткой</span></button>
+        <button type="button" class="env-i"><span class="n">04</span><span class="t">Помещения</span><span class="s">Склады, офисы и торговые объекты</span></button>
+      </div>
+      <a href="#trials" class="btn btn-green" style="align-self:flex-start">Все площадки испытаний →</a>
+    </div>
+    <div class="test-r">
+      <p class="test-cap" id="testCap">ИЦ «Сколково», улично-дорожная сеть</p>
+      <img class="is-on" src="images/testing/site-01.jpg" alt="" width="668" height="458">
+      <img src="images/testing/prud-skolkovo.jpg" alt="" width="1400" height="934" loading="lazy">
+      <img src="images/testing/setka-skolkovo.jpg" alt="" width="1400" height="934" loading="lazy">
+      <img src="images/testing/01_roboty-uborshiki-TC_1.jpg" alt="" width="800" height="400" loading="lazy">
+    </div>
   </div>
 </section>
 
@@ -1683,6 +1629,7 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
 <section class="support rev" id="support">
   <div class="sup-head">
     <h2 class="h1">На что можно получить поддержку</h2>
+    <p class="lead">Часть затрат на робота город берет на себя</p>
   </div>
   <div class="sup-tabs" role="tablist" aria-label="кому адресованы меры">
     <button type="button" class="sup-tab is-on" role="tab" data-aud="make" aria-selected="true">Я произвожу</button>
@@ -1759,36 +1706,11 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
   </div>
 </section>
 
-<!-- ============ испытания ============ -->
-<section class="testing rev" id="testing">
-  <div class="test-box">
-    <div class="test-l">
-      <div>
-        <h2 class="h2" style="margin:0 0 16px">Инфраструктура<br>для испытаний</h2>
-        <p class="lead">Испытаем робота до того, как он выйдет в город</p>
-      </div>
-      <div class="env">
-        <button type="button" class="env-i is-on"><span class="n">01</span><span class="t">Улицы</span><span class="s">Дороги, тротуары, перекрестки и парковки</span></button>
-        <button type="button" class="env-i"><span class="n">02</span><span class="t">Вода</span><span class="s">Открытые водоемы и акватория пруда</span></button>
-        <button type="button" class="env-i"><span class="n">03</span><span class="t">Воздух</span><span class="s">Открытые площадки и ангар с сеткой</span></button>
-        <button type="button" class="env-i"><span class="n">04</span><span class="t">Помещения</span><span class="s">Склады, офисы и торговые объекты</span></button>
-      </div>
-      <a href="#trials" class="btn btn-green" style="align-self:flex-start">Все площадки испытаний →</a>
-    </div>
-    <div class="test-r">
-      <p class="test-cap" id="testCap">ИЦ «Сколково», улично-дорожная сеть</p>
-      <img class="is-on" src="images/testing/site-01.jpg" alt="" width="668" height="458">
-      <img src="images/testing/prud-skolkovo.jpg" alt="" width="1400" height="934" loading="lazy">
-      <img src="images/testing/setka-skolkovo.jpg" alt="" width="1400" height="934" loading="lazy">
-      <img src="images/testing/01_roboty-uborshiki-TC_1.jpg" alt="" width="800" height="400" loading="lazy">
-    </div>
-  </div>
-</section>
-
 <!-- ============ кейсы ============ -->
 <section class="cases rev" id="cases">
   <div class="cases-head">
     <h2 class="h1">Роботы, которые<br>уже вышли на работу</h2>
+    <p class="lead">Так это уже работает</p>
   </div>
   <div class="case-grid">
     <article class="case" data-case="betonolom">
@@ -1840,7 +1762,7 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
 <section class="fin-page" id="finance">
   <div class="fn-hero">
     <h1 class="fn-title">Программы развития<br>для робототехники</h1>
-    <p class="lead fn-lead">Финансирование разработки, производства и внедрения роботов в Москве</p>
+    <p class="lead fn-lead">Льготные займы, гранты и субсидии на разработку, производство и внедрение роботов в Москве</p>
   </div>
   <div class="ms-tabs" id="msTabs" role="tablist" aria-label="Тип заявителя">
     <button type="button" class="ms-tab is-on" role="tab" aria-selected="true" data-role="producer">Я произвожу</button>
@@ -1958,8 +1880,8 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
 <footer class="footer">
   <nav class="f-tiles">
     <a class="f-tile" href="#robots">Роботы<span>↗</span></a>
-    <a class="f-tile" href="#finance">Финансирование<span>↗</span></a>
     <a class="f-tile" href="#trials">Испытания<span>↗</span></a>
+    <a class="f-tile" href="#finance">Поддержка<span>↗</span></a>
     <a class="f-tile" href="#analytics">Аналитика<span>↗</span></a>
   </nav>
   <a class="f-brand" href="#top">
@@ -2216,111 +2138,6 @@ var WORKS=[
    обслуживающие, логистика и промышленность. Все семнадцать — в каталоге.
    Порядок разводит подписи вида «робот-собака» и «робот-уборщик»: рядом
    два одинаковых зачина читаются как повтор */
-/* на главной показываем разные виды и самые заметные машины:
-   гуманоид, такси, робот-собаку, тягач, грузовую платформу и
-   робота-администратора. Уборщики и манипуляторы — в каталоге */
-var HOME=['Unitree H2','Роботакси','Inchbot L1/L1 Edu','Navio L5',
-          'Evocargo N1','AMR1500'];
-/* в строке хватает пары слов: что это за машина. Полное описание —
-   в карточке модели, длинные строки забивали весь экран */
-var HOME_SHORT={
- 'Unitree H2':'Робот-гуманоид',
- 'Роботакси':'Беспилотное такси',
- 'Inchbot L1/L1 Edu':'Робот-собака',
- 'Navio L5':'Беспилотный тягач',
- 'Evocargo N1':'Беспилотный грузовик',
- 'AMR1500':'Складская платформа'
-};
-var SHOWN=HOME.map(function(n){
-  return ROBOTS.filter(function(r){return r.name===n})[0];
-}).filter(Boolean);
-document.getElementById('robotList').innerHTML=SHOWN.map(function(r){
- /* в строке только категория и описание; имя модели остается в alt
-    миниатюры — ее читает скринридер и показывает превью за курсором */
- return '<li><a class="robot-row" href="#band">'+
- '<span class="row-cat">'+r.cat+
- '<img class="row-thumb" src="'+r.img+'" alt="'+r.name+'" loading="lazy"></span>'+
- '<span class="row-main"><span class="robot-name">'+(HOME_SHORT[r.name]||r.d)+'</span></span>'+
- '</a></li>';
-}).join('');
-
-/* ---- каталог: превью модели следует за курсором ----
-   Портировано из index.html. Без скрипта в строках остаются миниатюры,
-   класс .has-preview прячет их только после удачной сборки. */
-(function(){
- var list=document.querySelector('.robot-list');
- if(!list) return;
- if(window.matchMedia && matchMedia('(hover: none), (pointer: coarse)').matches) return;
- var rows=Array.prototype.slice.call(list.querySelectorAll('.robot-row'));
- if(!rows.length) return;
- var calm=window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
- var preview=document.createElement('div');
- preview.className='robot-preview'; preview.setAttribute('aria-hidden','true');
- var shotsBox=document.createElement('div'); shotsBox.className='rp-shots';
- var caption=document.createElement('div'); caption.className='rp-name';
- var names=[];
- var shots=rows.map(function(row){
-  var src=row.querySelector('.row-thumb');
-  var img=document.createElement('img');
-  img.src=src?src.getAttribute('src'):''; img.alt='';
-  names.push(src?src.getAttribute('alt'):'');
-  shotsBox.appendChild(img); return img;
- });
- preview.appendChild(shotsBox); preview.appendChild(caption);
- document.body.appendChild(preview);
- list.classList.add('has-preview');
- var W=0,H=0,tx=0,ty=0,px=0,py=0,raf=0,stopId=0,shown=false;
- function paint(){
-  preview.style.transform='translate3d('+Math.round(px)+'px,'+Math.round(py)+'px,0)'+
-   (calm?'':' rotate(-4deg)')+' scale('+(shown?1:0.86)+')';
- }
- function tick(){ raf=requestAnimationFrame(tick); px+=(tx-px)*0.14; py+=(ty-py)*0.14; paint(); }
- function start(){ if(!raf) raf=requestAnimationFrame(tick); }
- function stop(){ if(raf){ cancelAnimationFrame(raf); raf=0; } }
- function measure(){ var r=preview.getBoundingClientRect(); W=r.width; H=r.height; }
- function show(i,anchorRow){
-  clearTimeout(stopId);
-  shots.forEach(function(img,n){ img.classList.toggle('is-on', n===i); });
-  caption.textContent=names[i]||'';
-  if(!shown){ shown=true; measure(); preview.style.willChange='transform'; preview.style.opacity='1'; }
-  if(anchorRow){
-   var rr=anchorRow.getBoundingClientRect();
-   tx=rr.right-W-24; ty=rr.top+rr.height/2-H/2; px=tx; py=ty; paint();
-  }
-  if(!calm||anchorRow) start();
- }
- function hide(){
-  shown=false; preview.style.opacity='0';
-  shots.forEach(function(img){ img.classList.remove('is-on'); });
-  clearTimeout(stopId);
-  stopId=setTimeout(function(){ stop(); preview.style.willChange=''; },300);
- }
- window.addEventListener('mousemove',function(e){
-  if(calm) return; tx=e.clientX+26; ty=e.clientY-H/2;
- },{passive:true});
- list.addEventListener('mouseover',function(e){
-  var row=e.target.closest?e.target.closest('.robot-row'):null;
-  if(!row||!list.contains(row)) return;
-  var i=rows.indexOf(row); if(i<0) return;
-  if(calm){ show(i,row); } else { if(!shown){ measure(); px=tx; py=ty; } show(i); }
- });
- list.addEventListener('mouseout',function(e){
-  var to=e.relatedTarget; if(to&&list.contains(to)) return; hide();
- });
- list.addEventListener('focusin',function(e){
-  var row=e.target.closest?e.target.closest('.robot-row'):null;
-  if(!row) return; var i=rows.indexOf(row); if(i>=0) show(i,row);
- });
- list.addEventListener('focusout',function(e){
-  var to=e.relatedTarget; if(to&&list.contains(to)) return; hide();
- });
- if('IntersectionObserver' in window){
-  new IntersectionObserver(function(en){
-   en.forEach(function(e){ if(!e.isIntersecting){ hide(); stop(); } });
-  },{rootMargin:'80px'}).observe(list);
- }
-})();
-
 /* ---- меры поддержки под работу ----
    Меры зависят от работы, а не от модели: под склад, уборку и обходы идут
    сервисные роботы, под линию — промышленные, у них другой департамент.

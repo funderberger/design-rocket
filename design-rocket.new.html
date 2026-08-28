@@ -387,17 +387,6 @@ body.is-catalog > section:not(#robots){display:none}
 
 /* второй уровень: задачи внутри выбранной категории — чипами под вкладками.
    Активный набран белым, чтобы не спорить с зеленой активной категорией */
-.cp-subs{display:flex;flex-wrap:wrap;gap:8px;margin:-6px 0 clamp(18px,2.2vw,28px)}
-.cp-subs:empty{display:none}
-.cp-sub{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;
-  border-radius:999px;border:1px solid var(--w-08);background:var(--coal);
-  font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--w-70);
-  transition:.25s}
-.cp-sub b{font-weight:400;font-size:12px;color:var(--w-45)}
-.cp-sub:hover{border-color:var(--w-45);color:var(--white)}
-.cp-sub.is-on{background:var(--white);border-color:var(--white);color:#06110B}
-.cp-sub.is-on b{color:rgba(6,17,11,.5)}
-.cp-sub:focus-visible{outline:2px solid var(--green);outline-offset:3px}
 
 /* две колонки: слева фильтры, справа сетка решений */
 .cp-layout{display:grid;grid-template-columns:clamp(200px,17vw,260px) minmax(0,1fr);
@@ -1747,7 +1736,6 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
     <h1 class="cp-title">Найдите<br>своего робота</h1>
   </div>
   <div class="cp-cats" id="cpCats"></div>
-  <div class="cp-subs" id="cpSubs"></div>
   <div class="cp-layout">
     <aside class="cp-side">
       <button type="button" class="cp-filters" id="cpFilters">Фильтры<b></b></button>
@@ -2484,7 +2472,6 @@ var openWork=null,openModelCard=null;
  if(!page) return;
  var grid=document.getElementById('cpGrid'),
      cats=document.getElementById('cpCats'),
-     subs=document.getElementById('cpSubs'),
      side=document.getElementById('cpSide'),
      sideBox=side.parentNode,
      filtersBtn=document.getElementById('cpFilters'),
@@ -2499,7 +2486,7 @@ var openWork=null,openModelCard=null;
   return 'решений'; }
 
  var CATS=['Промышленные','Сервисные','Транспортные'];
- var state={cat:'Все',sub:'Все',q:'',reg:false,collab:false,kin:'Все',ind:'Все',maker:'Все'};
+ var state={cat:'Все',sub:'Все',q:'',reg:false,collab:false,kin:'Все',ind:'Все'};
  var open={};       /* какие группы фильтров раскрыты */
 
  function inCat(){ return state.cat==='Все'?ROBOTS
@@ -2512,7 +2499,6 @@ var openWork=null,openModelCard=null;
    if(state.collab&&!r.collab) return false;
    if(state.kin!=='Все'&&r.kin!==state.kin) return false;
    if(state.ind!=='Все'&&r.industry!==state.ind) return false;
-   if(state.maker!=='Все'&&r.maker!==state.maker) return false;
    if(q){ var hay=(r.name+' '+r.d+' '+(r.use||'')+' '+r.maker+' '+(r.kin||'')).toLowerCase();
           if(hay.indexOf(q)<0) return false; }
    return true;
@@ -2531,21 +2517,6 @@ var openWork=null,openModelCard=null;
     «все», дальше задачи по убыванию числа решений. Для «всех роботов»
     ряд не рисуем: одиннадцать чипов в две строки только шумят */
  function labelOf(k){ return SUBS[k]?SUBS[k][0]:k; }
- function drawSubs(){
-  if(state.cat==='Все'){ subs.innerHTML=''; return; }
-  var pool=inCat(), keys=[];
-  pool.forEach(function(r){ (r.sub||[]).forEach(function(k){
-   if(keys.indexOf(k)<0) keys.push(k); }); });
-  var n=function(k){ return pool.filter(function(r){
-   return (r.sub||[]).indexOf(k)>=0; }).length; };
-  keys.sort(function(a,b){ return n(b)-n(a)||labelOf(a).localeCompare(labelOf(b),'ru'); });
-  var all=[['Все','Все '+state.cat.toLowerCase(),pool.length]]
-   .concat(keys.map(function(k){ return [k,labelOf(k),n(k)]; }));
-  subs.innerHTML=all.map(function(a){
-   return '<button type="button" class="cp-sub'+(state.sub===a[0]?' is-on':'')+
-    '" data-sub="'+esc(a[0])+'">'+esc(a[1])+'<b>'+a[2]+'</b></button>';
-  }).join('');
- }
 
  /* значения группы считаем по текущей категории: пустых пунктов не будет.
     Выбор одиночный — повторный клик снимает фильтр */
@@ -2584,11 +2555,13 @@ var openWork=null,openModelCard=null;
      переключатель, как отметка реестра */
   var colN=pool.filter(function(r){return r.collab}).length;
   side.innerHTML=
-   /* подписи фильтров — обычными словами: «кинематика» и «задача»
-      понятны инженеру, а не тому, кто впервые зашел на портал */
-   group('kin','Вид робота',values('kin'),state.kin)+
+   /* три оси отбора: чем робот является, где стоит и что делает.
+      Производителя фильтром не выносим — на семнадцать моделей приходится
+      почти столько же производителей, отбор по нему ничего не сужает.
+      Найти по производителю по-прежнему можно строкой поиска */
+   group('kin','Форм-фактор',values('kin'),state.kin)+
    group('ind','Где работает',values('industry'),state.ind)+
-   group('maker','Производитель',values('maker'),state.maker)+
+   group('sub','Что делает',values('sub'),state.sub,labelOf)+
    (colN?'<div class="cp-g'+(open.collab?' on':'')+'" data-g="collab">'+
      '<button type="button" class="cp-g-h">Коллаборативные<i>+</i></button>'+
      '<div class="cp-g-list"><div class="cp-g-in">'+
@@ -2602,7 +2575,7 @@ var openWork=null,openModelCard=null;
        'Только из реестра<b>'+regN+'</b></button>'+
      '</div></div></div>':'');
   var picked=(state.sub!=='Все')+(state.kin!=='Все')+(state.ind!=='Все')+
-             (state.maker!=='Все')+(state.reg?1:0)+(state.collab?1:0);
+             (state.reg?1:0)+(state.collab?1:0);
   filtersBtn.innerHTML='Фильтры<b>'+(picked||'')+'</b>';
  }
 
@@ -2621,7 +2594,7 @@ var openWork=null,openModelCard=null;
   '</button>';
  }
  function draw(){
-  drawCats(); drawSubs(); drawSide();
+  drawCats(); drawSide();
   var l=list();
   showing.textContent=l.length+' '+plural(l.length);
   grid.innerHTML=l.length?l.map(card).join('')
@@ -2632,13 +2605,8 @@ var openWork=null,openModelCard=null;
  cats.addEventListener('click',function(e){
   var b=e.target.closest('.cp-chip'); if(!b) return;
   state.cat=b.getAttribute('data-cat'); state.sub='Все';
-  state.kin='Все'; state.ind='Все'; state.maker='Все';
+  state.kin='Все'; state.ind='Все';
   state.reg=false; state.collab=false;
-  draw();
- });
- subs.addEventListener('click',function(e){
-  var b=e.target.closest('.cp-sub'); if(!b) return;
-  state.sub=b.getAttribute('data-sub');
   draw();
  });
  side.addEventListener('click',function(e){

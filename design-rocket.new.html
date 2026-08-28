@@ -875,6 +875,20 @@ body.is-trials > section:not(#trials){display:none}
 /* поля в один столбец во всю ширину окна: каждая строка — подпись
    вразрядку и высокое поле под ней, кнопка отправки такой же ширины */
 .trf{display:grid;gap:clamp(15px,1.7vw,19px);margin-top:24px}
+/* поля и справка рядом: на просторе справка стоит справа, на узком экране
+   уезжает под поля — то есть прямо над кнопкой отправки */
+.trf-grid{display:grid;gap:clamp(18px,2.4vw,32px)}
+.trf-fields{display:grid;gap:clamp(15px,1.7vw,19px)}
+@media(min-width:861px){
+  .trf-grid{grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);align-items:start}
+}
+.trf-side{padding:clamp(18px,2vw,24px);border:1px solid var(--w-08);
+  border-radius:var(--r-s);background:var(--coal)}
+.trf-side .tbox-h{margin:0 0 14px}
+.trf-facts{margin:0;padding:0;list-style:none;display:grid;gap:12px}
+.trf-facts li{position:relative;padding-left:18px;font-size:14.5px;line-height:1.4;color:var(--w-70)}
+.trf-facts li::before{content:"";position:absolute;left:0;top:8px;width:6px;height:6px;
+  border-radius:50%;background:var(--green)}
 .trf-row{display:grid;gap:10px}
 .trf-lab{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--w-45)}
 .trf-in{width:100%;min-width:0;padding:19px 22px;border-radius:var(--r-s);
@@ -3724,10 +3738,14 @@ var RTC_TRUST=[
    с robot-mos.ru и из того, что описано на самой странице — среды,
    площадки и сроки. Слово «консультация» здесь под запретом */
 var RTC_FAQ=[
+ {q:'Что будет, если робот не пройдет испытания?',
+  a:'Вы получите протокол с тем, что именно не сработало, и понятный список доработок. Отрицательный результат тоже результат: он экономит время до следующей попытки.'},
  {q:'Сколько это стоит?',
   a:'В 2026 году испытания могут проводиться бесплатно. Точные условия назовем на консультации.'},
  {q:'Это безопасно?',
-  a:'Да. Работаем по NDA в закрытом контуре. Робот, технологии и данные испытаний остаются вашими. Результаты не публикуем и никому не передаем без вашего согласия. Идею можно защитить в Центре интеллектуальной собственности Фонда МИК.'},
+  a:'Да. Работаем по NDA в закрытом контуре. Результаты не публикуем и никому не передаем без вашего согласия.'},
+ {q:'Кому принадлежат робот и результаты испытаний?',
+  a:'Робот, технологии и данные испытаний остаются вашими. Идею можно защитить в Центре интеллектуальной собственности Фонда МИК.'},
  {q:'Кто может подать заявку?',
   a:'Юрлица и ИП России: производители, стартапы, корпорации, вузы. Без ликвидации, банкротства и записей в реестрах иностранных агентов и недобросовестных поставщиков. Приоритет у участников инновационного кластера Москвы.'},
  {q:'Сколько это займет?',
@@ -4030,6 +4048,8 @@ var RTC_STEPS=[
  function form(ei,si){
   return '<p class="ar-desc">Опишите, что и где нужно испытать</p>'+
    '<form class="trf" id="trfForm" novalidate>'+
+    '<div class="trf-grid">'+
+    '<div class="trf-fields">'+
     '<div class="trf-row"><label class="trf-lab" for="trfEnv">Среда испытаний</label>'+
      '<select class="trf-in" id="trfEnv" name="env">'+envOptions(ei)+'</select></div>'+
     '<div class="trf-row"><label class="trf-lab" for="trfSite">Площадка</label>'+
@@ -4052,6 +4072,19 @@ var RTC_STEPS=[
     '<div class="trf-row"><label class="trf-lab" for="trfMail">Как с вами связаться</label>'+
      '<input class="trf-in" id="trfMail" name="contact" type="email" required '+
       'placeholder="почта для ответа"></div>'+
+    '</div>'+
+    /* что человеку важно знать до отправки. Сроки — те же, что в ответе
+       «сколько это займет» на этой же странице, ничего нового */
+    '<aside class="trf-side">'+
+     '<h3 class="tbox-h">До отправки</h3>'+
+     '<ul class="trf-facts">'+
+      '<li>Заявку проверяем 5 рабочих дней</li>'+
+      '<li>Дальше техническое интервью: разбираем задачу и требования '+
+        'к испытаниям</li>'+
+      '<li>Заявка ни к чему не обязывает</li>'+
+     '</ul>'+
+    '</aside>'+
+    '</div>'+
     '<div class="trf-foot"><button type="submit" class="btn btn-green">Отправить заявку →</button>'+
      '<p class="trf-note">Заявка уйдет письмом на <span class="nolow">'+esc(MAIL)+'</span></p></div>'+
    '</form>';

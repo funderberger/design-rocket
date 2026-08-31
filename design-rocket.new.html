@@ -199,9 +199,10 @@ section{position:relative}
 .env-i .s{margin-left:auto;font-size:13.5px;opacity:.5;text-align:right}
 .test-r{position:relative;background:radial-gradient(100% 100% at 70% 20%,#1B3F2E,#0C100E)}
 /* кадры лежат стопкой и уже загружены — переключение без подгрузки и мигания */
-.test-r img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  opacity:0;transition:opacity .45s ease}
-.test-r img.is-on{opacity:.85}
+/* кадром может быть и видео — правила общие, рамка не меняется */
+.test-r img,.test-r video{position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;opacity:0;transition:opacity .45s ease}
+.test-r img.is-on,.test-r video.is-on{opacity:.85}
 .test-cap{position:absolute;left:14px;bottom:14px;z-index:2;margin:0;
   padding:8px 14px;border-radius:999px;background:rgba(6,10,8,.72);
   border:1px solid var(--w-16);backdrop-filter:blur(8px);
@@ -1635,7 +1636,8 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
       <img class="is-on" src="images/testing/site-01.jpg" alt="" width="668" height="458">
       <img src="images/testing/prud-skolkovo.jpg" alt="" width="1400" height="934" loading="lazy">
       <img src="images/testing/setka-skolkovo.jpg" alt="" width="1400" height="934" loading="lazy">
-      <img src="images/testing/01_roboty-uborshiki-TC_1.jpg" alt="" width="800" height="400" loading="lazy">
+      <video src="videos/testing-indoor.mp4" poster="images/testing/01_roboty-uborshiki-TC_1.jpg"
+             muted loop playsinline preload="none"></video>
     </div>
   </div>
 </section>
@@ -2453,7 +2455,7 @@ var openWork=null,openModelCard=null;
    прямо в разметке, поэтому без скрипта видно тот же кадр. */
 (function(){
  var rows=document.querySelectorAll('.testing .env-i');
- var shots=document.querySelectorAll('.test-r img');
+ var shots=document.querySelectorAll('.test-r img, .test-r video');
  if(!rows.length||!shots.length) return;
  /* подпись превращает кадр в доказательство: видно, что это настоящая
     площадка, а не иллюстрация */
@@ -2464,7 +2466,16 @@ var openWork=null,openModelCard=null;
  var cap=document.getElementById('testCap');
  function pick(i){
   for(var k=0;k<rows.length;k++) rows[k].classList.toggle('is-on',k===i);
-  for(var m=0;m<shots.length;m++) shots[m].classList.toggle('is-on',m===i);
+  for(var m=0;m<shots.length;m++){
+   var on=m===i;
+   shots[m].classList.toggle('is-on',on);
+   /* видео крутится только пока его кадр открыт: иначе оно молотит
+      в фоне и тянет трафик на всех остальных средах */
+   if(shots[m].tagName==='VIDEO'){
+    if(on){ var pl=shots[m].play(); if(pl&&pl.catch) pl.catch(function(){}); }
+    else { shots[m].pause(); }
+   }
+  }
   if(cap&&caps[i]) cap.textContent=caps[i];
  }
  Array.prototype.forEach.call(rows,function(row,i){

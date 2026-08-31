@@ -1633,7 +1633,8 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
     </div>
     <div class="test-r">
       <p class="test-cap" id="testCap">ИЦ «Сколково», улично-дорожная сеть</p>
-      <img class="is-on" src="images/testing/site-01.jpg" alt="" width="668" height="458">
+      <video class="is-on" src="videos/testing-streets.mp4" poster="images/testing/site-01.jpg"
+             muted loop playsinline preload="none"></video>
       <video src="videos/testing-water.mp4" poster="images/testing/prud-skolkovo.jpg"
              muted loop playsinline preload="none"></video>
       <video src="videos/testing-air.mp4" poster="images/testing/setka-skolkovo.jpg"
@@ -2480,11 +2481,28 @@ var openWork=null,openModelCard=null;
   }
   if(cap&&caps[i]) cap.textContent=caps[i];
  }
+ var cur=0;
+ var pickRow=pick;
+ pick=function(i){ cur=i; pickRow(i); };
  Array.prototype.forEach.call(rows,function(row,i){
   row.addEventListener('click',function(){ pick(i); });
   row.addEventListener('mouseenter',function(){ pick(i); });
   row.addEventListener('focus',function(){ pick(i); });
  });
+ /* первый кадр — тоже видео, но заводить его на загрузке страницы нельзя:
+    файл тяжелый, а блок лежит далеко внизу. Пускаем, когда блок доехал
+    до экрана, и глушим все, когда уехал — чтобы не молотило в фоне */
+ var box=document.querySelector('.testing .test-box');
+ if(box&&typeof IntersectionObserver==='function'){
+  new IntersectionObserver(function(en){
+   en.forEach(function(e){
+    if(e.isIntersecting) pick(cur);
+    else Array.prototype.forEach.call(shots,function(sh){
+     if(sh.tagName==='VIDEO') sh.pause();
+    });
+   });
+  },{rootMargin:'120px'}).observe(box);
+ }
 })();
 
 /* ---- поддержка: переключатель аудитории ----

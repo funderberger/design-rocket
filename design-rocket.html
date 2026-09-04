@@ -1554,7 +1554,7 @@ document.getElementById('robotList').innerHTML=SHOWN.map(function(r){
  if('IntersectionObserver' in window){
   new IntersectionObserver(function(en){
    en.forEach(function(e){ if(!e.isIntersecting){ hide(); stop(); } });
-  },{rootMargin:'80px'}).observe(list);
+  },{rootMargin:'700px'}).observe(list);
  }
 })();
 

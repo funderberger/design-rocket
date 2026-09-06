@@ -129,7 +129,7 @@ section{position:relative}
 /* низ героя: подпись слева, кнопка справа на одной линии — так блок текста
    опускается к нижнему краю, а не висит по центру кадра */
 .hero-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:20px 32px;flex-wrap:wrap}
-.hero-bottom .lead{margin:0}
+.hero-bottom .lead{margin:0;flex:1;min-width:min(100%,320px)}
 .hero-cta.is-corner{margin:0;justify-content:flex-end;flex:none}
 @media(max-width:640px){
   .hero-bottom{flex-direction:column;align-items:stretch}
@@ -1519,7 +1519,7 @@ dialog#taskDlg::backdrop,dialog#finDlg::backdrop,dialog#anDlg::backdrop,dialog#c
     <div class="hero-slug">
       <h1 class="h-display">Роботизируем<br>будущее вместе</h1>
       <div class="hero-bottom">
-        <p class="lead">Объединяем технологии, инфраструктуру, производство и поддержку для реального внедрения роботов</p>
+        <p class="lead">Объединяем технологии, инфраструктуру, производство и поддержку<br>для реального внедрения роботов</p>
         <div class="hero-cta is-corner">
           <a href="#robots" class="btn btn-green btn-lg">Смотреть роботов</a>
         </div>
